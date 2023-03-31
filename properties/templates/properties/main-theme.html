@@ -1,0 +1,30 @@
+{# Load the tag library #}
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        {# Load CSS and JavaScript #}
+        <link href="{% static 'properties/bootstrap.min.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'properties/style.css' %}">
+        <script type="text/javascript" src="{% static 'properties/jquery-3.6.3.min.js' %}"></script>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3">
+                    {% block sidebar %}
+                    {% endblock %}
+                </div>
+                <div class="col-sm-9">
+                    {% block body %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        
+        <script src="{% static 'properties/bootstrap.bundle.min.js' %}"></script>
+        <script async defer type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyDxgh4JdhVMJmkMTdOBb7kXJDREwA_ENtU&libraries=places" ></script>
+    </body>
+</html>

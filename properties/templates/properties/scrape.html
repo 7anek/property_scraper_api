@@ -1,0 +1,19 @@
+{% extends 'properties/main-theme.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Scrape{% endblock %}
+
+{% block sidebar %}
+                    <h1>Scrape</h1>
+                    <form action="{% url 'scrape' %}" method="post">
+                        {% csrf_token %}
+                        {{search_form|crispy}}
+                        {{search_form.media}}
+                        <input type="submit" value="Submit">
+                    </form>
+{% endblock %} 
+
+{% block body %}
+
+{% include "properties/scrape_status.html" %}
+
+{% endblock %}

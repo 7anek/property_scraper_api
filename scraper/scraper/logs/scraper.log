@@ -1,0 +1,1606 @@
+2023-02-09 11:38:39 [scrapy.utils.log] INFO: Scrapy 2.8.0 started (bot: scraper)
+2023-02-09 11:38:39 [scrapy.utils.log] INFO: Versions: lxml 4.9.2.0, libxml2 2.9.14, cssselect 1.2.0, parsel 1.7.0, w3lib 2.1.1, Twisted 22.10.0, Python 3.10.6 (main, Nov 14 2022, 16:10:14) [GCC 11.3.0], pyOpenSSL 23.0.0 (OpenSSL 3.0.7 1 Nov 2022), cryptography 39.0.0, Platform Linux-5.15.79.1-microsoft-standard-WSL2-x86_64-with-glibc2.35
+2023-02-09 11:38:39 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'scraper',
+ 'DOWNLOAD_DELAY': 0.25,
+ 'FEED_EXPORT_ENCODING': 'utf-8',
+ 'LOG_FILE': 'scraper/logs/scraper.log',
+ 'NEWSPIDER_MODULE': 'scraper.spiders',
+ 'SPIDER_MODULES': ['scraper.spiders'],
+ 'TWISTED_REACTOR': 'twisted.internet.asyncioreactor.AsyncioSelectorReactor',
+ 'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) '
+               'Gecko/20100101 Firefox/109.0'}
+2023-02-09 11:38:39 [py.warnings] WARNING: /home/janek/python/experiments/venv/lib/python3.10/site-packages/scrapy/utils/request.py:232: ScrapyDeprecationWarning: '2.6' is a deprecated value for the 'REQUEST_FINGERPRINTER_IMPLEMENTATION' setting.
+
+It is also the default value. In other words, it is normal to get this warning if you have not defined a value for the 'REQUEST_FINGERPRINTER_IMPLEMENTATION' setting. This is so for backward compatibility reasons, but it will change in a future version of Scrapy.
+
+See the documentation of the 'REQUEST_FINGERPRINTER_IMPLEMENTATION' setting for information on how to handle this deprecation.
+  return cls(crawler)
+
+2023-02-09 11:38:39 [asyncio] DEBUG: Using selector: EpollSelector
+2023-02-09 11:38:39 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.asyncioreactor.AsyncioSelectorReactor
+2023-02-09 11:38:39 [scrapy.utils.log] DEBUG: Using asyncio event loop: asyncio.unix_events._UnixSelectorEventLoop
+2023-02-09 11:38:39 [scrapy.extensions.telnet] INFO: Telnet Password: c28346abbe54dcc2
+2023-02-09 11:38:39 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.logstats.LogStats']
+2023-02-09 11:38:39 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2023-02-09 11:38:39 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2023-02-09 11:38:39 [scrapy.middleware] INFO: Enabled item pipelines:
+['scraper.pipelines.ScraperPipeline']
+2023-02-09 11:38:39 [scrapy.core.engine] INFO: Spider opened
+2023-02-09 11:38:39 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2023-02-09 11:38:39 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6024
+2023-02-09 11:38:39 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1> from <GET http://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1>
+2023-02-09 11:38:40 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1> (referer: None)
+2023-02-09 11:38:40 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?page=2&limit=24&market=ALL&distanceRadius=0&priceMin=20&priceMax=400000&locations=%5Bcities_6-703%5D&by=LATEST&direction=DESC> from <GET http://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?page=2&limit=24&market=ALL&distanceRadius=0&priceMin=20&priceMax=400000&locations=%5Bcities_6-703%5D&by=LATEST&direction=DESC>
+2023-02-09 11:38:40 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63383742/> from <GET https://www.otodom.pl/63383742>
+2023-02-09 11:38:40 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63885199/> from <GET https://www.otodom.pl/63885199>
+2023-02-09 11:38:41 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63850746/> from <GET https://www.otodom.pl/63850746>
+2023-02-09 11:38:41 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/62934207/> from <GET https://www.otodom.pl/62934207>
+2023-02-09 11:38:41 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63927752/> from <GET https://www.otodom.pl/63927752>
+2023-02-09 11:38:42 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63906858/> from <GET https://www.otodom.pl/63906858>
+2023-02-09 11:38:42 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63598277/> from <GET https://www.otodom.pl/63598277>
+2023-02-09 11:38:42 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63859128/> from <GET https://www.otodom.pl/63859128>
+2023-02-09 11:38:43 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63562809/> from <GET https://www.otodom.pl/63562809>
+2023-02-09 11:38:43 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63914595/> from <GET https://www.otodom.pl/63914595>
+2023-02-09 11:38:43 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63620241/> from <GET https://www.otodom.pl/63620241>
+2023-02-09 11:38:44 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63882711/> from <GET https://www.otodom.pl/63882711>
+2023-02-09 11:38:44 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63842772/> from <GET https://www.otodom.pl/63842772>
+2023-02-09 11:38:44 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/62422859/> from <GET https://www.otodom.pl/62422859>
+2023-02-09 11:38:44 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63888761/> from <GET https://www.otodom.pl/63888761>
+2023-02-09 11:38:45 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?page=2&limit=24&market=ALL&distanceRadius=0&priceMin=20&priceMax=400000&locations=%5Bcities_6-703%5D&by=LATEST&direction=DESC> (referer: None)
+2023-02-09 11:38:45 [scrapy.dupefilters] DEBUG: Filtered duplicate request: <GET https://www.otodom.pl/62422859> - no more duplicates will be shown (see DUPEFILTER_DEBUG to show all duplicates)
+2023-02-09 11:38:45 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/sprzedam-mieszkanie-w-centrum-47m2-bezposrednio-ID4hX0q.html> from <GET https://www.otodom.pl/63383742/>
+2023-02-09 11:38:45 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/kawalerka-w-centrum-grodziska-mazowieckiego-ID4k3sr.html> from <GET https://www.otodom.pl/63885199/>
+2023-02-09 11:38:46 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/sprzedam-kawalerke-28-m2-w-centrum-grodziska-maz-ID4jUuK.html> from <GET https://www.otodom.pl/63850746/>
+2023-02-09 11:38:46 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/bezczynszowa-kawalerka-w-centrum-gm-pod-biuro-ID4g43R.html> from <GET https://www.otodom.pl/62934207/>
+2023-02-09 11:38:46 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/ustawne-mieszkanie-z-balkonem-3-pokoje-centrum-ID4kevM.html> from <GET https://www.otodom.pl/63927752/>
+2023-02-09 11:38:47 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/klimatyczne-mieszkanie-gotowe-do-wprowadzenia-ID4k95M.html> from <GET https://www.otodom.pl/63906858/>
+2023-02-09 11:38:47 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-m4-46m2-grodzisk-mazowiecki-centrum-ID4iQOF.html> from <GET https://www.otodom.pl/63598277/>
+2023-02-09 11:38:47 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/super-rozklad-mieszkania-3-pokojowego-ID4jVFV.html> from <GET https://www.otodom.pl/63859128/>
+2023-02-09 11:38:47 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/bardzo-dobra-lokalizacja-b-ladne-mieszkanie-ID4iHAB.html> from <GET https://www.otodom.pl/63562809/>
+2023-02-09 11:38:48 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-47-m-grodzisk-mazowiecki-ID4kb6z.html> from <GET https://www.otodom.pl/63914595/>
+2023-02-09 11:38:48 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/przestronne-mieszkanie-b-dobry-rejon-ID4iVvW.html> from <GET https://www.otodom.pl/63620241/>
+2023-02-09 11:38:48 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/oferta-specjalna-mieszkanie-38m2-w-centrum-ID4k2Oj.html> from <GET https://www.otodom.pl/63882711/>
+2023-02-09 11:38:48 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/komfortowy-apartament-ksiazenice-ul-przyjaciol-2-ID4jSq8.html> from <GET https://www.otodom.pl/63842772/>
+2023-02-09 11:38:49 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkania-w-centrum-grodziska-maz-juz-od-8500-m2-ID4dW2j.html> from <GET https://www.otodom.pl/62422859/>
+2023-02-09 11:38:49 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-28-30-m-grodzisk-mazowiecki-ID4k4nT.html> from <GET https://www.otodom.pl/63888761/>
+2023-02-09 11:38:49 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63873627/> from <GET https://www.otodom.pl/63873627>
+2023-02-09 11:38:50 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/sprzedam-mieszkanie-w-centrum-47m2-bezposrednio-ID4hX0q.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:50 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/sprzedam-mieszkanie-w-centrum-47m2-bezposrednio-ID4hX0q.html>
+{'area': '47',
+ 'description': 'Sprzedam mieszkanie w ścisłym centrum Grodziska '
+                'Mazowieckiego. \r\n'
+                'Mieszkanie o powierzchni 47m2 na pierwszym piętrze, w skład '
+                'którego wchodzą 3 pokoje, kuchnia, łazienka. Do lokalu '
+                'przynależy piwnica. \r\n'
+                'Doskonała lokalizacja:\r\n'
+                '- Stacja PKP, WKD 5 min\r\n'
+                '- Galeria Grodova 2 min\r\n'
+                '- Centrum Kultury 2 min\r\n'
+                '- Urząd Miasta 1 min\r\n'
+                'Dookoła liczne sklepy, restauracje, punkty usługowe, szkoły '
+                'oraz parki. \r\n'
+                'Mieszkanie gotowe do zamieszkania, ewentualnie do lekkiego '
+                'odświeżenia. \r\n'
+                'W lokalu podłączony światłowód.\r\n'
+                'Miesięczny czynsz do spółdzielni to ok 600 zł.',
+ 'floor': 1,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 3,
+ 'price': 395000,
+ 'service_id': 63383742,
+ 'service_name': 'otodom',
+ 'title': 'Sprzedam mieszkanie w centrum 47m2 bezpośrednio',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:38:50 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/kawalerka-w-centrum-grodziska-mazowieckiego-ID4k3sr.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:50 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/kawalerka-w-centrum-grodziska-mazowieckiego-ID4k3sr.html>
+{'area': '27.4',
+ 'description': '<p>Prezentowane kawalerka ma powierzchnię 28,9m2, na którą '
+                'składają się:<br>- przestronny pokój, <br>- oddzielna kuchnia '
+                '(możliwość aranżacji aneksu kuchennego),<br>- łazienka,<br>- '
+                'przedpokoju z szafą wnękową.<br>Mieszkanie jest do remontu. '
+                'Ekspozycja okien - zachód.<br><br>Mieszkanie znajduję się w '
+                'atrakcyjnej lokalizacji w centrum Grodziska Mazowieckiego '
+                'przy ul. Sienkiewicza, na 1 piętrze w 4 piętrowym bloku z '
+                '1976 roku bez windy. Dodatkowo do mieszkania przypisana jest '
+                'piwnica 1,5m2.<br><br>Budynek pomimo położenia w centrum '
+                'miasta znajduję się z dala od ruchliwej drogi co daję ciszę i '
+                'spokój. W bliskiej odległości mieszkania znajdziemy liczne '
+                'restauracje, sklepy spożywcze, lokale usługowe i '
+                'dodatkowo:\xa0<br>- Centrum Kultury 550 metrów,<br>- Basen '
+                '600 metrów,<br>- Deptak 650 metrów,<br>- PKP 1km.\xa0'
+                '<br><br><br>Mariusz Zalewski <br>538 382 999</p>',
+ 'floor': 1,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 1,
+ 'price': 319000,
+ 'service_id': 63885199,
+ 'service_name': 'otodom',
+ 'title': 'Kawalerka w Centrum Grodziska Mazowieckiego',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:38:50 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/sprzedam-kawalerke-28-m2-w-centrum-grodziska-maz-ID4jUuK.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:51 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/sprzedam-kawalerke-28-m2-w-centrum-grodziska-maz-ID4jUuK.html>
+{'area': '27.4',
+ 'description': '<p>Sprzedam\xa0 kawalerkę 28m2 w centrum Grodziska '
+                'Maz.</p>\r\n'
+                '<p>W okolicy około 200m Galeria Grodowa, Centrum Kultury, '
+                'deptak, przystanki autobusowe, apteki.</p>\r\n'
+                '<p>Do stacji WKD i PKP około 500 m.</p>\r\n'
+                '<p>Mieszkanie gotowe do zamieszkania, umeblowane, wyposażone '
+                'w agd -lodówka, pralka, kuchnia gozowa z piekarnikiem.W '
+                'mieszkaniu jest sygnał WiF i TV.Mieszkanie może\xa0 być '
+                'również z przeznaczeniem pod wynajem.</p>\r\n'
+                '<p>.</p>\r\n'
+                '<p>Ogłoszenie od osoby prywatnej.</p>',
+ 'floor': 1,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 1,
+ 'price': 310000,
+ 'service_id': 63850746,
+ 'service_name': 'otodom',
+ 'title': 'Sprzedam kawalerkę 28 m2 .w Centrum Grodziska Maz',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:38:51 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/bezczynszowa-kawalerka-w-centrum-gm-pod-biuro-ID4g43R.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:51 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/bezczynszowa-kawalerka-w-centrum-gm-pod-biuro-ID4g43R.html>
+{'area': '30',
+ 'description': '<p>Oferuję do sprzedaży wykończoną kawalerkę w centrum '
+                'Grodziska Mazowieckiego.</p>\r\n'
+                '<p></p>\r\n'
+                '<p>Przedstawiam Państwu wykończone mieszkanie w kamienicy '
+                'przedwojennej. Znajduje się w samym centrum miasta.<strong> '
+                'Idealne na prowadzenie działalności gospodarczej oraz do '
+                'zamieszkania</strong>. Okna wychodzą na podwórko, nie słychać '
+                'ulicy Sienkiewicza.<br/>Mieszkanie składa się z części '
+                'dziennej kuchnia plus jadalnia oraz dużego salonu, w którym '
+                'można wygospodarować micro sypialnię. Piękny piec kaflowy '
+                'dodaje uroku i klimatu oraz może służyć do podnoszenia '
+                'temperatury.<br/><strong>Bezczynszowe. Ogrzewanie '
+                'elektryczne.</strong></p>\r\n'
+                '<p>W odległości spacerowej Stawy Walczewskiego i Stawy '
+                'Goliana oraz dostępna pełna infrastruktura '
+                'handlowo-usługowa.</p>\r\n'
+                '<p>Do lokalu przynależy duża komórka ( ok 7m2) oraz '
+                'piwnica.</p>\r\n'
+                '<p>Forma własności: % udział w kamienicy i gruncie</p>\r\n'
+                '<p></p>\r\n'
+                '<p><strong>Prezentacja '
+                'zdalna:</strong><br/><strong>s://youtu.be/DLRtsLSMSjM '
+                '</strong>( wklej do przeglądarki)</p>\r\n'
+                '<p><strong><br/></strong></p>\r\n'
+                '<p>Serdecznie zapraszam do obejrzenia filmu oraz na '
+                'prezentację bezpośrednio.</p>',
+ 'floor': 1,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 1,
+ 'price': 249000,
+ 'service_id': 62934207,
+ 'service_name': 'otodom',
+ 'title': 'Bezczynszowa kawalerka w centrum GM. Pod biuro',
+ 'type_of_building': ['tenement'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:38:51 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/ustawne-mieszkanie-z-balkonem-3-pokoje-centrum-ID4kevM.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:51 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/ustawne-mieszkanie-z-balkonem-3-pokoje-centrum-ID4kevM.html>
+{'area': '45',
+ 'description': '<p>Na sprzedaż mieszkanie o powierzchni 45 m². Nieruchomość '
+                'położona praktycznie w centrum Grodziska. '
+                '<br/><br/>Mieszkanie jest bardzo ustawne, widne i gotowe do '
+                'wprowadzenia.<br/><br/>W skład lokalu wchodzi:<br/><br/>- '
+                'salon<br/>- sypialnia<br/>- pokój <br/>- kuchnia<br/>- '
+                'łazienka<br/>- przedpokój<br/>- balkon typu loggia '
+                '<br/><br/>Mieszkanie własnościowe z KW. Czynsz wynosi 600 zł '
+                'w tym jest opłata za śmieci, zaliczka na wodę oraz '
+                'ogrzewanie. <br/><br/>Do mieszkania przynależy '
+                'piwnica.<br/><br/>Bardzo cicha i spokojna okolica, wszędzie '
+                'blisko szkoła, markety, sklepy spożywcze, PKP, liczne punkty '
+                'usługowe. <br/><br/>Serdecznie zapraszam na prezentację ! '
+                '<br/></p><p></p><p>Oferta wysłana z programu dla biur '
+                'nieruchomości ASARI CRM ()</p><p></p>',
+ 'floor': 4,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 3,
+ 'price': 399500,
+ 'service_id': 63927752,
+ 'service_name': 'otodom',
+ 'title': 'Ustawne mieszkanie z balkonem! 3 pokoje Centrum',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:38:51 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/klimatyczne-mieszkanie-gotowe-do-wprowadzenia-ID4k95M.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:51 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/klimatyczne-mieszkanie-gotowe-do-wprowadzenia-ID4k95M.html>
+{'area': '45.8',
+ 'description': '<p>Doskonała lokalizacja, centrum Grodziska Mazowieckiego, '
+                'blisko dworca PKP</p><p>Główne atuty nieruchomości: <br/>• '
+                'doskonała komunikacja z centrum<br/>• cicha i spokojna '
+                'okolica<br/>• bliskość obiektów rekreacyjnych '
+                '</p><p>Nieruchomość złożona z: <br/>• salon 14 m.kw<br/>• '
+                'sypialnia 10 m.kw<br/>• pokój biurowy 8 m.kw<br/>• kuchnia '
+                'zamykana z oknem 7 m.kw<br/>• łazienka 4 m.kw<br/>• korytarz '
+                '3,8 m.kw</p><p> W skład nieruchomości wchodzą też:<br/>• '
+                'balkon<br/>• piwnica</p><p>Typ ogrzewania: ogrzewanie '
+                'miejskie. </p><p>Typ własności: własność spółdzielcza '
+                'własnościowa z kw. </p><p>Wygodne, trzypokojowe i widne '
+                'mieszkanie z wyjściem na piękny balkon! Doskonała '
+                'lokalizacja, centrum Grodziska Mazowieckiego! Blisko '
+                'znajdziemy takie miejsca jak: deptak, basen kryty, hale '
+                'sportowe, szpital,przychodnie, Centrum Kultury, sklepy i '
+                'punkty usługowe, słynne targowisko miejskie, mnóstwo '
+                'restauracji dodatkowo walory przyrodnicze takie jak Stawy '
+                'Walczewskiego czy Park Skarbków, żłobki/przedszkola i szkoły '
+                'podstawowe. Mieszkanie zajmuje 45,8m2, doskonale '
+                'zagospodarowane- Kuchnia wraz z pełną zabudową kuchenną- '
+                'płyta gazowa, zmywarka, piekarnik, lodówka, Salon z wyjściem '
+                'na balkon, Sypialnia większa- szafa w zabudowie z półkami, '
+                'Sypialnia mniejsza-szafa w zabudowie,Korytarz- szafa w '
+                'zabudowie, Łazienka po wymianie pionów wodno-kanalizacyjnych. '
+                'Pełna własność z Księgą Wieczystą. Do mieszkania przynależy '
+                'również piwnica. Polecam to mieszkanie!!!</p><p>Osiedle jest '
+                'często wybierane przez rodziny z dziećmi, blisko jest pełne '
+                'zaplecze infrastruktury. Doskonała propozycja dla osób '
+                'korzystających z komunikacji miejskiej, blisko do PKP/WKD, '
+                'autobusu.<br/>Świetna lokalizacja pod względem połączeń- '
+                'A2/S8 '
+                '(Poznań/Wrocław/Łódź/Warszawa/Białystok)</p><p></p><p>ZADZWOŃ: '
+                '508 464 777. Czekamy na telefon od Ciebie. '
+                '</p><p>---</p><p>Zakup lub najem nieruchomości przez Agencję '
+                'Metrohouse to:<br/>• największy wybór na rynku<br/>• '
+                'elastyczne podejście do Klienta<br/>• bezpieczeństwo '
+                'transakcji<br/>• możliwość skorzystania z szerokiej oferty '
+                'kredytów gotówkowych i hipotecznych<br/>• doświadczeni '
+                'doradcy</p><p><br/>Czy wiesz, że możemy przygotować dla '
+                'Ciebie prezentację on-line nieruchomości? Skontaktuj się z '
+                'naszym Agentem i zapytaj o szczegóły.</p><p></p><p>Pomimo, iż '
+                'Doradcy Metrohouse przykładają szczególną staranność do '
+                'rzetelnego prezentowania informacji o nieruchomości, nie '
+                'zawsze jest możliwa weryfikacja wszystkich danych '
+                'przekazanych od osób trzecich. Niniejsza prezentacja oferty '
+                'nie jest ofertą w rozumieniu Kodeksu Cywilnego i ma charakter '
+                'wyłącznie informacyjny.</p>',
+ 'floor': 2,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 3,
+ 'price': 399000,
+ 'service_id': 63906858,
+ 'service_name': 'otodom',
+ 'title': 'Klimatyczne mieszkanie gotowe do wprowadzenia',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:38:52 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-m4-46m2-grodzisk-mazowiecki-centrum-ID4iQOF.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:52 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-m4-46m2-grodzisk-mazowiecki-centrum-ID4iQOF.html>
+{'area': '46.2',
+ 'description': '<p><strong>Diamond House Nieruchomości</strong> ma '
+                'przyjemność zaprezentować Państwu funkcjonalne, trzypokojowe '
+                'mieszkanie 46,20 m2 zlokalizowane w centrum Grodziska '
+                'Mazowieckiego. <br><br><br/><strong>LOKAL STANOWIĄCY ODRĘBNĄ '
+                'NIERUCHOMOŚĆ</strong><br/><br><strong>Cena 390.000,00 '
+                'zł</strong><br><br>Czynsz ok. 480 zł <br><br>Mieszkanie 46,20 '
+                'm2 składa się z :<br>- holu,<br>- kuchni (częściowo otwartej '
+                'na salon),<br>- salonu,<br>- pokoju,<br>- sypialni,<br>- '
+                'łazienki z WC.<br><br>Dodatkowym atutem mieszkania jest '
+                'balkon.<br><br>Mieszkanie do częściowego remontu z bardzo '
+                'funkcjonalnym rozkładem pomieszczeń.<br>Do mieszkania '
+                'przynależy piwnica.<br><br>Budynek:<br>budynek 4-piętrowy, z '
+                'miejscami postojowymi na parkingu ogólnodostępnym pod '
+                'blokiem.<br><br>Dobra komunikacja oraz ciche, przyjazne '
+                'otoczenie sprawiają, że jest to bardzo atrakcyjna '
+                'oferta.<br><br>W bliskiej okolicy: deptak, '
+                'szkoły,przedszkola, plac zabaw, sklepy, apteka, banki, '
+                'przystanek autobusowy, Biedronka, Żabka i inne sklepiki '
+                'osiedlowe, basen.<br><br><strong>Ważne:</strong><br>* '
+                'znakomita lokalizacja - wszędzie blisko i bezpośrednio,<br>* '
+                'świetna komunikacja,<br>* znakomity wybór dla pary '
+                ',małżeństwa, singla<br>*świetna propozycja zakupu '
+                'inwestycyjnego - znakomita lokalizacja sprawia, że oferta '
+                'jest bardzo atrakcyjna.<br><br>Do centrum '
+                'Warszawy:<br>Samochodem: ok. 30 minut, autostradą A2 lub '
+                'drogą S8<br>PKP i WKD ok. 30 minut<br><br><strong>Oferta '
+                'godna zainteresowania.</strong><br><br><strong>Serdecznie '
+                'zapraszam do kontaktu oraz na '
+                'prezentację.</strong><br><br>Niniejsze ogłoszenie nie stanowi '
+                'oferty w rozumieniu Kodeksu Cywilnego, lecz ma charakter '
+                'informacyjny.<br><br><br>Z NAMI ZYSKUJESZ BEZPIECZEŃSTWO '
+                'TRANSAKCJI!<br>* Świadczymy usługi kompleksowo - pomagamy '
+                'naszym klientom przejść przez niełatwy proces '
+                'sprzedaży/zakupu nieruchomości.<br><br>* Posiadamy znakomity '
+                'zespół Doradców (zaangażowanie, wiedza, doświadczenie, '
+                'skuteczność).<br><br>* Stale pracujemy nad wdrażaniem '
+                'innowacyjnych rozwiązań.<br><br>* Posiadamy bogatą bazę ofert '
+                '(rynek pierwotny, wtórny), oraz stale powiększającą się i '
+                'aktualizowaną bazę klientów popytowych.<br><br>* Do każdego '
+                'klienta podchodzimy w sposób indywidualny, jesteśmy '
+                'elastyczni i stosujemy wysokie standardy.<br><br>* Posiadamy '
+                'dział Ekspertów Finansowych, którzy udzielają bezpłatnych '
+                'porad i służą pomocą wszystkim klientom wspomagającym się '
+                'kredytem.<br><br>* Współpracujemy z firmami zewnętrznymi - '
+                'dekoratorzy wnętrz, firmy wykończeniowe, przechowanie mienia, '
+                'itd.</p>',
+ 'floor': 4,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 3,
+ 'price': 390000,
+ 'service_id': 63598277,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie M4 46M2 Grodzisk Mazowiecki Centrum',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:38:52 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/super-rozklad-mieszkania-3-pokojowego-ID4jVFV.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:52 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/super-rozklad-mieszkania-3-pokojowego-ID4jVFV.html>
+{'area': '45.8',
+ 'description': '<p>Wygodne, trzypokojowe i widne mieszkanie z wyjściem na '
+                'piękny balkon! Doskonała lokalizacja, centrum Grodziska '
+                'Mazowieckiego! Blisko znajdziemy takie miejsca jak: deptak, '
+                'basen kryty, hale sportowe, szpital,przychodnie, Centrum '
+                'Kultury, sklepy i punkty usługowe, słynne targowisko '
+                'miejskie, mnóstwo restauracji dodatkowo walory przyrodnicze '
+                'takie jak Stawy Walczewskiego czy Park Skarbków, '
+                'żłobki/przedszkola i szkoły podstawowe. Mieszkanie zajmuje '
+                '45,8m2, doskonale zagospodarowane- Kuchnia wraz z pełną '
+                'zabudową kuchenną- płyta gazowa, zmywarka, piekarnik, '
+                'lodówka, Salon z wyjściem na balkon, Sypialnia większa- szafa '
+                'w zabudowie z półkami, Sypialnia mniejsza-szafa w '
+                'zabudowie,Korytarz- szafa w zabudowie, Łazienka po wymianie '
+                'pionów wodno-kanalizacyjnych. Pełna własność z Księgą '
+                'Wieczystą. Do mieszkania przynależy również piwnica. Polecam '
+                'to mieszkanie!!!</p>',
+ 'floor': 2,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 3,
+ 'price': 399000,
+ 'service_id': 63859128,
+ 'service_name': 'otodom',
+ 'title': 'Super rozkład mieszkania 3 pokojowego',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:38:52 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/bardzo-dobra-lokalizacja-b-ladne-mieszkanie-ID4iHAB.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:52 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/bardzo-dobra-lokalizacja-b-ladne-mieszkanie-ID4iHAB.html>
+{'area': '30.4',
+ 'description': '<p><strong>Mieszkanie W Bardzo Dobrej Lokalizacji.</strong> '
+                'Przedstawiamy do sprzedaży mieszkanie (kawalerka) o pow. ok. '
+                '30,2 m2 usytuowane na drugim piętrze w bloku czteropiętrowym '
+                'zlokalizowane w pięknym punkcie miasta.</p><p><strong>W skład '
+                'mieszkania wchodzą ;</strong><br/>- Pokój z wyjściem na '
+                'balkon <br/>- Kuchnia (widna )<br/>- Łazienka z wc <br/>- '
+                'Przestronny przedpokój </p><p>Mieszkanie Spółdzielcze '
+                'Własnościowe z Księgą Wieczystą , do mieszkania przynależy '
+                'piwnica .</p><p>W roku 2020 przeprowadzony remont wraz z '
+                'wymianą instalacji elektrycznej .</p><p><strong>Mieszkanie '
+                'nie wymaga dużego nakładu finansowego ( ewentualne '
+                'odświeżenie )</strong></p><p>Znakomita lokalizacja pozwoli '
+                'mieć państwu bliskość do;<br/>- Szkoły<br/>- Przedszkola '
+                '<br/>- Centrum miasta <br/>- Przychodnia<br/>- PKP i WKD '
+                '<br/>- Stawy Goliana i Walczewskiego '
+                '</p><p><strong>Mieszkanie sprzedawane z meblami , Sprzętem '
+                'RTV i AGD </strong></p><p>Serdecznie Zapraszam Na Prezentację '
+                '<br/><strong>POLECAM</strong> </p><p>Treść niniejszego '
+                'ogłoszenia nie stanowi oferty handlowej w rozumieniu Kodeksu '
+                'Cywilnego.</p><p></p>',
+ 'floor': 2,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 1,
+ 'price': 324900,
+ 'service_id': 63562809,
+ 'service_name': 'otodom',
+ 'title': 'Bardzo Dobra Lokalizacja.B.Ładne Mieszkanie.',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:38:53 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-47-m-grodzisk-mazowiecki-ID4kb6z.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:53 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-47-m-grodzisk-mazowiecki-ID4kb6z.html>
+{'area': '47',
+ 'description': '<p>Mieszkanie w centrum Grodziska '
+                'Mazowieckiego!</p><p>Idealna oferta dla rodziny jak i dla '
+                'dojeżdżających do Warszawy!</p><p>Lokalizacja blisko '
+                'szkoła,sklepy, PKP, basen etc.<br/>Bardzo dobry dojazd do '
+                'Warszawy autostrada A2.</p><p>Wykończone w gustownym stylu, '
+                'do zamieszkania od zaraz!!</p><p>Mieszkanie składające się z '
+                'trzech ustawnych pokoi, przestronnego salonu z otwartą '
+                'umeblowaną i wyposażoną kuchnią oraz '
+                'łazienką.</p><p>Mieszkanie po generalnym remoncie- zostały '
+                'wymienione instalacje elektryczne, okna, drzwi, '
+                'gładzie...</p><p>Rozkład pomieszczeń:<br/>salon 22 '
+                'm2,<br/>pokój dziecięcy 6 m2,<br/>sypialnia 8,8 '
+                'm2,<br/>kuchnia 4 m2,<br/>łazienka 2,6 m2</p><p>Dodatkowym '
+                'atutem jest przynależna piwnica!</p><p><br/>Zapraszam do '
+                'obejrzenia - cena do rozsądnej negocjacji '
+                '!</p><p></p><p></p><p>Lokalizacja: Grodzisk '
+                'Mazowiecki<br/><strong>Cena: 385\xa0000 zł </strong> ( 8\xa0'
+                '191 zł/m2 )<br/><u>Cena podlega '
+                'negocjacji</u></p><p></p><p>Powierzchnia: 47 m2, <br/>Piętro: '
+                '3 / 4<br/>Rok budowy: 1970, <br/>Budynek: budynek '
+                'wielorodzinny, </p><p><strong>POKOJE: </strong><br/>Liczba '
+                'pokoi: 3, </p><p><br/>Czynsz od administracji: 550 zł, '
+                '<br/>stan lokalu: dobry, głośność: ciche, wolne od: puste, '
+                'ochrona: os. niezamknięte, parking: ulica, domofon, '
+                'piwnicaliczba stron: narożne, materiał: płyta, ciepła woda: '
+                'piecyk, ogrzewanie: miejskie, </p><p></p><p><em>Więcej '
+                'informacji oraz możliwość umówienia spotkania: '
+                '</em></p><p>Agent prowadzący: <br/>Paweł Adach<br/>tel.: 518 '
+                '079 556</p><p><br/>Nad jakością obsługi oferty czuwa pan '
+                'Adach Paweł - licencjonowany pośrednik w obrocie '
+                'nieruchomościami, nr licencji 11655</p><p>Godziny otwarcia: '
+                'pon. - pt.: 9:00 - 19:00; sob.: 9:00 - 14:00</p><p><em>--- '
+                'Zapraszamy ---</em></p>',
+ 'floor': 3,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 3,
+ 'price': 385000,
+ 'service_id': 63914595,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie, 47 m², Grodzisk Mazowiecki',
+ 'type_of_building': None,
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:38:53 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/przestronne-mieszkanie-b-dobry-rejon-ID4iVvW.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:53 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/przestronne-mieszkanie-b-dobry-rejon-ID4iVvW.html>
+{'area': '63.4',
+ 'description': '<p><strong>Przestronne Mieszkanie.B.Dobry Rejon.</strong> '
+                '<br/>Przedstawiamy do sprzedaży : <br/>przestronne mieszkanie '
+                'o pow. ok. 63 m2 , usytuowane na siódmym piętrze w bloku z '
+                'windą , zlokalizowane w Grodzisku Mazowieckim '
+                '.</p><p><strong>Rozkład mieszkania jest <br/>następujący '
+                ';</strong><br/>- Salon ok.22.40 m 2 z wyjściem na balkon '
+                '<br/>- Sypialnia ok.11.87 m 2 <br/>- Pokój (gabinet) ok.7.35 '
+                'm 2<br/>- Łazienka <br/>- Wc <br/>- Przestronny przedpokój '
+                '<br/>Do mieszkania przynależy piwnica </p><p>Znakomita '
+                'lokalizacja pozwoli państwu na bliskość do ;<br/>- Centrum '
+                'Grodziska <br/>- Szkół i przedszkoli <br/>- Sklepów <br/>- '
+                'PKP <br/>- Parków </p><p><strong>Mieszkanie nie wymaga dużego '
+                'nakładu finansowego ewentualnie odświeżenie '
+                '</strong><br/>GOTOWE DO WPROWADZENIA OD ZARAZ '
+                '</p><p>Serdecznie Zapraszamy Na Prezentację '
+                '<br/><strong>POLECAM</strong></p><p>Treść niniejszego '
+                'ogłoszenia nie stanowi oferty handlowej w rozumieniu Kodeksu '
+                'Cywilnego.</p><p></p>',
+ 'floor': 7,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 3,
+ 'price': 389000,
+ 'service_id': 63620241,
+ 'service_name': 'otodom',
+ 'title': 'Przestronne Mieszkanie.B.Dobry Rejon.',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:38:53 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/oferta-specjalna-mieszkanie-38m2-w-centrum-ID4k2Oj.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:53 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/oferta-specjalna-mieszkanie-38m2-w-centrum-ID4k2Oj.html>
+{'area': '38',
+ 'description': '<p>Dzień dobry,<br/>mam do sprzedania mieszkanie 2-pok. 38m² '
+                '+ piwnica w świetnej lokalizacji\xa0 w Grodzisku '
+                'Mazowieckim.<br/><br/>Oferta jest idealna dla wszystkich '
+                'poszukujących dwupokojowego cichego i przytulnego mieszkania '
+                'w rozsądnej cenie w bliskiej lokalizacji szkoły, sklepu, '
+                'usług, dworca, centrum Grodziska, które dzięki umeblowaniu i '
+                'wyposażeniu możliwe jest do zamieszkania „od zaraz”, lub dla '
+                'podniesienia komfortu, do wyremontowania i odmalowania. Pół '
+                'roku temu została wyremontowana łazienka z nowym prysznicem. '
+                'Mieszkanie znajduje się na 2 piętrze z 4, oprócz tego '
+                'przynależy balkon francuski oraz dobrze zabezpieczona i '
+                'zagospodarowana piwnica z miejscem na '
+                'rower.<br/><u><strong>Mieszkanie posiada Księgę '
+                'Wieczystą</strong></u><br/>Na wyposażeniu mieszkania znajduje '
+                'się sprzęt AGD,RTV:<br/>- TV Samsung płaski<br/>- Lodówka '
+                'Electrolux<br/>- Pralka Indesit<br/>- Mikrofalówka '
+                'Whirpool<br/>- Kuchnia gazowa z piekarnikiem '
+                'Mastercook<br/><br/>Otoczenie mieszkania znajduje się w '
+                'bezpiecznej okolicy z dostępem do wielu bezpłatnych miejsc '
+                'parkingowych bezpośrednio pod blokiem. Obok okazyjnej ceny '
+                'niewątpliwym atutem mieszkania jest jego lokalizacja, '
+                'ponieważ w jego bezpośredniej okolicy znajduje się:\u2028'
+                '<br/>- 15 m duży sklep „Społem”<br/>- Cukiernia, apteka, '
+                'fryzjer<br/>- 2 restauracje z obiadami domowymi<br/>- 200 m '
+                'Szkoła Podstawowa oraz nowoczesne centrum piłkarskie<br/>- '
+                '500 m „Deptak” centrum\xa0Grodziska Mazowieckiego<br/>- 700 m '
+                'dworzec WKD<br/>- 500 m pływalnia „Wodnik”<br/>- 500 m '
+                'Targowisko, Szpital Zachodni<br/><br/>Oferowane mieszkanie '
+                'znajduje się w dynamicznie rozwijającym się Grodzisku '
+                'Mazowieckim oddalonym o 23 km od Warszawy. Sprawia to, że '
+                'dojazd samochodem trasą szybkiego ruchu zajmuje 20 min, '
+                'pociągiem PKP 30 min. W Grodzisku kursują lokalne autobusy, '
+                'taxi oraz kolej WKD, PKP.</p>',
+ 'floor': 2,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 2,
+ 'price': 320000,
+ 'service_id': 63882711,
+ 'service_name': 'otodom',
+ 'title': 'Oferta specjalna mieszkanie 38m2 w Centrum',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:38:53 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/komfortowy-apartament-ksiazenice-ul-przyjaciol-2-ID4jSq8.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/komfortowy-apartament-ksiazenice-ul-przyjaciol-2-ID4jSq8.html>
+{'area': '42.68',
+ 'description': '<p><br/><strong></strong> <strong></strong> '
+                '<strong>ZAMIESZKAJ W PIEKNYM, KOMFORTOWYM APARTAMENCIE W '
+                'KSIĄŻENICACH, UL. PRZYJACIÓŁ '
+                '2</strong></p><p></p><p><strong>DO SPRZEDANIA FUNKCJONALNE, '
+                'SŁONECZNE, KOMPLETNIE UMEBLOWANE 2 - POKOJOWE MIESZKANIE Z '
+                'BALKONEM  W NOWOCZESNYM BUDYNKU APARTAMENTOWYM. '
+                '</strong></p><p>Osiedle Książenice to wyjątkowy projekt '
+                'budowy od podstaw współczesnego, nowoczesnego Miasta-Ogrodu, '
+                'projekt zakładający zrównoważony, ekologiczny rozwój dający '
+                'możliwość zamieszkania w proekologicznej i prospołecznej '
+                'przestrzeni. Osiedle Książenice to miejsce piękne i przyjazne '
+                'ludziom, z komfortowymi domami wśród zieleni, gdzie wszystko '
+                'masz w zasięgu ręki - wszystko co jest potrzebne do wygodnego '
+                'życia. Lokalizacja zapewnia odpoczynek od pośpiechu i zgiełku '
+                'wielkiego miasta, ale jednocześnie, pozwala na utrzymanie '
+                'szybkiego kontaktu i kontroli nad codziennymi '
+                'sprawami.<strong><u></p><p>Mieszkanie składa się z salonu z '
+                'aneksem kuchennym, sypialni, przedpokoju oraz łazienki z WC. '
+                '</u></strong></p><p>Budynek apartamentowy wybudowany w roku '
+                '2020, częściowo ogrodzony, monitorowany, nowocześnie '
+                'zaprojektowany, z prywatnym parkingiem.</p><p>Z okien '
+                'mieszkania roztacza się widok na zieleń oraz na wewnętrzną '
+                'cichą część osiedla.</p><p><u>Standard wykończenia / '
+                'wyposażenie:</u></p><p>Na podłogach gres oraz panele, na '
+                'ścianach gładzie gipsowe malowane farbami akrylowymi i '
+                'lateksowymi.</p><p>Kuchnia w zabudowie, ze sprzętem AGD: '
+                'zmywarka, płyta ceramiczna, piekarnik, lodówo-zamrażarka, '
+                'okap.</p><p>Łazienka z prysznicem i WC, dodatkowo wyposażona '
+                'w pralkę.</p><p>W salonie wygodna rozkładana kanapa, stół, '
+                'krzesła, stolik RTV, telewizor.</p><p>W sypialni wygodne '
+                'łóżko, szafki nocne.</p><p>W przedpokoju obszerna szafa w '
+                'zabudowie.</p><p>Okna PCV 5-komorowe z nawiewnikami, drzwi '
+                'zewnętrzne antywłamaniowe.</p><p>Do dyspozycji mieszkańców '
+                'wózkownia i rowerownia.</p><p> </p><p>Ogrzewanie z sieci '
+                'miejskiej.</p><p>Woda ciepła z sieci '
+                'miejskiej</p><p>Instalacja antenowa DVB-T, radiowa, '
+                'satelitarna (antena zbiorcza).</p><p>Instalacja internetowa i '
+                'telefoniczna w każdym pokoju.</p><p>Instalacja '
+                'domofonowa.</p><p></p><p><u>Lokalizacja</u></p><p>Osiedle '
+                'Książenice jest świetnie skomunikowane z aglomeracją '
+                'warszawską. Szybko dojedziesz samochodem lub komunikacją '
+                'publiczną. Położenie Książenic pomiędzy autostradą A2 i trasą '
+                'ekspresową S8 z bezkolizyjnym węzłem Siestrzeń sprawia, że z '
+                'Książenic można wyjechać w dowolnym kierunku omijając centrum '
+                'Warszawy</p><p></p><p><strong>Samochód</strong></p><p>- trasa '
+                'S8 - 25 minut - wjazd w miejscowości Siestrzeń, 2 km od '
+                'Osiedla, wygodny wjazd do Warszawy Al. Jerozolimskimi lub Al. '
+                'Krakowską,</p><p>- autostrada A2 - 30 minut - z Książenic w '
+                '10 minut można dojechać do wjazdu na wysokości Grodziska '
+                'Mazowieckiego (węzeł Tłuste/Grodzisk Mazowiecki)</p><p>- obie '
+                'trasy połączone są z warszawskim ringiem - wygodny dojazd na '
+                'Bielany, Żoliborz, Bemowo, Wolę, Ochotę, Mokotów i Ursynów.   '
+                '<strong></strong><br/><strong></p><p>Autobus, pociąg PKP i '
+                'WKD</strong><br/> Stacja kolejowa Grodzisk Mazowiecki '
+                'znajduje się w odległości</p><p>Z Grodziska Mazowieckiego do '
+                'Książenic kursują linie komunikacji miejskiej - linia nr 22, '
+                '23 i 29, które zatrzymują się przy stacjach WKD i PKP. '
+                'Autobus linii 32 - łączy Osiedle Książenice m.in. z '
+                'miejscowością Żabia Wola.6 km od Osiedla Książenice. Dojazd '
+                'do dworca Warszawa Centralna/Śródmieście - około 35 minut. '
+                'Planowane przedłużenie tzw. SKM (Szybkiej Kolei Miejskiej) z '
+                'Warszawy do Grodziska Mazowieckiego skróci ten czas do 25 - '
+                '30 min.</p><p>Inna możliwość połączenia kolejowego to '
+                'Warszawska Kolej Dojazdowa (WKD), najbliższe przystanki '
+                '(około 3 km) to: Grodzisk Maz. Jordanowice, Grodzisk Maz. '
+                'Okrężna, Grodzisk Maz. Piaskowa, Grodzisk Maz. Radońska. Przy '
+                'stacjach znajdują się Parkingi '
+                'Park&amp;Ride.</p><p>Międzynarodowy Port Lotniczy im. '
+                'Fryderyka Chopina - Warszawa Okęcie - znajduje się w '
+                'odległości 22 km od Osiedla Książenice (dojazd około 25 minut '
+                'drogą ekspresową S8).</p><p>Dzięki wygodnemu połączeniu tras '
+                'szybkiego ruchu (autostrady A2, trasy S8 i Wisłostrady) do '
+                'nowego lotniska Modlin można dojechać unikając wjazdu do '
+                'centrum Warszawy (40 min).</p><p>Inwestor zadbał, aby w '
+                'projekcie Osiedla Książenice żadna z kluczowych cech idei '
+                'Miasta-Ogrodu nie została pominięta:</p><p><strong><u>dostęp '
+                'do sklepów i usług</u></strong><br/> Na Osiedlu zrobimy '
+                'zakupy, umówimy się do fryzjera, do kosmetyczki. Jest tu '
+                'również oddział banku z bankomatem, '
+                'apteka...</p><p><strong><u>dostęp do '
+                'edukacji</u></strong><br/> Do przedszkola dojdziesz '
+                'spacerkiem, starsze dzieci mogą same bezpiecznie dojść do '
+                'nowej Samorządowej Szkoły Podstawowej. Niepubliczne '
+                'Przedszkole Wielki Mały Świat znajduje się na Osiedlu '
+                'Książenice przy al. Marylskiego. Przedszkole realizuje '
+                'program wg. systemu M. Montessori.</p><p>Na Osiedlu działa '
+                'nowoczesna Samorządowa Szkoła Podstawowa z punktem '
+                'przedszkolnym. Szkoła jest wyposażona w pracownie komputerowe '
+                'i językowe, salę baletową, salę muzyczną oraz bibliotekę. '
+                '</p><p><strong><u>kultura i sport</u></strong><br/> Dzieci i '
+                'dorośli mogą wspólnie spędzać czas i realizować swoje '
+                'zainteresowania podczas zajęć prowadzonych przez lokalne '
+                'organizacje. Na terenie szkoły znajduje się hala sportowa i '
+                'boisko typu Orlik. Aktualnie w trakcie budowy jest nowoczesne '
+                'Centrum Sportu i Rekreacji &bdquo;Strefa Ruchu&rdquo; w '
+                'Książenicach...</p><p><strong><u>kontakt z '
+                'przyrodą</u></strong><br/> Osiedle Książenice zostało '
+                'zaprojektowane na pięknej polanie otoczonej zielonymi lasami, '
+                'idealnymi do rodzinnych spacerów, wycieczek rowerowych czy '
+                'joggingu. W projekcie przewidziano duże działki (1500-2000 '
+                'm2) dzięki czemu na osiedlu jest dużo zieleni co zapewnia '
+                'mieszkańcom komfortowy wypoczynek.. Region wyróżnia dbałość o '
+                'ekologię i o czyste powietrze - do wszystkich działek '
+                'doprowadzone jest ekologiczne paliwo '
+                'gazowe.</p><p></p><p>Zapraszam na prezentację.</p><p><br/> '
+                '<br/>::DODATKOWE INFORMACJE <br/>Rodzaj budynku: '
+                'apartamentowiec<br/>Dozór budynku: monitoring<br/>Głośność: '
+                'ciche<br/>Plac zabaw: TAK<br/>Widok: na osiedle<br/>Gaz: '
+                'brak<br/>Woda: tak - miejska<br/>Dojazd: '
+                'asfalt<br/>Otoczenie: park<br/>Ogrzewanie: miejskie<br/>Linie '
+                'telefoniczne: TAK<br/>Internet: TAK<br/>Telewizja kablowa: '
+                'TAK<br/>Nadaje się na biuro: TAK<br/>Komunikacja publ.: '
+                'metro, kolej, autobus miejski<br/>Odległość do komunikacji '
+                'publicznej [m]: 200<br/>Odl. do sklepu [m]: 200<br/>Odl. do '
+                'szkoły [m]: 500<br/>Odl. do przedszkola [m]: 500<br/>Winda: '
+                'TAK<br/>Liczba wind: 1<br/>Rozkład: dwustronne '
+                'rozkładowe<br/>Usytuowanie: dwustronne<br/>Drzwi '
+                'antywłamaniowe: TAK<br/>Przystosowania dla niepełnosprawnych: '
+                'TAK<br/>Teren ogrodzony: TAK<br/>Min. okres naj. (mies.): '
+                '12<br/>Opłaty w czynszu: sprzątanie, administracja, wywóz '
+                'śmieci, fundusz remontowy<br/>Opłaty wg liczników: prąd, '
+                'woda<br/>Rodzaj mieszkania: jednopoziomowe<br/>Garaż: miejsce '
+                'parkingowe<br/>Stan lokalu: Do wprowadzenia<br/>Okna: nowe '
+                'PCV<br/>Instalacje: nowe<br/>Balkon: duży<br/>Liczba '
+                'balkonów: 1<br/>Powierzchnia balkonów/tarasów [m2]: '
+                '4<br/>Powierzchnia użytkowa [m2]: 42,6800<br/>Rok budowy: '
+                '2020<br/>Liczba pokoi: 2<br/>Wysokość pomieszczeń [m]: '
+                '260<br/>Liczba sypialni: 2<br/>Powierzchnia pokoi [m2]: '
+                '22<br/>Podłogi pokoi: panele<br/>Ściany pokoi: malowane, '
+                'gładzie gipsowe<br/>Wystawa okien - pokoje : Wsch, Pn<br/>Typ '
+                'kuchni: aneks kuchenny - połączony z salonem<br/>Rodzaj '
+                'kuchni: z zabudową kuchenną<br/>Powierzchnia kuchni [m2]: '
+                '8<br/>Podłoga kuchni: gres<br/>Wystawa okien - kuchnia: '
+                'Wsch<br/>Typ łazienki: razem z wc<br/>Liczba łazienek: '
+                '1<br/>Powierzchnia łazienki [m2]: 4,29<br/>Glazura łazienki: '
+                'nowego typu<br/>Podłoga łazienki: gres<br/>Wyposażenie '
+                'łazienki: WC, umywalka, lustro, pralka automatyczna, kabina '
+                'prysznicowa<br/>Ściany łazienki: glazura<br/>Liczba '
+                'przedpokoi: 1<br/>Powierzchnia przedpokoi [m2]: 8<br/>Podłoga '
+                'przedpokoi: panele<br/>Ściany przedpokoi: malowane, gładzie '
+                'gipsowe</p><p><br/>::LINK DO STRONY <br/></p><p>::KONTAKT DO '
+                'AGENTA <br/>Anna Kawka - Sachnik<br/>+48 32 299 62 97<br/>+48 '
+                '602 699 053<br/></p><p>Pośrednik odpowiedzialny zawodowo za '
+                'wykonanie umowy pośrednictwa: Anna Kawka - Sachnik (licencja '
+                'nr: 15908)</p><p>-</p><p>Zachęcam do zapoznania się z naszą '
+                'szeroką ofertą sprzedaży i wynajmu mieszkań, domów, działek i '
+                'lokali użytkowych dostępną na stronie </p><p>Służymy pomocą w '
+                'uzyskaniu kredytu hipotecznego.</p><p>Zapraszamy do '
+                'współpracy.<br/>Śląskie Centrum Nieruchomości Sp. z o.o. '
+                'Zaufaj Profesjonalistom.</p><p>Numer licencji pośrednika '
+                'odpowiedzialnego zawodowo za realizację oferty: '
+                '15908</p><p>Prezentowana oferta ma charakter informacyjny, '
+                'nie stanowi oferty handlowej w rozumieniu Art.66 par.1 '
+                'Kodeksu Cywilnego.</p><p></p>',
+ 'floor': 1,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 2,
+ 'price': 399000,
+ 'service_id': 63842772,
+ 'service_name': 'otodom',
+ 'title': 'Komfortowy apartament Książenice, ul. Przyjaciół 2',
+ 'type_of_building': ['apartment'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:38:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkania-w-centrum-grodziska-maz-juz-od-8500-m2-ID4dW2j.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkania-w-centrum-grodziska-maz-juz-od-8500-m2-ID4dW2j.html>
+{'area': '41',
+ 'description': '<p>Apartamenty 11-go Listopada to nowa inwestycja w centrum '
+                'Grodziska Mazowieckiego.<br/> <br/> Chciałbyś zamieszkać w '
+                'mieście z tradycjami, ale w nowoczesnym wydaniu?<br/> '
+                'Przygotowaliśmy dla Ciebie miejsce, w którym połączyliśmy '
+                'bliskość Warszawy i ciszę jednocześnie…<br/> <br/> Specjalnie '
+                'dla Ciebie stworzyliśmy przemyślaną miejską przestrzeń – '
+                'budynek o nowoczesnej architekturze i funkcjonalne '
+                'mieszkania.<br/> Nasza inwestycja składa się z 54 mieszkań o '
+                'najbardziej poszukiwanych metrażach i lokali usługowych. '
+                'Wszystko to w jasnej kolorystyce i nowoczesnej formie z '
+                'ciekawymi detalami w centrum Grodziska Mazowieckiego 5 minut '
+                'piechotą od stacji PKP…<br/> <br/> W Naszym Apartamentowcu '
+                'oferujemy Państwu funkcjonalne mieszkania o zróżnicowanych '
+                'metrażach. Zapraszamy do mieszkań o wielkości od 28 do '
+                '75m².<br/> <br/> Znajdziemy tu nowoczesne wygodne mieszkania- '
+                'idealne pod wynajem.<br/> Oferta bez pośredników! Bez '
+                'prowizji, bezpośrednio od dewelopera.<br/> Zapraszamy do '
+                'obejrzenia wolnych mieszkań.</p>\r\n'
+                '<p></p>\r\n'
+                '<p>Zapraszamy do kontaktu 534 625 298, 607 545 557</p>\r\n'
+                '<p><br/>Niniejsze ogłoszenie nie stanowi oferty w rozumieniu '
+                'Kodeksu Cywilnego, lecz ma charakter informacyjny. '
+                '<br/>Niektóre zdjęcia mogą przedstawiać przykładowe '
+                'możliwości aranżacji wnętrza lub elewacji - nie są '
+                'odzwierciedleniem rzeczywistego stanu prezentowanej '
+                'nieruchomości.</p>',
+ 'floor': 1,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 2,
+ 'price': 360000,
+ 'service_id': 62422859,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkania w centrum Grodziska Maz już od 8500/m2',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:38:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-28-30-m-grodzisk-mazowiecki-ID4k4nT.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-28-30-m-grodzisk-mazowiecki-ID4k4nT.html>
+{'area': '28.3',
+ 'description': '<p>Przedstawiamy do sprzedaży mieszkanie 1 pkojowe tzw. '
+                '(kawalerka) o pow . ok. 28m2 usytuowane na 1 piętrze w bloku '
+                'czteropiętrowym zlokalizowane w bardzo ładnej lokalizacji '
+                'Grodziska. </p><p><strong>Mieszkanie składa się z '
+                ';</strong><br/>- Pokoju <br/>- Kuchni zamkniętej <br/>- '
+                'Łazienki z Wc <br/>- Przedpokoju <br/>Do mieszkania '
+                'przynależy piwnica .</p><p>Atutem nieruchomości niewątpliwie '
+                'jest lokalizacja , w pobliżu;<br/>- Centrum Handlowe .<br/>- '
+                'Szkoły , Przedszkola .<br/>- Przychodnia .<br/>- Basen '
+                '.<br/>- WKD i PKP .</p><p>Osiedle ciche i spokojne '
+                '.</p><p><strong>Mieszkanie dostępne od zaraz '
+                '.</strong><br/><strong>Niski Czynsz '
+                '.</strong><br/><strong>Serdecznie Zapraszam Na '
+                'Prezentację</strong></p><p>Treść niniejszego ogłoszenia nie '
+                'stanowi oferty handlowej w rozumieniu Kodeksu '
+                'Cywilnego.</p><p></p>',
+ 'floor': 1,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 1,
+ 'price': 326900,
+ 'service_id': 63888761,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie, 28,30 m², Grodzisk Mazowiecki',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:38:54 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-19mpo-remonciewindadobra-inwestycja-ID4k0rN.html> from <GET https://www.otodom.pl/63873627/>
+2023-02-09 11:38:55 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63490854/> from <GET https://www.otodom.pl/63490854>
+2023-02-09 11:38:55 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/62611503/> from <GET https://www.otodom.pl/62611503>
+2023-02-09 11:38:55 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63292955/> from <GET https://www.otodom.pl/63292955>
+2023-02-09 11:38:56 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63341858/> from <GET https://www.otodom.pl/63341858>
+2023-02-09 11:38:56 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63313914/> from <GET https://www.otodom.pl/63313914>
+2023-02-09 11:38:56 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63307425/> from <GET https://www.otodom.pl/63307425>
+2023-02-09 11:38:57 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/62967213/> from <GET https://www.otodom.pl/62967213>
+2023-02-09 11:38:57 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/62679998/> from <GET https://www.otodom.pl/62679998>
+2023-02-09 11:38:57 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63132625/> from <GET https://www.otodom.pl/63132625>
+2023-02-09 11:38:58 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63422695/> from <GET https://www.otodom.pl/63422695>
+2023-02-09 11:38:58 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63742099/> from <GET https://www.otodom.pl/63742099>
+2023-02-09 11:38:58 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63320543/> from <GET https://www.otodom.pl/63320543>
+2023-02-09 11:38:58 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63899320/> from <GET https://www.otodom.pl/63899320>
+2023-02-09 11:38:59 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63858908/> from <GET https://www.otodom.pl/63858908>
+2023-02-09 11:38:59 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63792547/> from <GET https://www.otodom.pl/63792547>
+2023-02-09 11:38:59 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-19mpo-remonciewindadobra-inwestycja-ID4k0rN.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:38:59 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-do-wlasnej-aranzacji-okazja-ID4ioS2.html> from <GET https://www.otodom.pl/63490854/>
+2023-02-09 11:38:59 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-19mpo-remonciewindadobra-inwestycja-ID4k0rN.html>
+{'area': '19',
+ 'description': '<p>Dzień dobry,</p>\r\n'
+                '<p>oferuję mieszkanie o powierzchni 19 m2 w samym centrum '
+                'Grodziska Mazowieckiego.</p>\r\n'
+                '<p><strong>Jest to wyjątkowa nieruchomość, po kapitalnym '
+                'remoncie.</strong></p>\r\n'
+                '<p></p>\r\n'
+                '<p><strong>Informacja dla Inwestorów:</strong></p>\r\n'
+                '<p><strong>Mieszkanie może być również idealną inwestycją i '
+                'dawać zwrot na poziomie 8-9% w skali roku!</strong></p>\r\n'
+                '<p><strong>Nie brakuje zainteresowanych do wynajmu za 1700zł '
+                'miesięcznie + opłaty.</strong></p>\r\n'
+                '<p><strong><br/></strong></p>\r\n'
+                '<p><strong>Klatki bloku zostały odświeżone i odmalowane w '
+                'lipcu 2022.</strong></p>\r\n'
+                '<p><strong><br/></strong></p>\r\n'
+                '<p>Jest wyjątkowe, ponieważ znajduje się na 11 piętrze z '
+                'pięknym widokiem na Warszawę i panoramę miasta '
+                'Grodzisk.<br/>Jest to\xa0<strong>jedyne</strong>\xa0takie '
+                'mieszkanie w Grodzisku Mazowieckim i promieniu 50km.</p>\r\n'
+                '<p><strong>Z mieszkania widać Pałac Kultury i Nauki w '
+                'Warszawie</strong></p>\r\n'
+                '<p></p>\r\n'
+                '<p></p>\r\n'
+                '<p>Do mieszkania przynależy:\xa0</p>\r\n'
+                '<p><strong>- piwnica na poziomie -1<br/>- indywidualna '
+                'komórka lokatorska o wymiarze 1x3m\xa0</strong>pomiędzy '
+                'piętrem 10, a 11 - spokojnie zmieści się tam rower, szafa i '
+                'wiele, wiele innych rzeczy. Tylko my mamy dostęp do tej '
+                'komórki - jest ona przypisana do mieszkania.\xa0'
+                '<strong><br/></strong></p>\r\n'
+                '<p></p>\r\n'
+                '<p><strong>W bloku znajdują się 2 windy, które dowiozą Nas do '
+                'mieszkania.</strong></p>\r\n'
+                '<p></p>\r\n'
+                '<p><strong>Mieszkanie przeszło kapitalny '
+                'remont:</strong><br/>-nowa instalacja hydrauliczna,</p>\r\n'
+                '<p>-nowa instalacja elektryczna,</p>\r\n'
+                '<p>-wymienione piony '
+                'elektryczne,<br/>-rozdzielnica,<br/>-wymienione drzwi '
+                'wejściowe,<br/>-położone nowe '
+                'podłogi,<br/>-gładzie,<br/>-farby,<br/>-wymienione zostały '
+                'również grzejniki,</p>\r\n'
+                '<p>Okna w mieszkaniu są plastikowe.</p>\r\n'
+                '<p></p>\r\n'
+                '<p><strong>W łazience:</strong></p>\r\n'
+                '<p>-zostały położone wysokiej klasy płytki '
+                'wielkoformatowe,<br/>-stelaż podtynkowy firmy Geberit wraz z '
+                'zabudową,</p>\r\n'
+                '<p>-Baterie podtynkowe umywalki i prysznica wraz z '
+                'deszczownicą renomowanej firmy Omnires,</p>\r\n'
+                '<p>-Składane drzwi prysznicowe z brodzikiem typu slim</p>\r\n'
+                '<p></p>\r\n'
+                '<p>Standard podnosi również<strong>\xa0ogrzewanie '
+                'podłogowe,\xa0</strong>które zostało położne w łazience wraz '
+                'z regulatorem, którego temperaturę możemy sterować również za '
+                'pomocą swojego telefonu :)</p>\r\n'
+                '<p></p>\r\n'
+                '<p><strong>Wszystkie meble znajdujące się w mieszkaniu '
+                'zostały wykonane na wymiar przez stolarza.</strong></p>\r\n'
+                '<p></p>\r\n'
+                '<p><strong>Mieszkanie jest również bogato wyposażone w nowe, '
+                'wysokiej klasy urządzenia AGD w zabudowie takie '
+                'jak:</strong></p>\r\n'
+                '<p>-zmywarka,</p>\r\n'
+                '<p>-piekarnik,</p>\r\n'
+                '<p>-pralko-suszarka,</p>\r\n'
+                '<p>-płyta indukcyjna,</p>\r\n'
+                '<p>-lodówka z zamrażalnikiem,</p>\r\n'
+                '<p>-okap.</p>\r\n'
+                '<p>W kuchni znajdują się wysokiej klasy meble w niebieskiej '
+                'kolorystyce i złotymi akcentami, które świetnie komponują się '
+                'z całym mieszkaniem i obecnymi trendami architektury '
+                'wnętrz.</p>\r\n'
+                '<p></p>\r\n'
+                '<p>Mimo niewielkiego metrażu udało się z mieszkania\xa0'
+                '<strong>wydzielić oddzielną sypialnię</strong>. Pomiędzy '
+                'pokojem z aneksem kuchennym, a sypialnią, została zamontowana '
+                'zabudowa karnisza na zasłonę, którą można zasłonić i '
+                'odgrodzić od siebie pokoje. Jest to bardzo przydatne przy '
+                'wizytach gości.\xa0</p>\r\n'
+                '<p></p>\r\n'
+                '<p></p>\r\n'
+                '<p><strong>Sypialnia</strong></p>\r\n'
+                '<p>W sypialni znajduje się łóżko dwuosobowe z szafą, zabudową '
+                'nad łóżkiem i szufladą na pościel lub odzież itp.</p>\r\n'
+                '<p></p>\r\n'
+                '<p><strong>Lokalizacja:</strong></p>\r\n'
+                '<p>Nieruchomość znajduje się w centrum Grodziska '
+                'Mazowieckiego.<br/>W promieniu 300m znajduję się stacja WKD, '
+                'Kościół, deptak, centrum handlowe, centrum kultury, wiele '
+                'sklepów, banków, przychodnia, szpital.</p>\r\n'
+                '<p>Można powiedzieć, że mamy dostęp do wszystkiego w zaledwie '
+                '5 minut od wyjścia z bloku :)</p>\r\n'
+                '<p></p>\r\n'
+                '<p><strong>Internet:</strong></p>\r\n'
+                '<p>Blok podłączony jest pod światłówód więc nowy nabywca bez '
+                'problemu może podpisać umowę na łącze i korzystać z szybkiego '
+                'internetu i TV.</p>\r\n'
+                '<p></p>\r\n'
+                '<p><strong>Ogrzewanie:</strong></p>\r\n'
+                '<p>Ciepła, zimna woda oraz ogrzewanie jest centralne. W '
+                'mieszkaniu nie ma pieca ani gazu.\xa0</p>\r\n'
+                '<p></p>\r\n'
+                '<p><strong>Czynsz:</strong></p>\r\n'
+                '<p>Kolejnym plusem jest czynsz, który wynosi ~350zł '
+                'miesięcznie (zależnie od ilości osób i ilości wody).</p>\r\n'
+                '<p></p>\r\n'
+                '<p></p>\r\n'
+                '<p><strong>Mieszkanie posiada założoną księgę '
+                'wieczystą.</strong></p>\r\n'
+                '<p><strong>Można posiłkować się kredytem '
+                'hipotecznym.</strong></p>\r\n'
+                '<p></p>\r\n'
+                '<p><strong>Jestem do dyspozycji 7 dni w '
+                'tygodniu.</strong></p>\r\n'
+                '<p></p>\r\n'
+                '<p>Osoby zainteresowane zapraszam do kontaktu telefonicznego '
+                'i do prezentacji.</p>\r\n'
+                '<p>Tel 888 881 116</p>',
+ 'floor': None,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 1,
+ 'price': 249000,
+ 'service_id': 63873627,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie 19m²⭐Po remoncie⭐Winda⭐Dobra Inwestycja',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:00 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/wyjatkowe-mieszkanie-w-spokojnej-czesci-grodziska-ID4eI6X.html> from <GET https://www.otodom.pl/62611503/>
+2023-02-09 11:39:00 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-47-m-grodzisk-mazowiecki-ID4hzo7.html> from <GET https://www.otodom.pl/63292955/>
+2023-02-09 11:39:00 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-ok-53m2-w-bardzo-dobrej-lokalizacji-ID4hM6S.html> from <GET https://www.otodom.pl/63341858/>
+2023-02-09 11:39:01 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-35-m-grodzisk-mazowiecki-ID4hEQa.html> from <GET https://www.otodom.pl/63313914/>
+2023-02-09 11:39:01 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-w-centrum-grodziska-ID4hD9w.html> from <GET https://www.otodom.pl/63307425/>
+2023-02-09 11:39:01 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-30-m-grodzisk-mazowiecki-ID4gcEd.html> from <GET https://www.otodom.pl/62967213/>
+2023-02-09 11:39:02 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-48-m-grodzisk-mazowiecki-ID4eZWI.html> from <GET https://www.otodom.pl/62679998/>
+2023-02-09 11:39:02 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-gotowe-do-zamieszkania-w-b-dobrej-cenie-ID4gTG9.html> from <GET https://www.otodom.pl/63132625/>
+2023-02-09 11:39:02 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-z-potencjalem-w-dobrej-cenie-ID4i78H.html> from <GET https://www.otodom.pl/63422695/>
+2023-02-09 11:39:03 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/niska-cena-winda-drugie-pietro-ID4jsen.html> from <GET https://www.otodom.pl/63742099/>
+2023-02-09 11:39:03 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-inwestycyjne-w-b-dobrej-cenie-ID4hGz5.html> from <GET https://www.otodom.pl/63320543/>
+2023-02-09 11:39:03 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-28m-centrum-niski-czynsz-ID4k78c.html> from <GET https://www.otodom.pl/63899320/>
+2023-02-09 11:39:03 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-28-m-grodzisk-mazowiecki-ID4jVCo.html> from <GET https://www.otodom.pl/63858908/>
+2023-02-09 11:39:04 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/3-pokojowe-mieszkanie-w-grodzisku-mazowieckim-ID4jFm3.html> from <GET https://www.otodom.pl/63792547/>
+2023-02-09 11:39:04 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63919801/> from <GET https://www.otodom.pl/63919801>
+2023-02-09 11:39:04 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-do-wlasnej-aranzacji-okazja-ID4ioS2.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?page=2&limit=24&market=ALL&distanceRadius=0&priceMin=20&priceMax=400000&locations=%5Bcities_6-703%5D&by=LATEST&direction=DESC)
+2023-02-09 11:39:05 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-do-wlasnej-aranzacji-okazja-ID4ioS2.html>
+{'area': '48',
+ 'description': '<p>Szukasz mieszkania do remontu? Chcesz kupić w okazyjnej '
+                'cenie?<br/><br/><u>Oferta skierowana właśnie dla '
+                'Ciebie!<br/></u><br/>Zapraszam na prezentację mieszkania 48 '
+                'm².  <br/><br/>W skład mieszkania wchodzi:<br/><br/>- '
+                'pokój<br/>- pokój<br/>- salon<br/>- kuchnia<br/>- '
+                'łazienka<br/>- przedpokój <br/><br/>Do mieszkania przynależy '
+                'piwnica. Miejsca parkingowe ogólnodostępne, nie ma problemu z '
+                'parkowaniem. Lokal znajduje się na pierwszym piętrze. '
+                '<br/><br/>Największym atutem mieszkania jest lokalizacja - '
+                'Centrum Grodziska. Dzięki temu mamy wszędzie blisko : PKP, '
+                'sklepy, galeria, parki, markety, szkoła. <br/><br/>Nie czekaj '
+                '! Zadzwoń ! <br/><br/>Martyna Kuziemska <br/><strong>609 903 '
+                '623<br/></strong><br/><br/></p><p></p><p>Oferta wysłana z '
+                'programu dla biur nieruchomości ASARI CRM ()</p><p></p>',
+ 'floor': 1,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 3,
+ 'price': 355000,
+ 'service_id': 63490854,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie do własnej aranżacji ! Okazja',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:05 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/wyjatkowe-mieszkanie-w-spokojnej-czesci-grodziska-ID4eI6X.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?page=2&limit=24&market=ALL&distanceRadius=0&priceMin=20&priceMax=400000&locations=%5Bcities_6-703%5D&by=LATEST&direction=DESC)
+2023-02-09 11:39:05 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/wyjatkowe-mieszkanie-w-spokojnej-czesci-grodziska-ID4eI6X.html>
+{'area': '59.45',
+ 'description': '<p>Nieruchomość mieści się w kameralnym bloku o zabudowie '
+                '1-piętrowej.</p>\r\n'
+                '<p>Mieszkanie zlokalizowane jest w cichej i spokojnej części '
+                'Grodziska Mazowieckiego, w bliskim sąsiedztwie znajduje się '
+                'Park Jaśminowa oraz nieco dalej Park H. '
+                'Szczerkowskiego.<br/>Nieruchomość mieści się przy spokojnej, '
+                'mało ruchliwej ulicy, jednak blisko ul. 3 Maja, skąd mamy '
+                'dogodny dojazd w każdym kierunku Grodziska.<br/>W niedalekim '
+                'sąsiedztwie znajdują się szkoły, przedszkola, Żabka oraz inne '
+                'punkty usługowe itp.</p>\r\n'
+                '<p>Bardzo spokojne i miłe sąsiedztwo.</p>\r\n'
+                '<p>Lokal składa się z:<br/>- kuchni<br/>- korytarza<br/>- '
+                'łazienki<br/>- pokoju dziennego<br/>- dużej garderoby<br/>- '
+                'oraz antresoli ( 20 m2).</p>\r\n'
+                '<p>Nieruchomość w akcie notarialnym posiada całkowitą '
+                'powierzchnię 39,45 m2 + antresola .</p>\r\n'
+                '<p>Dodatkowo do lokalu przynależy miejsce postojowe w garażu '
+                'podziemnym ( osobna KW ) w cenie nieruchomości.</p>\r\n'
+                '<p>Niski czynsz tylko 200 zł/msc.</p>\r\n'
+                '<p></p>\r\n'
+                '<p>Zapraszam na prezentację\xa0</p>\r\n'
+                '<p>HYLI218</p>\r\n'
+                '<p></p>',
+ 'floor': 1,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 1,
+ 'price': 375000,
+ 'service_id': 62611503,
+ 'service_name': 'otodom',
+ 'title': 'Wyjątkowe mieszkanie w spokojnej części Grodziska',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:05 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-47-m-grodzisk-mazowiecki-ID4hzo7.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?page=2&limit=24&market=ALL&distanceRadius=0&priceMin=20&priceMax=400000&locations=%5Bcities_6-703%5D&by=LATEST&direction=DESC)
+2023-02-09 11:39:05 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-47-m-grodzisk-mazowiecki-ID4hzo7.html>
+{'area': '47',
+ 'description': '<p>Do sprzedania 47 metrowe mieszkanie znajdujące się na '
+                'pierwszym piętrze. Lokal składa się z 3 pokoi oraz oddzielnej '
+                'kuchni a także holu i łazienki z WC. </p><p>Mieszkanie po '
+                'generalnym remoncie: położone nowe panele i listwy, gładź '
+                'gipsowa na ścianach, wymieniona elektryka, płytki w kuchni. '
+                'Nowe okna PCV i drzwi.</p><p>Do mieszkania przynależy około 4 '
+                'metrowa piwnica. </p><p>Wszystkie media miejskie! <br/>W '
+                'pobliżu szkoła, deptak, kościół, sklepy, kolejka '
+                'WKD.<br/><strong>Cena do negocjacji!</p><p>Więcej informacji: '
+                '600 700 347<br/>Marcin Cieślak<br/></strong></p><p>Treść '
+                'niniejszego ogłoszenia nie stanowi oferty handlowej w '
+                'rozumieniu Kodeksu Cywilnego.</p><p></p>',
+ 'floor': 1,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 3,
+ 'price': 390000,
+ 'service_id': 63292955,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie, 47 m², Grodzisk Mazowiecki',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:05 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-ok-53m2-w-bardzo-dobrej-lokalizacji-ID4hM6S.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?page=2&limit=24&market=ALL&distanceRadius=0&priceMin=20&priceMax=400000&locations=%5Bcities_6-703%5D&by=LATEST&direction=DESC)
+2023-02-09 11:39:05 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-ok-53m2-w-bardzo-dobrej-lokalizacji-ID4hM6S.html>
+{'area': '53',
+ 'description': '<p>Przedstawiamy do sprzedaży mieszkanie dwupokojowe o pow. '
+                'ok. 53 m 2 z oddzielną kuchnią usytuowane na parterze, '
+                'zlokalizowane w Grodzisku Mazowieckim.</p><p><strong>Rozkład '
+                'mieszkania </strong><br/>-Salon z wyjściem na balkon '
+                '<br/>-Sypialnia<br/>-Widna kuchnia <br/>-Łazienka z wc '
+                '<br/>Do mieszkania przynależy piwnica </p><p>Świetna '
+                'lokalizacja , osiedle z dużą ilością zieleni , blisko do '
+                'szkół , przedszkoli , sklepów , przychodni , centrum '
+                'Grodziska i całej infrastruktury .</p><p>Serdecznie zapraszam '
+                'Na Prezentację <br/>POLECAM</p><p>Treść niniejszego '
+                'ogłoszenia nie stanowi oferty handlowej w rozumieniu Kodeksu '
+                'Cywilnego.</p><p></p>',
+ 'floor': None,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 2,
+ 'price': 400000,
+ 'service_id': 63341858,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie ok.53m2 w bardzo dobrej lokalizacji',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:06 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-35-m-grodzisk-mazowiecki-ID4hEQa.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?page=2&limit=24&market=ALL&distanceRadius=0&priceMin=20&priceMax=400000&locations=%5Bcities_6-703%5D&by=LATEST&direction=DESC)
+2023-02-09 11:39:06 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-35-m-grodzisk-mazowiecki-ID4hEQa.html>
+{'area': '35',
+ 'description': '<p>Do sprzedania przytulna, duża kawalerka w ścisłym centrum '
+                'Grodziska Maz.<br/>Mieszkanie jest świeżo po '
+                'remoncie.<br/>Zielone, ciche osiedle.<br/>Do stacji PKP około '
+                '7 minut na pieszo.<br/>Auta nie parkują pod '
+                'oknami.<br/>Zapraszam do obejrzenia. </p><p>Kontakt w sprawie '
+                'oferty:<br/>Marcin Przyłuski<br/>Domnet Nieruchomości<br/>608 '
+                '317 920 / 608 317 470</p><p></p><p>Powyższa oferta jest '
+                'wyłącznie informacją handlową i nie stanowi oferty w myśl '
+                'art.66§1 kodeksu cywilnego. </p><p>Oferta wysłana z programu '
+                'dla biur nieruchomości ASARI CRM ()</p><p></p>',
+ 'floor': 3,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 1,
+ 'price': 344000,
+ 'service_id': 63313914,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie, 35 m², Grodzisk Mazowiecki',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:06 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-w-centrum-grodziska-ID4hD9w.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?page=2&limit=24&market=ALL&distanceRadius=0&priceMin=20&priceMax=400000&locations=%5Bcities_6-703%5D&by=LATEST&direction=DESC)
+2023-02-09 11:39:06 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-w-centrum-grodziska-ID4hD9w.html>
+{'area': '44',
+ 'description': '<p>Uchroń swoje oszczędności przed inflacją. Inwestuj z nami '
+                'w nieruchomości.</p><p>Główne atuty nieruchomości: <br/>• '
+                'bliskość komunikacji miejskiej<br/>• bez wykończeń do '
+                'indywidualnej aranżacji<br/>• bliskość '
+                'szkoły/przedszkola</p><p>Nieruchomość złożona z: <br/>• salon '
+                '20 m.kw<br/>• łazienka 6 m.kw<br/>• pokój 12 m.kw<br/>• '
+                'kuchnia otwarta z oknem 6 m.kw</p><p> W skład nieruchomości '
+                'wchodzą też:<br/>• balkon<br/>• miejsce parkingowe</p><p>Typ '
+                'ogrzewania: ogrzewanie miejskie. </p><p>Typ własności: '
+                'własność spółdzielcza własnościowa z kw. </p><p>Do sprzedania '
+                'mieszkanie 44 m2 w centrum Grodziska Mazowieckiego. '
+                'Mieszkanie zlokalizowane jest na 3 piętrze w bloku bez windy. '
+                'Budynek został oddany do użytku w 2003 roku. W skład '
+                'mieszkania wchodzi:<br/>-pokój 12 m2, <br/>-łazienka 6 '
+                'm2<br/>-salon 20 m2, z ekspozycją południową, z widokiem na '
+                'park<br/>-otwarta widna kuchnia, także z południową '
+                'ekspozycją 6 m2<br/>- balkon ok. 4 m2<br/>Dodatkowo komórka '
+                'lokatorska. Terakota położona w kuchni i łazience, w salonie '
+                'oraz pokoju jest wykładzina.</p><p>Największym atutem '
+                'nieruchomości jest świetna lokalizacja,<br/>-1.5 km od szkoły '
+                'podstawowej nr 2 w Grodzisku <br/>-w promieniu 1 km znajdują '
+                'się liczne sklepy, markety, bary, przychodnia, park.<br/>- '
+                'przystanek autobusowy niemalże pod '
+                'oknem.</p><p></p><p>ZADZWOŃ: 604 709 797. Czekamy na telefon '
+                'od Ciebie. </p><p>---</p><p>Zakup lub najem nieruchomości '
+                'przez Agencję Metrohouse to:<br/>• największy wybór na '
+                'rynku<br/>• elastyczne podejście do Klienta<br/>• '
+                'bezpieczeństwo transakcji<br/>• możliwość skorzystania z '
+                'szerokiej oferty kredytów gotówkowych i hipotecznych<br/>• '
+                'doświadczeni doradcy</p><p><br/>Czy wiesz, że możemy '
+                'przygotować dla Ciebie prezentację on-line nieruchomości? '
+                'Skontaktuj się z naszym Agentem i zapytaj o '
+                'szczegóły.</p><p></p><p>Pomimo, iż Doradcy Metrohouse '
+                'przykładają szczególną staranność do rzetelnego prezentowania '
+                'informacji o nieruchomości, nie zawsze jest możliwa '
+                'weryfikacja wszystkich danych przekazanych od osób trzecich. '
+                'Niniejsza prezentacja oferty nie jest ofertą w rozumieniu '
+                'Kodeksu Cywilnego i ma charakter wyłącznie informacyjny.</p>',
+ 'floor': 3,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 2,
+ 'price': 366000,
+ 'service_id': 63307425,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie w centrum Grodziska.',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:06 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-30-m-grodzisk-mazowiecki-ID4gcEd.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?page=2&limit=24&market=ALL&distanceRadius=0&priceMin=20&priceMax=400000&locations=%5Bcities_6-703%5D&by=LATEST&direction=DESC)
+2023-02-09 11:39:06 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-30-m-grodzisk-mazowiecki-ID4gcEd.html>
+{'area': '30',
+ 'description': '<p>Do sprzedania 2 pokoje w centrum Grodziska, tuż przy '
+                'stawach Goliana.</p><p>Ul. Sienkiewicza 16. Wjazd od ul. '
+                'Kmicica. Okna od podwórka, mieszkanie ciche!</p><p>500 metrów '
+                'do WKD, około kilometra do PKP. Pełna infrastruktura '
+                'wokół!</p><p>Mieszkanie jest po pełnym remoncie, który '
+                'właśnie się zakończył.</p><p>Wymieniono instalację '
+                'elektryczną, wodną. Łazienka zrobiona zupełnie od nowa. Nowe '
+                'podłogi, ściany (gładzie), oświetlenie, etc.</p><p>Mieszkanie '
+                'na 1 pietrze przedwojennej kamienicy. Kamienica 2 piętrowa. '
+                'Mieszkanie jest bezczynszowe. Sąsiedzi życzliwi i '
+                'spokojni.</p><p>Mieszkanie około 30 m2. Znajdziesz w nim '
+                'wszystko co potrzeba. Są bowiem:<br/>- łazienka<br/>- pokój z '
+                'aneksem kuchennym<br/>- drugi pokój, w którym można '
+                'wyodrębnić sypialnię</p><p>Do tego dochodzi piwnica oraz '
+                'komórka lokatorska na podwórku.</p><p>Do plusów dodatnich '
+                'można by zaliczyć:<br/>- świetny wygląd;<br/>- nowa podłoga, '
+                'nadająca charakteru, w obu pokojach;<br/>- świeżo po '
+                'remoncie;<br/>- nikt w nim po tym remoncie nie '
+                'mieszkał;<br/>- lifting mieszkania przeprowadzony przez '
+                'profesjonalną projektantkę;<br/>- w mieszkaniu kilka '
+                'smaczków, np. w przedpokoju żółta lampa unfold pendant lamp '
+                'od Muuto Design;<br/>- wysoka funkcjonalność;<br/>- komórka '
+                'lokatorska i piwnica;<br/>- rewelacyjne położenie;<br/>- '
+                'dobra cena;<br/>- jest gotowe do zamieszkania;<br/>- ciche i '
+                'spokojne;<br/>- dobre sąsiedztwo;<br/>- w okolicy pełna '
+                'infrastruktura;<br/>- sklepy spożywcze (Biedronka) i '
+                'przemysłowe (Action) w odległości krótkiego spaceru;<br/>- '
+                'blisko i na piechotę można dojść do WKD czy PKP;<br/>- '
+                'mieszkanie jest bezczynszowe;<br/>- bardzo dobry dojazd do '
+                'Warszawy;<br/>- do ustalenia kwestia wyposażenia i '
+                'mebli;<br/>- mieszkanie wysokie;<br/>- mieszkanie dostępne od '
+                'już;<br/>- wydajne ogrzewanie na podczerwień;<br/>- w '
+                'kamienicy znajduje się instalacja gazowa.</p><p>UWAGA! '
+                'Własność określona jako udziały w nieruchomości, ze '
+                'wskazaniem w akcie notarialnym konkretnego mieszkania które '
+                'do tych udziałów należy. W związku z tym zakup możliwy '
+                'wyłącznie za gotówkę.</p><p>Serdecznie zapraszam do oglądania '
+                'i zakupu:</p><p>Maciej Przyłuski<br/>Domnet Nieruchomości '
+                '<br/>506241140, 608317470</p><p></p><p><br/>Powyższa oferta '
+                'jest wyłącznie informacją handlową i nie stanowi oferty w '
+                'myśl art.66§1 kodeksu cywilnego. </p><p>Oferta wysłana z '
+                'programu dla biur nieruchomości ASARI CRM ()</p><p></p>',
+ 'floor': 1,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 2,
+ 'price': 249000,
+ 'service_id': 62967213,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie, 30 m², Grodzisk Mazowiecki',
+ 'type_of_building': ['tenement'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:07 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-48-m-grodzisk-mazowiecki-ID4eZWI.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?page=2&limit=24&market=ALL&distanceRadius=0&priceMin=20&priceMax=400000&locations=%5Bcities_6-703%5D&by=LATEST&direction=DESC)
+2023-02-09 11:39:07 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-48-m-grodzisk-mazowiecki-ID4eZWI.html>
+{'area': '48',
+ 'description': '<p>Do sprzedania bardzo ładne 2 pokojowe mieszkanie (48m2) na '
+                'osiedlu Bairda w centrum Grodziska '
+                'Mazowieckiego.</p><p>Mieszkanie było 2 lata temu '
+                'odświeżone.</p><p>Mieszkanie w bdb stanie, w pełni '
+                'wyposażone, wraz z piwnicą oraz rowerownią. Mieszkanie '
+                'posiada osobną łazienkę oraz WC, oddzielną kuchnię, dużym '
+                'balkonem co jest atutem.</p><p>Zdjęcia przedstawiają '
+                'rzeczywisty wygląd mieszkania.</p><p>Mieszkanie w pełni '
+                'wykończone i umeblowane wraz z pełną zabudową (kuchnia, '
+                'szafy).</p><p>Piętro 3 bez windy. Bardzo ładny widok na '
+                'zieleń. Spokojne sąsiedztwo.</p><p>Mieszkanie słoneczne - '
+                'dużo okien.</p><p>Bardzo dobry punkt komunikacyjny. W '
+                'bliskiej okolicy szkoły, przedszkola, autobus, kolej, usługi, '
+                'szybki dojazd do Warszawy - autostrada a2.</p><p>Pod blokiem '
+                'znajduje się plac zabaw i parking dla mieszkańców tego bloku '
+                '- zawsze są wolne miejsca. Spokojna okolica.</p><p>W skład '
+                'mieszkania '
+                'wchodzą:</p><p>Salon<br/>Sypialnia<br/>Przedpokój<br/>Kuchnia<br/>Łazienka<br/>WC</p><p>Mieszkanie '
+                'ma Centralne Ogrzewanie, co oznacza niskie koszty.</p><p>Okna '
+                'plastikowe w bdb stanie.<br/>Blok wybudowany w 2002 roku, '
+                'ładna niezniszczona klatka schodowa, '
+                'domofon.</p><p>Dostępność mieszkania: od '
+                '01.03.2022.<br/>Mieszkanie jest w tym momencie wynajmowane - '
+                'mieszka w nim kobieta wraz z dzieckiem. Mieszkanie po osobie '
+                'niepalącej, czyste, zadbane.</p><p>Oczywiście można oglądać, '
+                'osoby zainteresowane mogą mieszkanie '
+                'zarezerwować.</p><p>Serdecznie zapraszam do oglądania i '
+                'zakupu:</p><p>Maciej Przyłuski <br/>Domnet '
+                'Nieruchomości<br/>506241140, 608317470</p><p></p><p>Powyższa '
+                'oferta jest wyłącznie informacją handlową i nie stanowi '
+                'oferty w myśl art.66§1 kodeksu cywilnego. </p><p>Oferta '
+                'wysłana z programu dla biur nieruchomości ASARI CRM '
+                '()</p><p></p>',
+ 'floor': 3,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 2,
+ 'price': 395000,
+ 'service_id': 62679998,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie, 48 m², Grodzisk Mazowiecki',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:07 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-gotowe-do-zamieszkania-w-b-dobrej-cenie-ID4gTG9.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?page=2&limit=24&market=ALL&distanceRadius=0&priceMin=20&priceMax=400000&locations=%5Bcities_6-703%5D&by=LATEST&direction=DESC)
+2023-02-09 11:39:07 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-gotowe-do-zamieszkania-w-b-dobrej-cenie-ID4gTG9.html>
+{'area': '29',
+ 'description': '<p>Przedstawiam do sprzedaży 2-pokojowe mieszkanie o '
+                'powierzchni ok. 30 m2 ,usytuowane w bardzo dobrej lokalizacji '
+                'Grodziska Mazowieckiego.<br/><strong>Mieszkanie po '
+                'remoncie.</strong> </p><p><strong>Rozkład Lokalu '
+                ':</strong><br/>-kuchnia otwarta z salonem ok.12,20 m '
+                '2<br/>-pokój/sypialnia ok.15.70 m 2<br/>-łazienka+ '
+                'wc,</p><p>Do mieszkania przynależy piwnica x2.<br/>Mieszkanie '
+                'znajduje się na pierwszym '
+                'piętrze.<br/>Światłowód.<br/>Niewątpliwym atutem '
+                'nieruchomości jest bliskość do szkoły , przedszkola , sklepów '
+                ', centrum , PKP i WKD.</p><p>Serdecznie zapraszamy na '
+                'prezentację. </p><p>Treść niniejszego ogłoszenia nie stanowi '
+                'oferty handlowej w rozumieniu Kodeksu Cywilnego.</p><p></p>',
+ 'floor': 1,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 2,
+ 'price': 249000,
+ 'service_id': 63132625,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie gotowe do zamieszkania w b.dobrej cenie',
+ 'type_of_building': ['tenement'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:07 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-z-potencjalem-w-dobrej-cenie-ID4i78H.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?page=2&limit=24&market=ALL&distanceRadius=0&priceMin=20&priceMax=400000&locations=%5Bcities_6-703%5D&by=LATEST&direction=DESC)
+2023-02-09 11:39:07 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-z-potencjalem-w-dobrej-cenie-ID4i78H.html>
+{'area': '53',
+ 'description': '<p>Przedstawiamy do sprzedaży mieszkanie dwupokojowe o pow. '
+                'ok. 53 m 2 z oddzielną kuchnią usytuowane na parterze, '
+                'zlokalizowane w Grodzisku Mazowieckim.</p><p><strong>Rozkład '
+                'mieszkania </strong><br/>-Salon z wyjściem na balkon '
+                '<br/>-Sypialnia<br/>-Widna kuchnia <br/>-Łazienka z wc '
+                '<br/>Do mieszkania przynależy piwnica </p><p>Świetna '
+                'lokalizacja , osiedle z dużą ilością zieleni , blisko do '
+                'szkół , przedszkoli , sklepów , przychodni , centrum '
+                'Grodziska i całej infrastruktury .</p><p>Serdecznie zapraszam '
+                'Na Prezentację <br/>POLECAM</p><p>Treść niniejszego '
+                'ogłoszenia nie stanowi oferty handlowej w rozumieniu Kodeksu '
+                'Cywilnego.</p><p></p>',
+ 'floor': None,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 2,
+ 'price': 400000,
+ 'service_id': 63422695,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie z potencjałem w dobrej cenie',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:07 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/niska-cena-winda-drugie-pietro-ID4jsen.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:39:07 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/niska-cena-winda-drugie-pietro-ID4jsen.html>
+{'area': '60',
+ 'description': '<p><strong>Jeżeli szukasz mieszkania w Grodzisku Mazowieckim '
+                'w dobrej lokalizacji i dobrej cenie to mamy coś co może '
+                'Państwa zainteresować.<br></strong><br>Mieszkanie '
+                'trzypokojowe na osiedlu Bairda usytuowane na 2 piętrze w '
+                'bloku z windą.<br><br>Nieruchomość znajduje się na drugim '
+                'pietrze i składa się z przestronnego salonu z wyjściem na '
+                'duży balkon, dwóch sypialni, przestronnego przedpokoju '
+                'zabudowanymi szafami, oddzielna kuchnia z oknem wraz z '
+                'meblami, oddzielna łazienka i wc.<br><br>Mieszkanie znajduje '
+                'się w doskonałym miejscu - blisko PKP, szkoła, sklepy.<br>Do '
+                'mieszkania przynależy piwnica.<br><br>Zapraszam do '
+                'kontaktu!<br><br>Prezentowane na stronie dane nie stanowią '
+                'oferty handlowej w rozumieniu przepisów Kodeksu '
+                'Cywilnego.<br><br>WARUNKI WSPÓŁPRACY - pracujemy wyłącznie po '
+                'podpisaniu umowy pośrednictwa.<br>Posiadamy odpowiednie '
+                'kwalifikacje do prowadzenia działalności zawiązanej z '
+                'pośrednictwem w obrocie nieruchomościami - licencja nr '
+                '25691.<br>Przedsiębiorca posiada ważne ubezpieczenie od '
+                'odpowiedzialności cywilnej.<br>Pomagamy w uzyskaniu kredytów '
+                'hipotecznych.</p>',
+ 'floor': 2,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 3,
+ 'price': 399000,
+ 'service_id': 63742099,
+ 'service_name': 'otodom',
+ 'title': 'Niska cena, winda, drugie piętro.',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:08 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-inwestycyjne-w-b-dobrej-cenie-ID4hGz5.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:39:08 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-inwestycyjne-w-b-dobrej-cenie-ID4hGz5.html>
+{'area': '35.4',
+ 'description': '<p>Idealne pod wynajem !! <br/>Przedstawiam do sprzedaży '
+                'atrakcyjne mieszkanie o pow. OK. 36 m2 - kawalerka w bardzo '
+                'atrakcyjnej lokalizacji Centrum Grodziska Maz '
+                '.</p><p>Mieszkanie składa się z jednego pokoju, kuchni i '
+                'łazienki z wc . <br/>Do mieszkania przynależy komórka '
+                'lokatorska.<br/>Mieszkanie świeżo po remoncie gotowe do '
+                'zamieszkania - urządzenie we własnym zakresie . W mieszkaniu '
+                'mamy dodatkowo w cenie kuchnię w zabudowie (kuchenka gazowa z '
+                'piekarnikiem, lodówka ) oraz meble w przedpokoju .<br/>Blok '
+                'administruje Wspólnota Mieszkaniowa , opłaty ok 300 zł/mc + '
+                'media ( gaz i prąd ) </p><p>Lokalizacja bliskiego Centrum '
+                'Grodziska Maz . Deptak w okolicy 500 m , pełna infrastruktura '
+                'handlowa , edukacyjna i rekreacyjna .</p><p>Zapraszam na '
+                'prezentację !</p><p>Treść niniejszego ogłoszenia nie stanowi '
+                'oferty handlowej w rozumieniu Kodeksu Cywilnego.</p><p></p>',
+ 'floor': 3,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 1,
+ 'price': 344000,
+ 'service_id': 63320543,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie inwestycyjne w b.dobrej cenie',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:08 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-28m-centrum-niski-czynsz-ID4k78c.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:39:08 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-28m-centrum-niski-czynsz-ID4k78c.html>
+{'area': '28',
+ 'description': '<p>Dzień dobry,</p>\r\n'
+                '<p>sprzedam\xa0<strong>bezpośrednio</strong>\xa0mieszkanie o '
+                'powierzchni <strong>28m2</strong>\xa0w centrum Grodziska '
+                'Mazowieckiego przy ul. Sienkiewicza - do mieszkania '
+                'przynależy również piwnica.</p>\r\n'
+                '<p></p>\r\n'
+                '<p>Mieszkanie znajduje się na\xa0<strong>parterze</strong>\xa0'
+                'w budynku 4 piętrowym z widokiem na zieleń.</p>\r\n'
+                '<p>Ogromnym atutem jest jego rozkład pomieszczeń, ponieważ '
+                'składa się z salonu, przedpokoju, łazienki i kuchni, która '
+                'jest oddzielona ścianą od salonu - ściana jest działowa '
+                'dzięki czemu istnieje możliwość jej rozebrania i stworzenia '
+                'dużej przestrzeni na salon z aneksem kuchennym lub '
+                'przeniesienie kuchni do salonu i w miejscu obecnej kuchni, '
+                'zrobienie sobie oddzielnego pokoju.</p>\r\n'
+                '<p></p>\r\n'
+                '<p>W zdjęciach ogłoszenia znajdziecie Państwo rzut mieszkania '
+                'z widocznym jego układem..</p>\r\n'
+                '<p></p>\r\n'
+                '<p>W mieszkaniu znajduje się ogrzewanie centralne.</p>\r\n'
+                '<p><strong>W przedpokoju znajduje się miejsce na szafę '
+                'wnękową.</strong></p>\r\n'
+                '<p></p>\r\n'
+                '<p>W mieszkaniu są okna na plastikowe dzięki czemu jest na '
+                'prawdę ciepło w okresie zimowym.</p>\r\n'
+                '<p><strong>Ogromnym atutem jest czynsz, który wynosi zaledwie '
+                '300zł\xa0</strong>oraz\xa0'
+                '<strong>lokalizacja.</strong></p>\r\n'
+                '<p>Mieszkanie znajduje się w ścisłym centrum Grodziska '
+                'Mazowieckiego.\xa0</p>\r\n'
+                '<p><strong>Do stacji WKD Radońska mamy zaledwie 3 minuty '
+                'pieszo, a do PKP około 5 minut.</strong></p>\r\n'
+                '<p><strong>W promieniu 300m mamy Galerie Handlową, sklepy, '
+                'piekarnie - wszystko co potrzeba :)</strong><strong>\xa0'
+                '</strong></p>\r\n'
+                '<p></p>\r\n'
+                '<p><strong>Mieszkanie jest przygotowane dokumentacyjnie do '
+                'założenia księgi wieczystej. Dla osób zainteresowanych - '
+                'można posiłkować się zakupem poprzez kredyt hipoteczny. Przy '
+                'akcie notarialnym zakładana jest księga '
+                'wieczysta.</strong></p>\r\n'
+                '<p></p>\r\n'
+                '<p>Jestem jedynym właścicielem mieszkania i sprzedaję '
+                'bezpośrednio :)</p>\r\n'
+                '<p></p>\r\n'
+                '<p>Osoby zainteresowane zapraszam do kontaktu telefonicznego '
+                'i do obejrzenia.</p>\r\n'
+                '<p>Tel 790 422 592.</p>',
+ 'floor': None,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 1,
+ 'price': 264000,
+ 'service_id': 63899320,
+ 'service_name': 'otodom',
+ 'title': '⭐Mieszkanie 28m²⭐ Centrum ⭐ Niski czynsz',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:08 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-28-m-grodzisk-mazowiecki-ID4jVCo.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:39:08 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-28-m-grodzisk-mazowiecki-ID4jVCo.html>
+{'area': '28',
+ 'description': '<p>Do sprzedania kawalerkę 28m2 w centrum Grodziska Maz. przy '
+                'ul. Sienkiewicza.</p><p>W okolicy około 200m Galeria Grodowa, '
+                'Centrum Kultury, deptak, przystanki autobusowe, apteki, '
+                'targowisko, basen, szpital.</p><p>Do stacji WKD i PKP około '
+                '500 m.</p><p>Mieszkanie gotowe do zamieszkania, umeblowane, '
+                'wyposażone w agd - lodówka, pralka, kuchnia gazowa z '
+                'piekarnikiem. <br/>W mieszkaniu jest sygnał WiF i '
+                'TV.<br/>Mieszkanie może  być również z przeznaczeniem pod '
+                'wynajem.<br/>Drzwi zewnętrzne Gerda.<br/>Okna PCV.<br/>Piony '
+                'PCV<br/>Nowa instalacja gazowa.</p><p>Zapraszam do '
+                'kontaktu:<br/>Marcin Przyłuski<br/>Domnet '
+                'Nieruchomości<br/>608 317 920 / 608 317 '
+                '470</p><p></p><p>Powyższa oferta jest wyłącznie informacją '
+                'handlową i nie stanowi oferty w myśl art.66§1 kodeksu '
+                'cywilnego. </p><p>Oferta wysłana z programu dla biur '
+                'nieruchomości ASARI CRM ()</p><p></p>',
+ 'floor': 1,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 1,
+ 'price': 327000,
+ 'service_id': 63858908,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie, 28 m², Grodzisk Mazowiecki',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:09 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/3-pokojowe-mieszkanie-w-grodzisku-mazowieckim-ID4jFm3.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:39:09 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/3-pokojowe-mieszkanie-w-grodzisku-mazowieckim-ID4jFm3.html>
+{'area': '47.5',
+ 'description': '<p>3-pokojowe mieszkanie w Grodzisku Mazowieckim przy ul. '
+                'Cichej 8. Nieruchomość usytuowana na 3 piętrze niskiego '
+                'bloku. <br/>Budynek po modernizacji: wymieniona elektryka, '
+                'odnowione klatki schodowe, nowy domofon i elewacja. '
+                '</p><p>Osiedle i budynek otoczone zadbaną zielenią.</p><p>Na '
+                'powierzchni 47,5m2 znajduje się:</p><p>- salon o pow. ok. '
+                '13,3 m2<br/>- gabinet o pow. ok. 11 m2<br/>- sypialnia o pow. '
+                'ok. 9,8 m2<br/>- widna, oddzielna kuchnia o pow. ok. 6,9 '
+                'm2<br/>- przedpokój o pow. ok. 3,7 m2<br/>- łazienka o pow. '
+                'ok. 2,8 m24</p><p>W łazience, kuchni i przedpokoju terakota. '
+                'W salonie i gabinecie nowe panele. W sypialni klepka '
+                'drewniana do renowacji.<br/>W łazience wanna, umywalka, wc. '
+                'Okna PCV.</p><p>Zalety lokalizacji:<br/>50 m - sklep '
+                'spożywczy,<br/>500 m - galeria handlowa<br/>500 m - '
+                'targowisko miejskie<br/>800 metrów do Parku Stawy '
+                'Goliana</p><p>Status mieszkania: spółdzielcze własnościowe, '
+                'założona Księga Wieczysta. Grunt uregulowany.<br/>Możliwość '
+                'zakupu na kredyt.<br/>Budynkiem zarządza Grodziska '
+                'Spółdzielnia Mieszkaniowa.</p><p>Jeżeli Twój zakup wiąże się '
+                'ze sprzedażą innej nieruchomości daj znać! Bezpiecznie '
+                'przeprowadzę Cię przez cały proces.</p><p>Gorąco '
+                'polecam!<br/>Maciej Kordala<br/>+48 730 900 '
+                '887</p><p></p><p>Powyższa oferta ma charakter informacyjny i '
+                'nie jest ofertą w rozumieniu art. 66 par. 1 Kodeksu '
+                'cywilnego. Opis nieruchomości został sporządzony na podstawie '
+                'informacji uzyskanych od właściciela i może być '
+                'aktualizowany. Skontaktuj się z nami w celu zapoznania się ze '
+                'szczegółami oferty.</p><p>Właścicielem ogłoszenia wraz z jego '
+                'elementami jest Freedom Nieruchomości Sp. z o.o. lub podmioty '
+                'współpracujące. Wszelkie prawa zastrzeżone. Kopiowanie, '
+                'rozpowszechnianie oraz korzystanie z niniejszych materiałów w '
+                'jakikolwiek inny sposób wykraczający poza dozwolony użytek '
+                'określony przepisami ustawy z 4 lutego 1994 r. o prawie '
+                'autorskim i prawach pokrewnych (Dz. U. 1994, nr 24 poz. 83 z '
+                'późn. zm.) bez pisemnej zgody Freedom Nieruchomości Sp. z '
+                'o.o. lub podmiotów współpracujących jest zabronione i może '
+                'stanowić podstawę odpowiedzialności cywilnej oraz '
+                'karnej.</p><p>Ponadto niniejsze materiały stanowią tajemnicę '
+                'przedsiębiorstwa Freedom Nieruchomości Sp. z o.o. lub '
+                'podmiotów współpracujących w rozumieniu ustawy z dnia 16 '
+                'kwietnia 1993 r. o zwalczaniu nieuczciwej konkurencji (Dz. U. '
+                'z 2003 r., Nr 153, poz. 1503 z późn. zm.). Niniejsze '
+                'ogłoszenie nie stanowi oferty w rozumieniu Kodeksu Cywilnego, '
+                'lecz ma charakter informacyjny.</p><p>"Właścicielem '
+                'ogłoszenia wraz z jego elementami jest Freedom Nieruchomości '
+                'Sp. z o.o. lub podmioty współpracujące. Wszelkie prawa '
+                'zastrzeżone. Kopiowanie, rozpowszechnianie oraz korzystanie z '
+                'niniejszych materiałów w jakikolwiek inny sposób wykraczający '
+                'poza dozwolony użytek określony przepisami ustawy z 4 lutego '
+                '1994 r. o prawie autorskim i prawach pokrewnych (Dz. U. 1994, '
+                'nr 24 poz. 83 z późn. zm.) bez pisemnej zgody Freedom '
+                'Nieruchomości Sp. z o.o. lub podmiotów współpracujących jest '
+                'zabronione i może stanowić podstawę odpowiedzialności '
+                'cywilnej oraz karnej.</p><p>Ponadto niniejsze materiały '
+                'stanowią tajemnicę przedsiębiorstwa Freedom Nieruchomości Sp. '
+                'z o.o. lub podmiotów współpracujących w rozumieniu ustawy z '
+                'dnia 16 kwietnia 1993 r. o zwalczaniu nieuczciwej konkurencji '
+                '(Dz. U. z 2003 r., Nr 153, poz. 1503 z późn. zm.). Niniejsze '
+                'ogłoszenie nie stanowi oferty w rozumieniu Kodeksu Cywilnego, '
+                'lecz ma charakter informacyjny."</p>',
+ 'floor': 3,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 3,
+ 'price': 385000,
+ 'service_id': 63792547,
+ 'service_name': 'otodom',
+ 'title': '3-pokojowe mieszkanie w Grodzisku Mazowieckim',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:09 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-36m2-w-centrum-grodziska-maz-polecam-ID4kcsx.html> from <GET https://www.otodom.pl/63919801/>
+2023-02-09 11:39:09 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63866479/> from <GET https://www.otodom.pl/63866479>
+2023-02-09 11:39:09 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63873475/> from <GET https://www.otodom.pl/63873475>
+2023-02-09 11:39:10 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-36m2-w-centrum-grodziska-maz-polecam-ID4kcsx.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:39:10 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-36m2-w-centrum-grodziska-maz-polecam-ID4kcsx.html>
+{'area': '36',
+ 'description': '<p><br/>W naszej sprzedaży mamy mieszkanie 36 m w centrum '
+                'Grodziska Maz.</p><p>2 pokoje, kuchnia, łazienka, 3 piętro, '
+                'winda, duży balkon.</p><p>Mieszkanie po kapitalnym '
+                'remoncie(elektryka, okna, piony, podłogi, ściany '
+                'itd.).</p><p>Świetna lokalizacja, sklepy, szkoła, '
+                'kości&oacute;ł, kilka market&oacute;w - wszystko praktycznie '
+                'na miejscu.</p><p>Do mieszkania przynależy miejsce '
+                'parkingowe, jak i kom&oacute;rka lokatorska w '
+                'piwnicy.</p><p>Mieszkanie jest umeblowane, część wyposażenia '
+                'może zostać.</p><p>* Szkoła podstawowa 400m</p><p>* Park '
+                'Skarbk&oacute;w 700 m</p><p>* Dworzec PKP 1200 '
+                'm</p><p>Zapraszam do kontaktu.<br/>::LINK DO STRONY '
+                '<br/></p><p> </p>',
+ 'floor': 3,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 2,
+ 'price': 359000,
+ 'service_id': 63919801,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie 36m2 w Centrum Grodziska maz.Polecam',
+ 'type_of_building': None,
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:10 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/mieszkanie-45-80-m-grodzisk-mazowiecki-ID4jYAw.html> from <GET https://www.otodom.pl/63866479/>
+2023-02-09 11:39:10 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/widne-mieszkanie-w-grodzisku-ID4k0pl.html> from <GET https://www.otodom.pl/63873475/>
+2023-02-09 11:39:11 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/mieszkanie-45-80-m-grodzisk-mazowiecki-ID4jYAw.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:39:11 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/mieszkanie-45-80-m-grodzisk-mazowiecki-ID4jYAw.html>
+{'area': '45.8',
+ 'description': '<p>Do sprzedania mieszkanie trzypokojowe rozkładowe z '
+                'balkonem o powierzchni 45,8 m2. Do stacji PKP około 12 minut, '
+                'do WKD około 5 minut.<br/>W bliskiej okolicy znajdują się '
+                'szkoła, przedszkole, sklepy, targowisko, basen, korty '
+                'tenisowe. Do centrum miasta 5 minut.<br/>Remont mieszkania '
+                'był przeprowadzony 1o lat temu:<br/>- wymiana elektryki w '
+                'miedzi<br/>- wymiana instalacji co<br/>- wymiana pionów '
+                'wodno-kan.<br/>- drzwi zewn. antywłamaniowe (Gerda)<br/>- '
+                'drzwi wewn. wraz z ościeżnicami są drewniane</p><p>W oknie '
+                'balkonowym zamontowana jest zewnętrzna roleta '
+                'antywłamaniowa.</p><p>Kuchnia:<br/>- zabudowa kuchenna<br/>- '
+                'miejsce na pralkę do zabudowy (front na pralkę jest) + '
+                'dodatkowy blat wysuwany nad pralką<br/>- wyposażenie: płyta '
+                'gazowa, zmywarka, piekarnik, lodówka</p><p>Pokój duży:<br/>- '
+                'z balkonem<br/>- możliwość pozostawienia zabudowy '
+                'meblowej</p><p>Przedpokój:<br/>- szafa w '
+                'zabudowie</p><p>Sypialnia większa:<br/>- szafa w zabudowie z '
+                'miejscem na odkurzacz, żelazko itp.</p><p>Sypialnia '
+                'mała:<br/>- szafa w zabudowie z półkami</p><p>Łazienka<br/>- '
+                'po wymianie pionów wod-kan</p><p>Czynsz '
+                '550pln.</p><p>Mieszkanie w centrum miasta, gotowe do '
+                'wprowadzenia.</p><p>Pełna własność z Księgą '
+                'Wieczystą.</p><p>Do mieszkania przynależy piwnica. '
+                '</p><p>Zapraszam do kontaktu i oglądania:<br/>Marcin '
+                'Przyłuski<br/>Domnet Nieruchomości<br/>608 317 920 / 608 317 '
+                '470</p><p></p><p>Powyższa oferta jest wyłącznie informacją '
+                'handlową i nie stanowi oferty w myśl art.66§1 kodeksu '
+                'cywilnego. </p><p>Oferta wysłana z programu dla biur '
+                'nieruchomości ASARI CRM ()</p><p></p>',
+ 'floor': 2,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 3,
+ 'price': 399000,
+ 'service_id': 63866479,
+ 'service_name': 'otodom',
+ 'title': 'Mieszkanie, 45,80 m², Grodzisk Mazowiecki',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:11 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/widne-mieszkanie-w-grodzisku-ID4k0pl.html> (referer: https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&priceMin=20&priceMax=400000&viewType=listing&lang=pl&searchingCriteria=sprzedaz,mieszkanie,cala-polska&limit=24&page=1)
+2023-02-09 11:39:11 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/widne-mieszkanie-w-grodzisku-ID4k0pl.html>
+{'area': '36.2',
+ 'description': '<p>Przedmiotem sprzedaży jest widne mieszkanie o powierzchni '
+                '36,2m2 zlokalizowane w Grodzisku Mazowieckim.</p><p>W skład, '
+                'którego wchodzą:<br/>-sypialnia<br/>-salon z wyjściem na '
+                'balkon<br/>-kuchnia<br/>-łazienka<br/>-przedpokój.</p><p>Znajduje '
+                'się na 3 piętrze w bloku z windą.</p><p>Do mieszkania '
+                'dodatkowo przynależy miejsce parkingowe!</p><p>Nieruchomość '
+                'znajduje się:<br/>-1200m od PKP<br/>-1000m od WKD<br/>-700m '
+                'od Parku Skarbków<br/>-1500m od galerii<br/>-blisko stacje, '
+                'szkoły, przedszkola.</p><p>Idealne jako inwestycja pod '
+                'wynajem :)</p><p>Zapraszam na prezentację! '
+                ':)</p><p></p><p><br/>Lokalizacja: Grodzisk '
+                'Mazowiecki<br/><strong>Cena: 364\xa0000 zł </strong> ( 10\xa0'
+                '055 zł/m2 )</p><p><br/>Powierzchnia: 36,2 m2, <br/>Piętro: 3 '
+                '/ 6<br/>Rok budowy: 1982, <br/>Budynek: blok, '
+                '</p><p><strong>POKOJE: </strong><br/>Liczba pokoi: 2, '
+                '<br/>Pokój 1: <br/>Pokój 2: </p><p></p><p><strong>ŁAZIENKA: '
+                '</strong><br/>Liczba łazienek: 1, </p><p>Czynsz od '
+                'administracji: 670 zł, <br/>stan lokalu: bardzo dobry, '
+                'głośność: ciche, ochrona: os. niezamknięte, parking: jest, '
+                'domofon, winda, balkonmateriał: płyta, ogrzewanie: centralne, '
+                '</p><p></p><p><em>Więcej informacji oraz możliwość umówienia '
+                'spotkania: </em></p><p>Agent prowadzący: <br/>Agata '
+                'Łomińska<br/>tel.: 510225567</p><p></p><p><br/>Godziny '
+                'otwarcia: pon. - pt.: 9:00 - 19:00; sob.: 9:00 - '
+                '14:00</p><p><em>--- Zapraszamy ---</em></p>',
+ 'floor': 3,
+ 'location': 'grodzisk-mazowiecki, powiat-grodziski-mazowieckie, mazowieckie',
+ 'number_of_rooms': 2,
+ 'price': 364000,
+ 'service_id': 63873475,
+ 'service_name': 'otodom',
+ 'title': 'Widne mieszkanie w Grodzisku!',
+ 'type_of_building': ['block'],
+ 'type_of_property': 'mieszkanie'}
+2023-02-09 11:39:11 [scrapy.core.engine] INFO: Closing spider (finished)
+2023-02-09 11:39:11 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 84182,
+ 'downloader/request_count': 106,
+ 'downloader/request_method_count/GET': 106,
+ 'downloader/response_bytes': 1608168,
+ 'downloader/response_count': 106,
+ 'downloader/response_status_count/200': 36,
+ 'downloader/response_status_count/301': 70,
+ 'dupefilter/filtered': 6,
+ 'elapsed_time_seconds': 31.743347,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2023, 2, 9, 11, 39, 11, 324005),
+ 'httpcompression/response_bytes': 7979879,
+ 'httpcompression/response_count': 36,
+ 'item_scraped_count': 34,
+ 'log_count/DEBUG': 144,
+ 'log_count/INFO': 10,
+ 'log_count/WARNING': 1,
+ 'memusage/max': 78761984,
+ 'memusage/startup': 78761984,
+ 'request_depth_max': 2,
+ 'response_received_count': 36,
+ 'scheduler/dequeued': 106,
+ 'scheduler/dequeued/memory': 106,
+ 'scheduler/enqueued': 106,
+ 'scheduler/enqueued/memory': 106,
+ 'start_time': datetime.datetime(2023, 2, 9, 11, 38, 39, 580658)}
+2023-02-09 11:39:11 [scrapy.core.engine] INFO: Spider closed (finished)

@@ -1,0 +1,7 @@
+<h2>{% if scrape_status %}Scrape status: {{scrape_status}}{% else %}Perform scrapping{% endif %}</h2>
+{% if scrape_job_id %}<a href="{% url 'get_scrape' scrape_job_id %}">scrape url</a>{% endif %}
+{% if properties %}
+{% for property in properties %}
+<p>{{property}}</p>
+{% endfor %}
+{% endif %}

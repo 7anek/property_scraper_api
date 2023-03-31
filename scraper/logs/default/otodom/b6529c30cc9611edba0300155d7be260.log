@@ -1,0 +1,123 @@
+2023-03-27 11:58:41 [scrapy.utils.log] INFO: Scrapy 2.8.0 started (bot: scraper)
+2023-03-27 11:58:41 [scrapy.utils.log] INFO: Versions: lxml 4.9.2.0, libxml2 2.9.14, cssselect 1.2.0, parsel 1.7.0, w3lib 2.1.1, Twisted 22.10.0, Python 3.10.6 (main, Nov 14 2022, 16:10:14) [GCC 11.3.0], pyOpenSSL 23.0.0 (OpenSSL 3.0.7 1 Nov 2022), cryptography 39.0.0, Platform Linux-5.15.90.1-microsoft-standard-WSL2-x86_64-with-glibc2.35
+2023-03-27 11:58:41 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'scraper',
+ 'DOWNLOAD_DELAY': 0.25,
+ 'FEED_EXPORT_ENCODING': 'utf-8',
+ 'LOG_FILE': 'logs/default/otodom/b6529c30cc9611edba0300155d7be260.log',
+ 'NEWSPIDER_MODULE': 'scraper.spiders',
+ 'SPIDER_MODULES': ['scraper.spiders'],
+ 'TWISTED_REACTOR': 'twisted.internet.asyncioreactor.AsyncioSelectorReactor',
+ 'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) '
+               'Gecko/20100101 Firefox/109.0'}
+2023-03-27 11:58:41 [py.warnings] WARNING: /home/janek/python/experiments/venv/lib/python3.10/site-packages/scrapy/utils/request.py:232: ScrapyDeprecationWarning: '2.6' is a deprecated value for the 'REQUEST_FINGERPRINTER_IMPLEMENTATION' setting.
+
+It is also the default value. In other words, it is normal to get this warning if you have not defined a value for the 'REQUEST_FINGERPRINTER_IMPLEMENTATION' setting. This is so for backward compatibility reasons, but it will change in a future version of Scrapy.
+
+See the documentation of the 'REQUEST_FINGERPRINTER_IMPLEMENTATION' setting for information on how to handle this deprecation.
+  return cls(crawler)
+
+2023-03-27 11:58:41 [asyncio] DEBUG: Using selector: EpollSelector
+2023-03-27 11:58:41 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.asyncioreactor.AsyncioSelectorReactor
+2023-03-27 11:58:41 [scrapy.utils.log] DEBUG: Using asyncio event loop: asyncio.unix_events._UnixSelectorEventLoop
+2023-03-27 11:58:41 [scrapy.extensions.telnet] INFO: Telnet Password: da7c88585f2cdeac
+2023-03-27 11:58:41 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.logstats.LogStats']
+2023-03-27 11:58:41 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2023-03-27 11:58:41 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2023-03-27 11:58:41 [scrapy.middleware] INFO: Enabled item pipelines:
+['scraper.pipelines.ScraperPipeline']
+2023-03-27 11:58:41 [scrapy.core.engine] INFO: Spider opened
+2023-03-27 11:58:41 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2023-03-27 11:58:41 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2023-03-27 11:58:42 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferty/sprzedaz/dom/jaktorow?distanceRadius=0&market=ALL&viewType=listing&lang=pl&searchingCriteria=sprzedaz&priceMax=600000&page=1&limit=24> from <GET http://www.otodom.pl/pl/oferty/sprzedaz/dom/jaktorow?distanceRadius=0&market=ALL&viewType=listing&lang=pl&searchingCriteria=sprzedaz&priceMax=600000&page=1&limit=24>
+2023-03-27 11:58:42 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferty/sprzedaz/dom/jaktorow?distanceRadius=0&market=ALL&viewType=listing&lang=pl&searchingCriteria=sprzedaz&priceMax=600000&page=1&limit=24> (referer: None)
+2023-03-27 11:58:42 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63812066> from <GET http://www.otodom.pl/63812066>
+2023-03-27 11:58:43 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63725292> from <GET http://www.otodom.pl/63725292>
+2023-03-27 11:58:43 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63704733> from <GET http://www.otodom.pl/63704733>
+2023-03-27 11:58:43 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63942116> from <GET http://www.otodom.pl/63942116>
+2023-03-27 11:58:44 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/64074474> from <GET http://www.otodom.pl/64074474>
+2023-03-27 11:58:44 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63961168> from <GET http://www.otodom.pl/63961168>
+2023-03-27 11:58:44 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/64051834> from <GET http://www.otodom.pl/64051834>
+2023-03-27 11:58:45 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63812066/> from <GET https://www.otodom.pl/63812066>
+2023-03-27 11:58:45 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63725292/> from <GET https://www.otodom.pl/63725292>
+2023-03-27 11:58:45 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63704733/> from <GET https://www.otodom.pl/63704733>
+2023-03-27 11:58:46 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63942116/> from <GET https://www.otodom.pl/63942116>
+2023-03-27 11:58:46 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/64074474/> from <GET https://www.otodom.pl/64074474>
+2023-03-27 11:58:46 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/63961168/> from <GET https://www.otodom.pl/63961168>
+2023-03-27 11:58:47 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/64051834/> from <GET https://www.otodom.pl/64051834>
+2023-03-27 11:58:47 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/dom-ok-60m2-w-bardzoladbym-rejonie-ID4jKqS.html> from <GET https://www.otodom.pl/63812066/>
+2023-03-27 11:58:47 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/nowy-dom-ok-121m2-wolnostojacy-z-piekna-dzialka-ID4jnRi.html> from <GET https://www.otodom.pl/63725292/>
+2023-03-27 11:58:48 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/dom-parterowy-ok-90m2-duz-przestronna-dzialka-ID4jiwH.html> from <GET https://www.otodom.pl/63704733/>
+2023-03-27 11:58:48 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/dom-z-potencjalem-w-jaktorowie-ID4kigs.html> from <GET https://www.otodom.pl/63942116/>
+2023-03-27 11:58:48 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/dom-parterowy-127m2-na-dzialce-1000m2-chylice-ID4kQHg.html> from <GET https://www.otodom.pl/64074474/>
+2023-03-27 11:58:49 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/dom-z-potencjalem-atrakcyjna-cena-ID4kndK.html> from <GET https://www.otodom.pl/63961168/>
+2023-03-27 11:58:49 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to <GET https://www.otodom.pl/pl/oferta/dom-ok-60m2-w-bardzoladbym-rejonie-ID4kKO6.html> from <GET https://www.otodom.pl/64051834/>
+2023-03-27 11:58:49 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/dom-ok-60m2-w-bardzoladbym-rejonie-ID4jKqS.html> (referer: None)
+2023-03-27 11:58:50 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/dom-ok-60m2-w-bardzoladbym-rejonie-ID4jKqS.html>
+{'scrapyd_job_id': 'b6529c30cc9611edba0300155d7be260', 'service_id': 63812066, 'service_name': 'otodom', 'title': 'Dom ok.60m2. w BardzoŁadbym Rejonie.', 'price': 358900, 'location': 'jaktorow, powiat-grodziski-mazowieckie, mazowieckie', 'description': '<p>Przedstawiamy do sprzedaży kompaktowy dom wolnostojący, parterowy o pow. ok. 58 m2 - <strong>STAN SUROWY ZAMKNIETY</strong> zawiera : okna, drzwi, wylewki, dach pokryty papą , wyprowadzone instalacje, częściowo wyrównany teren , ogrodzenie panelowe. </p><p><strong>Zdjęcia przedstawiają poglądowa wizualizację prosimy o wyrozumiałość w ich doborze .</strong><br/>Dom posadowiony na ładnej działce o powierzchni ok. 660m2.</p><p><strong>Rozkład domu jest <br/>następujący:</strong></p><p>- wiatrołap ok 2,80 m2<br/>- salon z aneksem kuchennym ok.31,15 m2<br/>- łazienka ok. 2,85 m2<br/>- poddasze do wygospodarowania na sypialnie w formie antresoli pow. ok 19,60 m2</p><p>Media:<br/>prąd , woda, szambo, gaz w drodze ( planowane przyłącze do gazociągu ) </p><p>Dom usytuowany w bliskiej okolicy Miasta Jaktorów . Pełna infrastruktura miejska , szkoła, przedszkole , stacja PKP w promieniu do 3 km . Okolica nowej zabudowy jednorodzinnej , ciche ustronne miejsce .</p><p>Możliwość doprowadzenia domu do stanu deweloperskiego za dodatkową opłatą - szacowany koszt wynosi ok. 50 000 zł. </p><p>Zapraszamy Serdecznie do kontaktu , oraz na prezentację.</p><p>Treść niniejszego ogłoszenia nie stanowi oferty handlowej w rozumieniu Kodeksu Cywilnego.</p><p></p>', 'area': '57', 'floor': None, 'number_of_rooms': 2, 'type_of_property': 'dom', 'type_of_building': ['detached'], 'create_date': datetime.datetime(2023, 1, 2, 16, 16, 14, tzinfo=datetime.timezone(datetime.timedelta(seconds=3600))), 'modify_date': datetime.datetime(2023, 3, 15, 21, 14, 44, tzinfo=datetime.timezone(datetime.timedelta(seconds=3600)))}
+2023-03-27 11:58:50 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/nowy-dom-ok-121m2-wolnostojacy-z-piekna-dzialka-ID4jnRi.html> (referer: None)
+2023-03-27 11:58:50 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/nowy-dom-ok-121m2-wolnostojacy-z-piekna-dzialka-ID4jnRi.html>
+{'scrapyd_job_id': 'b6529c30cc9611edba0300155d7be260', 'service_id': 63725292, 'service_name': 'otodom', 'title': 'Nowy Dom ok. 121m2.Wolnostojący z Piękną działką', 'price': 574900, 'location': 'jaktorow, powiat-grodziski-mazowieckie, mazowieckie', 'description': '<p>Przedstawiam do sprzedaży bardzo ładny Dom wolnostojący Parterowy, w stanie Plus - jako Surowy zamkniętym z dodatkowy wykonanymi pracami deweloperskimi tj. Zrobiona elewacja, ogrzewanie podłogowe, wykonana instalacja elektryczna, oraz studnia wykopana.<br/>Nieruchomość o powierzchni 121 m2, usytuowany na dużej działce o powierzchni ok. 1600m2. </p><p><strong>Rozkład Domu jest <br/>następujący :</strong><br/><strong>Parter :</strong><br/>-Salon<br/>-Kuchnia<br/>-Łazienka<br/>-Sypialnia<br/>-Sypialnia<br/>-Sypialnia<br/>-Kotłownia/pralnia</p><p><strong>Dodatkowo poddasze do zagospodarowania na dodatkowy pokój.</strong></p><p>Atutem nieruchomości jest piękna działka , oraz spokojna, zielona okolica zabudowy jednorodzinnej i sąsiedztwa okolicznych lasów.<br/>Do centrum Jaktorowa ok. 6km, a tam wszelka infrastruktura handlowo- usługowa.<br/>Serdecznie Zapraszam na Prezentację</p><p>Treść niniejszego ogłoszenia nie stanowi oferty handlowej w rozumieniu Kodeksu Cywilnego.</p><p></p>', 'area': '121.2', 'floor': None, 'number_of_rooms': 4, 'type_of_property': 'dom', 'type_of_building': ['detached'], 'create_date': datetime.datetime(2022, 11, 25, 15, 30, 18, tzinfo=datetime.timezone(datetime.timedelta(seconds=3600))), 'modify_date': datetime.datetime(2023, 3, 25, 16, 30, 39, tzinfo=datetime.timezone(datetime.timedelta(seconds=3600)))}
+2023-03-27 11:58:50 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/dom-parterowy-ok-90m2-duz-przestronna-dzialka-ID4jiwH.html> (referer: None)
+2023-03-27 11:58:50 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/dom-parterowy-ok-90m2-duz-przestronna-dzialka-ID4jiwH.html>
+{'scrapyd_job_id': 'b6529c30cc9611edba0300155d7be260', 'service_id': 63704733, 'service_name': 'otodom', 'title': 'Dom Parterowy ok. 90m2. Duż Przestronna Działka.', 'price': 520000, 'location': 'jaktorow, powiat-grodziski-mazowieckie, mazowieckie', 'description': '<p><strong>Dom Parterowy ok. 90m2. Duż Przestronna Działka.</strong> <br/>Polecamy do sprzedaży Dom parterowy o powierzchni ok.90m2w Jaktorowie.<br/>Dom wymaga drobnego remontu i zostało kilka prac na zewnątrz budynku.</p><p><strong>W skład nieruchomości </strong><br/><strong>wchodzą:</strong><br/>- kuchnia<br/>- 4 pokoje<br/>- łazienka<br/>- hool</p><p>Działka o powierzchni ok. 4.000 m2 do własnej aranżacji. <br/>Nieruchomość znajduję się <br/>w niedalekiej odległości - ok. 1km sklepy, szkoła, komunikacja.<br/><strong>Zapraszamy Serdecznie na prezentację. </strong><br/>Polecamy.</p><p>Treść niniejszego ogłoszenia nie stanowi oferty handlowej w rozumieniu Kodeksu Cywilnego.</p><p></p>', 'area': '90', 'floor': None, 'number_of_rooms': 4, 'type_of_property': 'dom', 'type_of_building': ['detached'], 'create_date': datetime.datetime(2022, 11, 18, 13, 30, 1, tzinfo=datetime.timezone(datetime.timedelta(seconds=3600))), 'modify_date': datetime.datetime(2023, 3, 18, 14, 31, 24, tzinfo=datetime.timezone(datetime.timedelta(seconds=3600)))}
+2023-03-27 11:58:50 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/dom-z-potencjalem-w-jaktorowie-ID4kigs.html> (referer: None)
+2023-03-27 11:58:51 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/dom-z-potencjalem-w-jaktorowie-ID4kigs.html>
+{'scrapyd_job_id': 'b6529c30cc9611edba0300155d7be260', 'service_id': 63942116, 'service_name': 'otodom', 'title': 'Dom z potencjałem w Jaktorowie', 'price': 550000, 'location': 'jaktorow, powiat-grodziski-mazowieckie, mazowieckie', 'description': '<p>Przedstawiam do sprzedaży dom o powierzchni ok.70 m 2 z działką ok.570 m2 usytuowany w cichej i spokojnej części Jaktorowa</p><p><strong>Rozkład domu: </strong><br/>- 3 oddzielne pokoje<br/>- kuchnia <br/>- łazienka</p><p>W budynku znajduje się również duża piwnica a w niej dwa piece: gazowy oraz węglowy. <br/>Jest również duży strych, który można zaadaptować jako powierzchnię mieszkalną. </p><p>Nieruchomość z roku ok. 1970 murowany z cegły - podwójny mur i ocieplony w środku styropianem. Budynek jest czysty i zadbany. Wszystko sprawne, dzięki czemu można w nim zamieszkać. <br/>Dom doskonale nadaje się również jako inwestycja. </p><p>Media miejskie: kanalizacja, gaz, prąd, woda ze studni. </p><p>Działka bardzo zadbana zi drzewami i krzewami na której znajduje się murowany budynek gospodarczy z garażem 1- stanowiskowym. </p><p>W odległości około 500m znajduje się PKP oraz infrastruktura handlowa a w odległości ok. 1km znajdziemy szkołę. <br/>Serdecznie zapraszam na prezentację</p><p>Treść niniejszego ogłoszenia nie stanowi oferty handlowej w rozumieniu Kodeksu Cywilnego.</p><p></p>', 'area': '70', 'floor': None, 'number_of_rooms': 3, 'type_of_property': 'dom', 'type_of_building': ['detached'], 'create_date': datetime.datetime(2023, 2, 13, 16, 25, 38, tzinfo=datetime.timezone(datetime.timedelta(seconds=3600))), 'modify_date': datetime.datetime(2023, 3, 22, 9, 55, 43, tzinfo=datetime.timezone(datetime.timedelta(seconds=3600)))}
+2023-03-27 11:58:51 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/dom-parterowy-127m2-na-dzialce-1000m2-chylice-ID4kQHg.html> (referer: None)
+2023-03-27 11:58:51 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/dom-parterowy-127m2-na-dzialce-1000m2-chylice-ID4kQHg.html>
+{'scrapyd_job_id': 'b6529c30cc9611edba0300155d7be260', 'service_id': 64074474, 'service_name': 'otodom', 'title': 'Dom parterowy 127m2 na działce 1000m2 Chylice', 'price': 590000, 'location': 'jaktorow, powiat-grodziski-mazowieckie, mazowieckie', 'description': '<p>Dzień dobry,</p>\r\n<p></p>\r\n<p>Sprzedam dom wolnostojący w stanie surowym zamkniętym 127 m2, wykonany wg projektu Dom w\xa0renklodach 12.</p>\r\n<p>Nieruchomość na urokliwej działce 1000 m2. Idealne miejsce dla osób ceniących sobie spokój i ciszę ( w sąsiedztwie zabudowa domów jednorodzinnych). Świetna lokalizacja w pobliżu znajdują się: stacja PKP, szkoła, przychodnia, sklepy, kościół. Dobre połączenie z autostradą A2 i trasą S8.</p>\r\n<p>Dom został wykonany z materiałów najwyższej jakości renomowanych firm:</p>\r\n<p>-Ławy i konstrukcje żelbetowe (wieńce,strop) wylewane betonem klasy B25 z firmy Budokrusz</p>\r\n<p>-Bloczki z betonu komórkowego firmy Solbet klasa 500</p>\r\n<p>-Solidna wieźba dachowa deskowana i opapowana</p>\r\n<p>-Blachodachówka z firmy Budmat (venecja kolor czarny)</p>\r\n<p>-Okna plastikowe (kolor antracyt)</p>\r\n<p>Ogrodzenie panelowe w kolorze czarnym.</p>\r\n<p>Bezpośrednio przy działce media (prąd,gaz,wodociąg)</p>\r\n<p>Sprzedaż bezpośrednia. Nieruchomość bez obciążeń. Cena do negocjacji.</p>\r\n<p>Zapraszam do oglądania i kontaktu.</p>', 'area': '127', 'floor': None, 'number_of_rooms': 4, 'type_of_property': 'dom', 'type_of_building': ['detached'], 'create_date': datetime.datetime(2023, 3, 26, 17, 20, 34, tzinfo=datetime.timezone(datetime.timedelta(seconds=7200))), 'modify_date': datetime.datetime(2023, 3, 27, 8, 30, 19, tzinfo=datetime.timezone(datetime.timedelta(seconds=7200)))}
+2023-03-27 11:58:51 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/dom-z-potencjalem-atrakcyjna-cena-ID4kndK.html> (referer: None)
+2023-03-27 11:58:51 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/dom-z-potencjalem-atrakcyjna-cena-ID4kndK.html>
+{'scrapyd_job_id': 'b6529c30cc9611edba0300155d7be260', 'service_id': 63961168, 'service_name': 'otodom', 'title': 'Dom z Potencjałem, Atrakcyjna Cena', 'price': 525000, 'location': 'jaktorow, powiat-grodziski-mazowieckie, mazowieckie', 'description': '<p>Zapraszamy Serdecznie na Prezentację- Przedstawiamy Do sprzedaży, Dom o powierzchni użytkowej ok. 83 m2, usytuowany na ładnie zagospodarowanej, przestronnej działce o powierzchni ok. 1280 m2. <br/><strong>Nieruchomość znajduję się w bardzo ładnej, cichej i spokojnej okolicy.</strong><br/><strong>Rozkład Domu :</strong><br/>Wysoka piwnica :<br/>- kuchnia<br/>- pokój <br/>- pokój <br/>- łazienka <br/>- garaż jednostanowiskowy</p><p><strong>I Piętro :</strong><br/>- ganek<br/>- hall<br/>- Pokój<br/>- Pokój <br/>- Pokój <br/>- Kuchnia<br/>- łazienka </p><p>Kanalizacja, prąd, gaz, woda miejskie.<br/>Możliwość ogrzewania nieruchomości gazem oraz węglem. <br/>W odległości do 1km znajduje się PKP, sklepy, kościół a w odległości ok. 2km szkoła. <br/><strong>Zapraszam Serdecznie na Prezentację.</strong></p><p>Treść niniejszego ogłoszenia nie stanowi oferty handlowej w rozumieniu Kodeksu Cywilnego.</p><p></p>', 'area': '84', 'floor': None, 'number_of_rooms': 5, 'type_of_property': 'dom', 'type_of_building': ['detached'], 'create_date': datetime.datetime(2023, 2, 20, 9, 40, 40, tzinfo=datetime.timezone(datetime.timedelta(seconds=3600))), 'modify_date': datetime.datetime(2023, 3, 22, 9, 45, 28, tzinfo=datetime.timezone(datetime.timedelta(seconds=3600)))}
+2023-03-27 11:58:51 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.otodom.pl/pl/oferta/dom-ok-60m2-w-bardzoladbym-rejonie-ID4kKO6.html> (referer: None)
+2023-03-27 11:58:52 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.otodom.pl/pl/oferta/dom-ok-60m2-w-bardzoladbym-rejonie-ID4kKO6.html>
+{'scrapyd_job_id': 'b6529c30cc9611edba0300155d7be260', 'service_id': 64051834, 'service_name': 'otodom', 'title': 'Dom ok.60m2. w BardzoŁadbym Rejonie.', 'price': 358900, 'location': 'jaktorow, powiat-grodziski-mazowieckie, mazowieckie', 'description': '<p>Przedstawiamy do sprzedaży kompaktowy dom wolnostojący, parterowy o pow. ok. 58 m2 - <strong>STAN SUROWY ZAMKNIETY</strong> zawiera : okna, drzwi, wylewki, dach pokryty papą , wyprowadzone instalacje, częściowo wyrównany teren , ogrodzenie panelowe. </p><p><strong>Zdjęcia przedstawiają poglądowa wizualizację prosimy o wyrozumiałość w ich doborze .</strong><br/>Dom posadowiony na ładnej działce o powierzchni ok. 660m2.</p><p><strong>Rozkład domu jest <br/>następujący:</strong></p><p>- wiatrołap ok 2,80 m2<br/>- salon z aneksem kuchennym ok.31,15 m2<br/>- łazienka ok. 2,85 m2<br/>- poddasze do wygospodarowania na sypialnie w formie antresoli pow. ok 19,60 m2</p><p>Media:<br/>prąd , woda, szambo, gaz w drodze ( planowane przyłącze do gazociągu ) </p><p>Dom usytuowany w bliskiej okolicy Miasta Jaktorów . Pełna infrastruktura miejska , szkoła, przedszkole , stacja PKP w promieniu do 3 km . Okolica nowej zabudowy jednorodzinnej , ciche ustronne miejsce .</p><p>Możliwość doprowadzenia domu do stanu deweloperskiego za dodatkową opłatą - szacowany koszt wynosi ok. 50 000 zł. </p><p>Zapraszamy Serdecznie do kontaktu , oraz na prezentację.</p><p>Treść niniejszego ogłoszenia nie stanowi oferty handlowej w rozumieniu Kodeksu Cywilnego.</p><p></p>', 'area': '57', 'floor': None, 'number_of_rooms': 2, 'type_of_property': 'dom', 'type_of_building': ['detached'], 'create_date': datetime.datetime(2023, 3, 19, 19, 5, 24, tzinfo=datetime.timezone(datetime.timedelta(seconds=3600))), 'modify_date': datetime.datetime(2023, 3, 19, 19, 5, 36, tzinfo=datetime.timezone(datetime.timedelta(seconds=3600)))}
+2023-03-27 11:58:52 [scrapy.core.engine] INFO: Closing spider (finished)
+2023-03-27 11:58:52 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 15972,
+ 'downloader/request_count': 30,
+ 'downloader/request_method_count/GET': 30,
+ 'downloader/response_bytes': 424014,
+ 'downloader/response_count': 30,
+ 'downloader/response_status_count/200': 8,
+ 'downloader/response_status_count/301': 22,
+ 'elapsed_time_seconds': 10.038815,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2023, 3, 27, 11, 58, 52, 32093),
+ 'httpcompression/response_bytes': 2002013,
+ 'httpcompression/response_count': 8,
+ 'item_scraped_count': 7,
+ 'log_count/DEBUG': 40,
+ 'log_count/INFO': 10,
+ 'log_count/WARNING': 1,
+ 'memusage/max': 78995456,
+ 'memusage/startup': 78995456,
+ 'request_depth_max': 1,
+ 'response_received_count': 8,
+ 'scheduler/dequeued': 30,
+ 'scheduler/dequeued/memory': 30,
+ 'scheduler/enqueued': 30,
+ 'scheduler/enqueued/memory': 30,
+ 'start_time': datetime.datetime(2023, 3, 27, 11, 58, 41, 993278)}
+2023-03-27 11:58:52 [scrapy.core.engine] INFO: Spider closed (finished)
