@@ -10,6 +10,8 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenBlacklistView,
 )
+from rest_framework.exceptions import APIException, ValidationError
+from django.db.utils import IntegrityError
 from properties.models import Property
 from properties_api.serializers import PropertySerializer, SearchResultsSerializer
 import properties.search as search_api
@@ -45,6 +47,7 @@ class PropertiesSearch(APIView):
 class PropertiesScrape(APIView):
     scrapyd = ScrapydAPI('http://localhost:6800')
     serializer_class = PropertySerializer
+    permission_classes = [AllowAny]
 
     def post(self, request):
         search_form = SearchForm(request.POST)
@@ -54,7 +57,10 @@ class PropertiesScrape(APIView):
         
         if search_form.is_valid():  
             print('//////////// form is ok',search_form.cleaned_data)
-            job_id = self.scrapyd.schedule('default', 'otodom', search_form = json.dumps(search_form.cleaned_data))
+            try:
+                job_id = self.scrapyd.schedule('default', 'otodom', search_form = json.dumps(search_form.cleaned_data))
+            except Exception as e:
+                return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             # job_id = scrapyd.schedule('default', 'otodom', settings=settings)
             scrape_status =  self.scrapyd.job_status('default', job_id)
             scrape_job_id = uuid.UUID(hex=job_id)
@@ -83,18 +89,24 @@ class SignUp(APIView):
     permission_classes = [AllowAny]
     def post(self, request):
         
-        first_name = request.data["first_name"]
-        last_name = request.data["last_name"]
-        email = request.data["email"]
-        username = request.data["username"]
-        password = request.data["password"]
-
-        user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password, is_staff=False, is_superuser=False, is_active=True)
-
+        first_name = request.data["first_name"] if "first_name" in request.data else ""
+        last_name = request.data["last_name"] if "last_name" in request.data else ""
+        email = request.data["email"] if "email" in request.data else ""
+        if "username" in request.data:
+            username = request.data["username"] 
+        else: 
+            raise ValidationError("The given username must be set")
+        password = request.data["password"] if "password" in request.data else ""
+        try:
+            user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password, is_staff=False, is_superuser=False, is_active=True)
+        except Exception as e:
+            raise APIException(str(e))
+            # return Response(e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         try:
             user.save()
         except Exception as e:
-            return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            raise APIException(str(e))
+            # return Response(e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response("User created")
 
@@ -109,6 +121,7 @@ class SignOut(APIView):
         try:
             refresh_token = RefreshToken(token)
         except Exception as e:
-            return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            raise APIException(str(e))
+            # return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         refresh_token.blacklist()
         return Response("OK")

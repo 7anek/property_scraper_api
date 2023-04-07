@@ -2,11 +2,14 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
+import socket
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'properties_scrapping.settings')
+    ipaddress = socket.gethostbyname( socket.gethostname() )
+    LOCAL = ipaddress == '127.0.1.1'
+    if LOCAL:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'properties_scrapping.settings.local')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

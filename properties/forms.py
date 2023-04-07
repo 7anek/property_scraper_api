@@ -23,6 +23,7 @@ PROPERTY_TYPE_CHOICES = [
 ]
 
 PLOT_TYPE_CHOICES = [
+    (None, 'Brak'),
     ('agricultural', 'Rolna'),
     ('building', 'Budowlana'),
     ('recreational', 'Rekreacyjna'),
@@ -35,12 +36,14 @@ OFFER_TYPE_CHOICES = [
 ]
 
 HOUSE_TYPE_CHOICES = [
+    (None, 'Brak'),
     ('detached_house', 'Dom wolnostojący'),
     ('semi_detached_house', 'Bliźniak'),
     ('terraced_house', 'Szeregowiec'),
 ]
 
 FLAT_TYPE_CHOICES = [
+    (None, 'Brak'),
     ('block_of_flats', 'Blok'),
     ('tenement', 'Kamienica'),
     ('apartament', 'Apartamentowiec')
@@ -70,5 +73,7 @@ class SearchForm(forms.Form):
     year_of_construction_to = forms.IntegerField(min_value=1800, max_value=date.today().year+20, required=False)
 
     class Media:
-        js = (settings.STATIC_URL+'properties/google-maps-places.js', settings.STATIC_URL+'properties/search-form.js')
+        # js = (settings.STATIC_URL+'properties/google-maps-places.js', settings.STATIC_URL+'properties/search-form.js')
+        js = (f"https://maps.google.com/maps/api/js?key={settings.GOOGLE_MAPS_API_KEY}&libraries=places", settings.STATIC_URL+'properties/search-form.js')
+        # https://maps.google.com/maps/api/js?key={{ google_maps_api_key }}&libraries=places"
 
