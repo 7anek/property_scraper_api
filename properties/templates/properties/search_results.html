@@ -1,8 +1,12 @@
+{% if error %}
+{{ error }}
+{%else%}
+<p>Liczba wyników: {{search_results.objects|length }}</p>
 {% for result in search_results.objects %}
 <div class="card">
     <div class="row g-0">
         <div class="col-md-3">
-            {% comment %} {% if result.main_image_url %}<img class="list-item card-img-top" src="{{ result.main_image_url }}" alt="{{ result.title }}">{% endif %} {% endcomment %}
+            {% if result.main_image_url %}<img class="list-item card-img-top" src="{{ result.main_image_url }}" alt="{{ result.title }}">{% endif %}
         </div>
         <div class="col-md-9">
             <div class="card-body">
@@ -16,10 +20,12 @@
                 </p>
                 {% comment %} <a href="{{ result.offer_url }}" class="btn btn-primary">Wyświetl</a> {% endcomment %}
                 {% if result.offer_url_path %}
-                <a href="{% url 'single_offer' service=result.service url_path=result.offer_url_path|urlencode:"" %}" class="btn btn-primary">Wyświetl</a>
+                <a href="{{result.offer_url_path}}" class="btn btn-primary">Wyświetl</a>
+                {% comment %} <a href="{% url 'single_offer' service=result.service url_path=result.offer_url_path|urlencode:"" %}" class="btn btn-primary">Wyświetl</a> {% endcomment %}
                 {% endif %}
             </div>
         </div>
     </div>
 </div>
 {% endfor %}
+{% endif %}

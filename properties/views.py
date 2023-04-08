@@ -9,6 +9,7 @@ from properties.models import Property
 from properties.forms import SearchForm
 import json
 import uuid
+import properties.search as search_api
 
 
 # Create your views here.
@@ -20,11 +21,19 @@ def search(request):
     print('**********', request.GET)
     # print('**********', type(request.GET['priceMin']))
     if request.method == 'POST':
+        print(request.POST)
         search_form = SearchForm(request.POST)
         if search_form.is_valid():
-            print(search_form.cleaned_data)
-    search_form = SearchForm()
-    context = {"search_form": search_form}
+            data = search_form.cleaned_data
+            print(data)
+            results = search_api.webpages_search(data)
+            context = {"search_form": search_form, "search_results": results}
+        else:
+            print("Invalid Form")
+            context = {"search_form": search_form, "error": "Invalid Form"}
+    else:
+        search_form = SearchForm()
+        context = {"search_form": search_form}
     return render(request, "properties/search.html", context)
 
 def scrape(request):
