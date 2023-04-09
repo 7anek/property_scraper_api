@@ -14,8 +14,11 @@ from selenium import webdriver
 import math
 from playwright.sync_api import sync_playwright
 
+class ServiceNames:
+    otodom='otodom'
+    olx='olx'
 
-services = ['olx','otodom']
+services = [ServiceNames.olx, ServiceNames.otodom]
 
 
 def webpages_search(attrs):
@@ -24,11 +27,11 @@ def webpages_search(attrs):
 
 def get_single_offer(attrs):
     result = None
-    if attrs['service'] == 'otodom':
+    if attrs['service'] == ServiceNames.otodom:
         print('service otodom')
         otodom = SearchSingleOtodom(attrs)
         result = otodom.get_result()
-    elif attrs['service'] == 'olx':
+    elif attrs['service'] == ServiceNames.olx:
         print('service otodom')
         olx = SearchSingleOlx(attrs)
         result = olx.get_result()
@@ -62,28 +65,33 @@ class Offer:
 class SearchResults:
     objects = []
     search_params = None
+    results_total = 0#ile wyników znajduje się na stronach (nie ile faktycznie pobrano)
+    service = {}
 
     def __init__(self, search_params):
         self.objects=[]
-        print('*************** SearchResults __init__ count', len(self.objects))
+        self.results_total=0
+        # print('*************** SearchResults __init__ count', len(self.objects))
         search_params = dict_filter_none(search_params)
-        print('search_params', search_params)
+        # print('search_params', search_params)
         self.search_params = search_params
         otodom = OtodomSearch(search_params)
         otodom_result = otodom.search()
         if otodom_result != True:
             print('******* Error in searching otodom')
-        print('*************** otodom first url', otodom.result[0].offer_url)
-        print('*************** otodom count', len(otodom.result))
+        # print('*************** otodom first url', otodom.result[0].offer_url)
+        # print('*************** otodom count', len(otodom.result))
         self.add(otodom.result)
+        self.results_total += otodom.results_count
+        self.service[ServiceNames.otodom]=otodom
         # olx =  OlxSearch(search_params)
         # olx_result = olx.search()
         # if olx_result != True:
         #     print('******* Error in searching olx')
         # self.add(olx.result)
-        print('*************** SearchResults first url', self.objects[0].offer_url)
-        print('*************** SearchResults last url', self.objects[-1].offer_url)
-        print('*************** SearchResults count', len(self.objects))
+        # print('*************** SearchResults first url', self.objects[0].offer_url)
+        # print('*************** SearchResults last url', self.objects[-1].offer_url)
+        # print('*************** SearchResults count', len(self.objects))
 
     def add(self, search_result):
         if type(search_result) is list:
@@ -131,17 +139,21 @@ class Search(ABC):
         function requests search results
         """
         current_page=1
+        ret=True
         while current_page <= self.num_pages:
-            self.search_single_page(current_page)
+            result = self.search_single_page(current_page)
+            if not result:
+                ret=False
             current_page = current_page+1
+        return ret
 
     def search_single_page(self, page):
         self.request_params = self.get_request_params(page)
         self.request_url = self.get_request_url()
 
-        print('*********', self.request_url)
+        # print('*********', self.request_url)
         # return False
-        self.response = self.get_http_response()
+        self.response = self.get_page_html()
         if not self.response:
             print('****** Something whent wrong')
             return False
@@ -186,7 +198,7 @@ class Search(ABC):
                 fragment=self.url_fragment
         )
 
-    def get_http_response(self):
+    def get_page_html(self):
         response = requests.get(self.request_url)
         if not response.ok:
             print('****** Status code diffrent than 200')
@@ -238,7 +250,7 @@ class OtodomSearch(Search):
     #     search_loc = self.lowercase_with_hyphen_str(self.search_params['localization'])
     #     return self.base_url+"/"+self.lang+"/oferty/sprzedaz/mieszkanie/"+search_loc
     
-    def get_http_response(self):
+    def get_page_html(self):
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch()
             page = browser.new_page()
@@ -268,7 +280,7 @@ class OtodomSearch(Search):
             request_params['areaMin'] = self.search_params['area_min']
         if 'area_max' in self.search_params:
             request_params['areaMax'] = self.search_params['area_max']
-        print('request_params', request_params)
+        # print('request_params', request_params)
         return request_params
 
     def parse_results(self, soup):
@@ -295,9 +307,9 @@ class OtodomSearch(Search):
 
             results_arr.append(search_result)
 
-            print('***** otodom netloc:', self.url_netloc)
-            print('***** otodom url:', search_result.offer_url)
-            print('***** otodom url path:', search_result.offer_url_path)
+            # print('***** otodom netloc:', self.url_netloc)
+            # print('***** otodom url:', search_result.offer_url)
+            # print('***** otodom url path:', search_result.offer_url_path)
 
         return results_arr
         # return ''.join(soup.find_all('a', {"data-cy": "listing-item-link"}))

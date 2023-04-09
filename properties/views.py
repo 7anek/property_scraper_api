@@ -21,6 +21,7 @@ def search(request):
     print('**********', request.GET)
     # print('**********', type(request.GET['priceMin']))
     if request.method == 'POST':
+        print(request.POST)
         search_form = SearchForm(request.POST)
         if search_form.is_valid():
             data = search_form.cleaned_data
