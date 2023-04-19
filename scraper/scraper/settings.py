@@ -10,15 +10,27 @@
 import sys
 from django.core.wsgi import get_wsgi_application
 import os
+import socket
 
 # sys.path.append(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".."))
 # sys.path.append('../')
+
 sys.path.append(os.path.dirname(os.path.abspath('.')))
+# sys.path.append('/home/janek/python/property_scraper')
 # sys.path.append(os.path.dirname(os.path.abspath('.')))
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'properties_scrapping.settings'
-
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# sys.path.append(os.path.join(BASE_DIR, "properties_scrapping"))
+ipaddress = socket.gethostbyname( socket.gethostname() )
+if ipaddress == '127.0.1.1':
+    DJANGO_SETTINGS_MODULE = 'properties_scrapping.settings.local'
+else:
+    DJANGO_SETTINGS_MODULE = 'properties_scrapping.settings.production'
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'properties_scrapping.settings')
+os.environ['DJANGO_SETTINGS_MODULE']=DJANGO_SETTINGS_MODULE
 application = get_wsgi_application()#musi być po ustawieniu DJANGO_SETTINGS_MODULE
+# import django
+# django.setup()
 
 # LOG_ENABLED=True
 # LOG_FILE="scraper/logs/scraper.log"
@@ -38,7 +50,8 @@ ITEM_PIPELINES = {
 #    'scraper.scraper.pipelines.PropertyStatusPipeline': 100,
 #    'scraper.scraper.pipelines.PropertyPricePipeline': 200,
 #    'scraper.scraper.pipelines.ConvertNumPipeline': 300,
-   'scraper.pipelines.ScraperPipeline': 300,
+    # 'scraper.pipelines.FieldValidationPipeline': 400,
+    'scraper.pipelines.ScraperPipeline': 300,
 }
 # Obey robots.txt rules
 # ROBOTSTXT_OBEY = True

@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from scrapy.crawler import CrawlerProcess
-from scraper.scraper.spiders.otodom_spider import PropertiesSpider
+# try:
+#     from scraper.scraper.spiders.otodom_spider import PropertiesSpider
+# except ModuleNotFoundError as e:
+#     pass
+#     # from scraper.spiders.otodom_spider import PropertiesSpider
 import asyncio
 from scrapy.utils.project import get_project_settings
 import subprocess
@@ -10,11 +14,13 @@ from properties.forms import SearchForm
 import json
 import uuid
 import properties.search as search_api
+from django.conf import settings
 
 
 # Create your views here.
 # connect scrapyd service
 scrapyd = ScrapydAPI('http://localhost:6800')
+# scrapyd = ScrapydAPI('http://localhost:9000')
 
 
 def search(request):
@@ -65,6 +71,9 @@ def scrape(request):
     else:
         search_form = SearchForm()
         context = {"title": "search", "search_form": search_form}
+        print('******* django view DATABASES', settings.DATABASES)
+        print('******* django view PGSERVICEFILE', settings.PGSERVICEFILE)
+        print('******* django view PGPASSFILE', settings.PGPASSFILE)
     return render(request, "properties/scrape.html", context)
 
 def get_scrape(request, scrape_job_id):

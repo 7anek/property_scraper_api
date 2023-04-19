@@ -1,10 +1,13 @@
 from django.test import TestCase
 # from properties.models import Property
 from properties.forms import SearchForm
+from django.db import connections
+from django.db.utils import OperationalError
 import properties.search as search
 
+
 # Create your tests here.
-class SearchFileTestCase(TestCase):
+class SearchTestCase(TestCase):
 
     @classmethod
     def setUpTestData(cls):
@@ -36,3 +39,15 @@ class SearchFileTestCase(TestCase):
 
 
 #wyszukiwanie bez np lokalizacji - powinno błąd żucić
+
+# #testy modelu
+class ModelTestCase(TestCase):
+    def test_database_connection_is_working(self):
+        db_conn=connections['default']
+        try:
+            c=db_conn.cursor()
+        except OperationalError:
+            connected=False
+        else:
+            connected=True
+        self.assertEqual(connected, True)

@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import sys
+sys.path.append('scraper')
 from datetime import timedelta
 from pathlib import Path
 import os
@@ -19,7 +20,10 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+import socket
 
+hostname = socket.gethostname()
+print('$$$$$$$$$$$$$$ hostmane',hostname)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -92,40 +96,37 @@ WSGI_APPLICATION = 'properties_scrapping.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-PGSERVICEFILE=os.environ.get('PGSERVICEFILE')
-PGPASSFILE=os.environ.get('PGPASSFILE')
-
-print('*********************PSERVICEFILE', PGSERVICEFILE )
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        # 'HOST': 'localhost',
-        # 'NAME': 'properties',
-        'OPTIONS': {
-            'service': 'pg_service',
-            # 'passfile': PGPASSFILE,
-            # 'service': 'properties',
-            'passfile': '.pgpass',
-        },
-    }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-}
-
-#tak działa:
+# PGSERVICEFILE=os.environ.get('PGSERVICEFILE')
+# PGPASSFILE=os.environ.get('PGPASSFILE')
+# Taka kofiguracja niedziała w scrapy, ale działa w django i jest według  dokumentacji django
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'properties',
-#         'USER': 'janek',
-#         'PASSWORD': 'Jupameli3',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'OPTIONS': {
+#             'service': 'pg_service',
+#             'passfile': '.pgpass',
+#         }
 #     }
 # }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+#tak działa:
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'properties',
+        'USER': 'janek',
+        'PASSWORD': os.environ.get('PGPASSWORD'),
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
 
 # AUTH_USER_MODEL = 'your_app_name.User'
 
