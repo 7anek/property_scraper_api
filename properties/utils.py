@@ -10,6 +10,12 @@ def dict_filter_none(d):
 def remove_accents(str):
     return ''.join(c for c in unicodedata.normalize('NFD', str) if unicodedata.category(c) != 'Mn')
 
+def lowercase_with_hyphen_str(str):
+    return '-'.join(str.lower().split())
+
+def slugify(str):
+    """używane do wygenerowania lokalizacji jako parametr urla"""
+    return lowercase_with_hyphen_str(remove_accents(str))
 
 def generate_url(scheme='https', netloc='', path='', url='', query='', fragment=''):
     """

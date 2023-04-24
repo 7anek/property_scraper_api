@@ -55,7 +55,8 @@ def scrape(request):
         # settings = get_project_settings()
         # print('////////////',settings)
         if search_form.is_valid():  
-            job_id = scrapyd.schedule('default', 'otodom', search_form = json.dumps(search_form.cleaned_data))
+            job_id = scrapyd.schedule('default', 'olx', search_form = json.dumps(search_form.cleaned_data))
+            # job_id = scrapyd.schedule('default', 'otodom', search_form = json.dumps(search_form.cleaned_data))
             # job_id = scrapyd.schedule('default', 'otodom', settings=settings)
             scrape_status =  scrapyd.job_status('default', job_id)
             scrape_job_id = uuid.UUID(hex=job_id)

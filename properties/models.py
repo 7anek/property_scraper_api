@@ -17,6 +17,13 @@ class Property(models.Model):
         BLOCK_OF_FLATS = 'block_of_flats', 'Blok'
         APARTMENT = 'apartment', 'Apartamentowiec'
 
+    class TypesOfPlots(models.TextChoices):
+        AGRICULTURAL='agricultural', 'Rolna',
+        BUILDING='building', 'Budowlana',
+        RECREATIONAL='recreational', 'Rekreacyjna',
+        FOREST='forest', 'Leśna',
+
+
     service_id = models.PositiveIntegerField(default=None, null=True)
     service_name = models.CharField(max_length=255, null=False, default=None)
     title = models.CharField(max_length=255, null=False, default=None)
@@ -27,6 +34,7 @@ class Property(models.Model):
     floor = models.SmallIntegerField(default=None, null=True)
     type_of_property = models.CharField(max_length=100, choices = TypesOfProperties.choices, default=TypesOfProperties.FLAT, null=False)
     type_of_building = models.CharField(max_length=100, choices = TypesOfFlats.choices, default=None, null=True)
+    type_of_plot = models.CharField(max_length=100, choices = TypesOfPlots.choices, default=None, null=True)
     number_of_rooms = models.PositiveSmallIntegerField(default=None, null=True)
     create_date = models.DateTimeField(default=timezone.now, null=True)
     modify_date = models.DateTimeField(default=timezone.now, null=True)

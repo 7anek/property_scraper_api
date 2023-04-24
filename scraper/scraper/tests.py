@@ -12,7 +12,8 @@ except ModuleNotFoundError:
     os.environ['DJANGO_SETTINGS_MODULE'] = 'properties_scrapping.settings'
     application = get_wsgi_application()
     from properties.models import Property
-from scraper.spiders.otodom_spider import PropertiesSpider
+from scraper.spiders.otodom_spider import OtodomSpider
+from scraper.spiders.olx_spider import OlxSpider
 from scraper.pipelines import ScraperPipeline
 from django.utils import timezone
 from asgiref.sync import sync_to_async
@@ -37,7 +38,7 @@ def fake_response_from_file(file_name, url=None):
     #     file_path = os.path.join(responses_dir, file_name)
     # else:
     #     file_path = file_name
-    file_path="/home/janek/python/property_scraper/otodom-search4.html"
+    file_path=f"/home/janek/python/property_scraper/{file_name}"
     file_content = open(file_path, 'r').read()
 
     # response = Response(url=url,
@@ -52,8 +53,8 @@ def fake_response_from_file(file_name, url=None):
 
 class ScraperParseTestCase(TestCase):
 
-    def setUp(self):
-        self.spider = PropertiesSpider()
+    # def setUp(self):
+    #     self.otodom_spider = OtodomSpider()
     
     # def test_otodom_spider_from_file(self):
     #     search_form=json.dumps({'localization': 'Grodzisk Mazowiecki', 'price_min': 300000, 'price_max': 400000, 'area_min': None, 'area_max': None, 'property_type': 'flat', 'offer_type': 'sell', 'plot_type': '', 'house_type': '', 'flat_type': '', 'year_of_construction_from': None, 'year_of_construction_to': None})
@@ -67,40 +68,77 @@ class ScraperParseTestCase(TestCase):
     #     print('Property.objects.all()',Property.objects.all())
     #     print('Ala ma kota')
 
-    # def test_parse_offer(self):
-    #     print('test_parse_offer')
-    #     path="test_data/otodom-details.html"
-    #     # url='http://www.otodom.pl/64121978'
-    #     url="nieważne"
-    #     response = HtmlResponse(
-    #         url=url,
-    #         body=open(path, 'rb').read(),
-    #         encoding='utf-8'
-    #     )
-    #     results = self.spider.parse_offer(response)
-    #     # print('results',list(results))
-    #     items = list(results)
-    #     self.assertEqual(len(items), 1)
-    #     item=items[0]
-    #     # self.assertEqual(item['title'], 'Mieszkanie 48m²⭐Stan Deweloperski⭐3 pokoje⭐Centrum')
-    #     # self.assertEqual(item['price'], 395000)
-    #     self.assertEqual(item["service_id"], 64121978)
-    #     self.assertEqual(item["service_name"],"otodom")
-    #     self.assertEqual(item['title'], 'Mieszkanie 48m²⭐Stan Deweloperski⭐3 pokoje⭐Centrum')
-    #     self.assertEqual(item['price'], 395000)
-    #     # item["location"] = ", ".join([offer_dict["target"]["City"], offer_dict["target"]["Subregion"],offer_dict["target"]["Province"]])
-    #     self.assertEqual(item["area"],48)
-    #     # item["floor"] = parse_floor(offer_dict["target"]["Floor_no"]) if "Floor_no" in offer_dict["target"] else None
-    #     self.assertEqual(item["number_of_rooms"],3)
-    #     self.assertEqual(item["type_of_property"],"mieszkanie")
-    #     self.assertEqual(item["type_of_building"],"block")
-    #     # item["create_date"] = datetime.fromisoformat(offer_dict["createdAt"])
-    #     # item["modify_date"] = datetime.fromisoformat(offer_dict["modifiedAt"])
-    #     # self.assertEqual(items[0]['location'], 'Wrocław, Krzyki, ul. Mickiewicza')
-    #     # self.assertEqual(items[0]['description'], 'Kawalerka o powierzchni 50,17 m2 usytuowana na III piętrze w 6 piętrowym budynku na Krzykach')
+    def test_parse_otodom_offer(self):
+        return True
+        search_form=json.dumps({'localization': 'Grodzisk Mazowiecki', 'price_min': 300000, 'price_max': 400000, 'property_type': 'flat', 'offer_type': 'sell'})
+        job_id='75d6b108cc9811edba0300155d7be260'
+        spider=OtodomSpider(search_form=search_form,_job=job_id)
+        print('test_parse_offer')
+        path="test_data/otodom-details.html"
+        # url='http://www.otodom.pl/64121978'
+        url="nieważne"
+        response = HtmlResponse(
+            url=url,
+            body=open(path, 'rb').read(),
+            encoding='utf-8'
+        )
+        results = spider.parse_offer(response)
+        # print('results',list(results))
+        items = list(results)
+        self.assertEqual(len(items), 1)
+        item=items[0]
+        # self.assertEqual(item['title'], 'Mieszkanie 48m²⭐Stan Deweloperski⭐3 pokoje⭐Centrum')
+        # self.assertEqual(item['price'], 395000)
+        self.assertEqual(item["service_id"], 64121978)
+        self.assertEqual(item["service_name"],"otodom")
+        self.assertEqual(item['title'], 'Mieszkanie 48m²⭐Stan Deweloperski⭐3 pokoje⭐Centrum')
+        self.assertEqual(item['price'], 395000)
+        # item["location"] = ", ".join([offer_dict["target"]["City"], offer_dict["target"]["Subregion"],offer_dict["target"]["Province"]])
+        self.assertEqual(item["area"],48)
+        # item["floor"] = parse_floor(offer_dict["target"]["Floor_no"]) if "Floor_no" in offer_dict["target"] else None
+        self.assertEqual(item["number_of_rooms"],3)
+        self.assertEqual(item["type_of_property"],"flat")
+        self.assertEqual(item["type_of_building"],"block")
+        # item["create_date"] = datetime.fromisoformat(offer_dict["createdAt"])
+        # item["modify_date"] = datetime.fromisoformat(offer_dict["modifiedAt"])
+        # self.assertEqual(items[0]['location'], 'Wrocław, Krzyki, ul. Mickiewicza')
+        # self.assertEqual(items[0]['description'], 'Kawalerka o powierzchni 50,17 m2 usytuowana na III piętrze w 6 piętrowym budynku na Krzykach')
 
     # # def test_otodom_spider_from_file(self):
     # #     search_form=json.dumps({'localization': 'Grodzisk Mazowiecki', 'price_min': 300000, 'price_max': 400000, 'area_min': None, 'area_max': None, 'property_type': 'flat', 'offer_type': 'sell', 'plot_type': '', 'house_type': '', 'flat_type': '', 'year_of_construction_from': None, 'year_of_construction_to': None})
+
+    def test_parse_olx_offer(self):
+        search_form=json.dumps({'localization': 'Grodzisk Mazowiecki', 'price_min': 300000, 'price_max': 400000, 'property_type': 'flat', 'offer_type': 'sell'})
+        job_id='75d6b108cc9811edba0300155d7be260'
+        spider=OlxSpider(search_form=search_form,_job=job_id)
+        print('test_parse_offer')
+        path="test_data/olx-details.html"
+        # url='http://www.otodom.pl/64121978'
+        url="nieważne"
+        response = HtmlResponse(
+            url=url,
+            body=open(path, 'rb').read(),
+            encoding='utf-8'
+        )
+        results = spider.parse_offer(response)
+        # print('results',list(results))
+        items = list(results)
+        self.assertEqual(len(items), 1)
+        item=items[0]
+        self.assertEqual(item["service_id"], 710818583)
+        self.assertEqual(item["service_name"],"olx")
+        self.assertEqual(item['title'], 'Atrakcyjne mieszkania w centrum Grodziska Maz. ceny już od 8500/m2')
+        self.assertEqual(item['price'], 380000.0)
+        # item["location"] = ", ".join([offer_dict["target"]["City"], offer_dict["target"]["Subregion"],offer_dict["target"]["Province"]])
+        self.assertEqual(item["area"],40.0)
+        # item["floor"] = parse_floor(offer_dict["target"]["Floor_no"]) if "Floor_no" in offer_dict["target"] else None
+        self.assertEqual(item["number_of_rooms"],2)
+        self.assertEqual(item["type_of_property"],"flat")
+        self.assertEqual(item["type_of_building"],"block_of_flats")
+        # item["create_date"] = datetime.fromisoformat(offer_dict["createdAt"])
+        # item["modify_date"] = datetime.fromisoformat(offer_dict["modifiedAt"])
+        # self.assertEqual(items[0]['location'], 'Wrocław, Krzyki, ul. Mickiewicza')
+        # self.assertEqual(items[0]['description'], 'Kawalerka o powierzchni 50,17 m2 usytuowana na III piętrze w 6 piętrowym budynku na Krzykach')
 
 class ScraperPipelineTestCase(TestCase):
 

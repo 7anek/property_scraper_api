@@ -17,12 +17,13 @@ import chompjs
 import json
 from properties.otodom import *
 from properties.utils import *
-
+from properties.models import Property
+from properties import otodom
 # current_dir = os.path.dirname(__file__)
 # url = os.path.join(current_dir, 'otodom-results.html')
 
 
-class PropertiesSpider(Spider):
+class OtodomSpider(Spider):
 # class PropertiesSpider(Spider):
     name = "otodom"
     service_name = "otodom"
@@ -33,7 +34,7 @@ class PropertiesSpider(Spider):
 
     
     def __init__(self, *args, **kwargs):
-        super(PropertiesSpider, self).__init__(*args, **kwargs)
+        super(OtodomSpider, self).__init__(*args, **kwargs)
         search_form_json = kwargs.get('search_form', False)
         self.scrapyd_job_id = kwargs.get('_job')
         search_form = json.loads(search_form_json) if search_form_json else {}
@@ -112,7 +113,7 @@ class PropertiesSpider(Spider):
         item["area"] = float(offer_dict["target"]["Area"])
         item["floor"] = parse_floor(offer_dict["target"]["Floor_no"]) if "Floor_no" in offer_dict["target"] else None
         item["number_of_rooms"] = int(offer_dict["target"]["Rooms_num"][0]) if "Rooms_num" in offer_dict["target"] else None
-        item["type_of_property"] = offer_dict["target"]["ProperType"] 
+        item["type_of_property"] = parse_type_of_property(offer_dict["target"]["ProperType"])
         item["type_of_building"] = parse_type_of_building(offer_dict) if "Building_type" in offer_dict["target"] else None
         item["create_date"] = datetime.fromisoformat(offer_dict["createdAt"])
         item["modify_date"] = datetime.fromisoformat(offer_dict["modifiedAt"])
@@ -142,8 +143,8 @@ class PropertiesSpider(Spider):
 
         # yield property_loader.load_item()
     def url_from_params(self):
-        path = url_path(self.search_form)
-        query = url_query(self.search_form)
+        path = otodom.get_url_path(self.search_form)
+        query = otodom.url_query(self.search_form)
         return generate_url(scheme=self.scheme, netloc=self.domain, path=path, query=query)
     
     def get_results_num(self, response):
@@ -169,11 +170,44 @@ def parse_floor(floor_no):
             return int(num)
         
 def parse_type_of_building(offer_dict):
+    if offer_dict["target"]["ProperType"] != "mieszkanie":
+        return None
     try:
         type_of_building = offer_dict["target"]["Building_type"]
         type_of_building=type_of_building[0]
     except KeyError:
         type_of_building = None
+    if type_of_building == "block":
+        return Property.TypesOfFlats.BLOCK_OF_FLATS.value
+    elif type_of_building == "tenement":
+        return Property.TypesOfFlats.TENEMENT.value
+    elif type_of_building == "apartment":
+        return Property.TypesOfFlats.APARTMENT.value
     return type_of_building
 
 
+def parse_type_of_property(type):
+    if type == "mieszkanie":
+        return Property.TypesOfProperties.FLAT.value
+    elif type == "dzialka":
+        return Property.TypesOfProperties.PLOT.value
+    else:
+        return type
+
+def parse_type_of_plot(offer_dict):
+    if offer_dict["target"]["ProperType"] != "dzialka":
+        return None
+    try:
+        type = offer_dict["target"]["Type"]
+        type=type[0]
+    except KeyError:
+        type = None
+    if type == "building":
+        return Property.TypesOfPlots.BUILDING.value
+    elif type == "agricultural":
+        return Property.TypesOfPlots.AGRICULTURAL.value
+    elif type == "recreational":
+        return Property.TypesOfPlots.RECREATIONAL.value
+    elif type == "woodland":
+        return Property.TypesOfPlots.FOREST.value
+    return type

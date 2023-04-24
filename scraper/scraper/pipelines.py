@@ -93,5 +93,8 @@ class ScraperPipeline:
                 create_date=item["create_date"],
                 modify_date=item["modify_date"],
             )
-            property.save()
+            if property:
+                property.save()
+            else:
+                print('++++++++++++++ item sie niezapisał',item)
         return item

@@ -9,6 +9,7 @@ from abc import ABC, abstractmethod
 from urllib.parse import urljoin, urlencode, urlparse, urlunparse, unquote
 from collections import namedtuple
 from properties.utils import *
+from properties import otodom, olx
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 import math
@@ -75,20 +76,23 @@ class SearchResults:
         search_params = dict_filter_none(search_params)
         # print('search_params', search_params)
         self.search_params = search_params
-        otodom = OtodomSearch(search_params)
-        otodom_result = otodom.search()
-        if otodom_result != True:
-            print('******* Error in searching otodom')
-        # print('*************** otodom first url', otodom.result[0].offer_url)
-        # print('*************** otodom count', len(otodom.result))
-        self.add(otodom.result)
-        self.results_total += otodom.results_count
-        self.service[ServiceNames.otodom]=otodom
-        # olx =  OlxSearch(search_params)
-        # olx_result = olx.search()
-        # if olx_result != True:
-        #     print('******* Error in searching olx')
-        # self.add(olx.result)
+
+        # otodom = OtodomSearch(search_params)
+        # otodom_result = otodom.search()
+        # if otodom_result != True:
+        #     print('******* Error in searching otodom')
+        
+        # self.add(otodom.result)
+        # self.results_total += otodom.results_count
+        # self.service[ServiceNames.otodom]=otodom
+
+        olx =  OlxSearch(search_params)
+        olx_result = olx.search()
+        if olx_result != True:
+            print('******* Error in searching olx')
+        self.add(olx.result)
+        self.results_total += olx.results_count
+        self.service[ServiceNames.olx]=olx
         # print('*************** SearchResults first url', self.objects[0].offer_url)
         # print('*************** SearchResults last url', self.objects[-1].offer_url)
         # print('*************** SearchResults count', len(self.objects))
@@ -106,6 +110,7 @@ class SearchResults:
 class Search(ABC):
     request_url = None
     request_params = None
+    from_file=False
     response = None
     result = []
     base_url = None
@@ -116,47 +121,51 @@ class Search(ABC):
     url_fragment = ''  # html id elementu
     service_label = ''
     results_count=0#całkowita liczba wyników  ze wszystkich stron z danego serwisu
-    results_per_page=24
-    num_pages=1
 
-    @property
+
+    # @property
     @abstractmethod
-    def url_path(self):
+    def get_url_path(self):
         pass
 
-    def __init__(self, search_params):
+    def __init__(self, search_params, from_file=False):
         # search_params = dict_filter_none(search_params)
         # print('search_params', search_params)
         self.search_params = search_params
+        self.from_file=from_file
 
     def add_search_params(self, search_params):
         self.search_params = search_params
 
+    @abstractmethod
     def search(self):
-        """
-        attrs - dict with filter criteria
-        get page content using requests library and parse it using BeautifulSoup
-        function requests search results
-        """
-        current_page=1
-        ret=True
-        while current_page <= self.num_pages:
-            result = self.search_single_page(current_page)
-            if not result:
-                ret=False
-            current_page = current_page+1
-        return ret
+        pass
 
     def search_single_page(self, page):
         self.request_params = self.get_request_params(page)
-        self.request_url = self.get_request_url()
+        if self.request_params == False:
+            print('********* error in generating request params', self.request_params)
+            return False
+        
 
-        # print('*********', self.request_url)
+        self.url_path=self.get_url_path()
+
+        self.request_url = self.get_request_url()
+        if not self.request_url:
+            print('********* error in generating request url', self.request_url)
+            return False
+
+        print('*********', self.request_url)
         # return False
-        self.response = self.get_page_html()
+        if self.from_file:
+            self.response = self.get_page_html_from_file()
+        else:
+            self.response = self.get_page_html()
         if not self.response:
             print('****** Something whent wrong')
             return False
+
+        # self.save_to_file("test_data/olx-search.html")
 
         soup = BeautifulSoup(self.response, 'html.parser')
 
@@ -189,14 +198,20 @@ class Search(ABC):
         pass
 
     def get_request_url(self):
-        return generate_url(
-                scheme=self.url_scheme,
-                netloc=self.url_netloc,
-                path=self.url_path,
-                url='',
-                query=self.request_params,
-                fragment=self.url_fragment
-        )
+        print("self.url_path",self.url_path)
+        try:
+            url=generate_url(
+                    scheme=self.url_scheme,
+                    netloc=self.url_netloc,
+                    path=self.url_path,
+                    url='',
+                    query=self.request_params,
+                    fragment=self.url_fragment
+            )
+        except Exception as err:
+            print(err)
+            url=False
+        return url
 
     def get_page_html(self):
         response = requests.get(self.request_url)
@@ -209,12 +224,19 @@ class Search(ABC):
             return False
         return response.content
 
-    def lowercase_with_hyphen_str(self, str):
-        return '-'.join(str.lower().split())
+    def get_page_html_from_file(self):
+        with open(self.from_file,"r") as file:
+            content = file.read()
+        if content:
+            return content
+        else:
+            print('****** No such file or file empty:',self.from_file)
+            return False
+
 
     def save_to_file(self, path):
         with open(path, "w") as file:
-            file.write(self.response.text)
+            file.write(self.response)
 
     def get_service_url(self, path='', url='', query='', fragment=''):
         return generate_url(scheme=self.url_scheme, netloc=self.url_netloc, path=path, url=url, query=query, fragment=fragment)
@@ -224,32 +246,29 @@ class OtodomSearch(Search):
     service_label = 'otodom'
     url_netloc = "www.otodom.pl"
     lang = 'pl'
-    offer_type_mapping = {
-        'sell': 'sprzedaz',
-        'rent': 'wynajem',
-        'any': 'wszystko'
-    }
-    property_type_mapping = {
-        'flat': 'mieszkanie',
-        'house': 'dom',
-        'plot': 'dzialka',
-        'garage': 'garaz'
-    }
+    results_per_page=24
+    num_pages=1
 
-    @property
-    def url_path(self):
-        url_path = []
-        if 'offer_type' in self.search_params:
-            url_path.append(self.offer_type_mapping[self.search_params['offer_type']])
-        if 'property_type' in self.search_params:
-            url_path.append(self.property_type_mapping[self.search_params['property_type']])
-        url_path.append(self.lowercase_with_hyphen_str(remove_accents(self.search_params['localization'])))
-        return f"{self.lang}/oferty/{'/'.join(url_path)}"
+    # @property
+    def get_url_path(self):
+        return otodom.get_url_path(self.search_params)
 
-    # def get_request_url(self):
-    #     search_loc = self.lowercase_with_hyphen_str(self.search_params['localization'])
-    #     return self.base_url+"/"+self.lang+"/oferty/sprzedaz/mieszkanie/"+search_loc
     
+    def search(self):
+        """
+        attrs - dict with filter criteria
+        get page content using requests library and parse it using BeautifulSoup
+        function requests search results
+        """
+        current_page=1
+        ret=True
+        while current_page <= self.num_pages:
+            result = self.search_single_page(current_page)
+            if not result:
+                ret=False
+            current_page = current_page+1
+        return ret
+
     def get_page_html(self):
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch()
@@ -262,25 +281,12 @@ class OtodomSearch(Search):
         return self.generate_url(scheme=self.url_scheme, netloc=self.url_netloc, path=self.url_path)
 
     def get_request_params(self, page):
-        request_params = {
-            'distanceRadius': 0,
-            'market': 'ALL',
-            'viewType': 'listing',
-            'lang': self.lang,
-            'searchingCriteria': self.offer_type_mapping[self.search_params['offer_type']],
-            'limit': self.results_per_page,
-            'page': page
-        }
-
-        if 'price_min' in self.search_params:
-            request_params['priceMin'] = self.search_params['price_min']
-        if 'price_max' in self.search_params:
-            request_params['priceMax'] = self.search_params['price_max']
-        if 'area_min' in self.search_params:
-            request_params['areaMin'] = self.search_params['area_min']
-        if 'area_max' in self.search_params:
-            request_params['areaMax'] = self.search_params['area_max']
-        # print('request_params', request_params)
+        try:
+            request_params=otodom.url_query(self.search_params,page=page,limit=self.results_per_page)
+        except Exception as err:
+            print(err)
+            request_params=False
+        print('request_params', request_params)
         return request_params
 
     def parse_results(self, soup):
@@ -324,52 +330,62 @@ class OtodomSearch(Search):
 class OlxSearch(Search):
     service_label = 'olx'
     url_netloc = "www.olx.pl"
+    # end_results_tekst="Sprawdź ogłoszenia w większej odległości:"
+    last_page=False
 
-    offer_type_mapping = {
-        'sell': 'sprzedaz',
-        'rent': 'wynajem'
-    }
-    property_type_mapping = {
-        'flat': 'mieszkania',
-        'house': 'domy',
-        'plot': 'dzialki',
-        'garage': 'garaze-parkingi'
-    }
+    def get_url_path(self):
+        return olx.get_url_path(self.search_params)
 
-    @property
-    def url_path(self):
-        # search_loc = self.lowercase_with_hyphen_str(self.search_params['localization'])
-        url_path = []
-        if 'property_type' in self.search_params:
-            url_path.append(self.property_type_mapping[self.search_params['property_type']])
-        if 'offer_type' in self.search_params:
-            url_path.append(self.offer_type_mapping[self.search_params['offer_type']])
-        url_path.append(self.lowercase_with_hyphen_str(self.search_params['localization']))
-        return f"/d/nieruchomosci/{'/'.join(url_path)}"
-    # def get_request_url(self):
-    #     search_loc = self.lowercase_with_hyphen_str(self.search_params['localization'])
-    #     return self.base_url+"/d/nieruchomosci/mieszkania/sprzedaz/"+search_loc
 
     def get_request_params(self, page):
         # request_params = DictAutoVivification()
-        request_params = {}
-
-        if 'price_min' in self.search_params:
-            request_params['search[filter_float_price:from]'] = self.search_params['price_min']
-        if 'price_max' in self.search_params:
-            request_params['search[filter_float_price:to]'] = self.search_params['price_max']
-        if 'area_min' in self.search_params:
-            request_params['search[filter_float_m:from]'] = self.search_params['area_min']
-        if 'area_max' in self.search_params:
-            request_params['search[filter_float_m:to]'] = self.search_params['area_max']
-
+        try:
+            request_params=olx.get_request_params(self.search_params,page=page)
+        except Exception as err:
+            print(err)
+            request_params=False
+        print('request_params',request_params)
         return request_params
+    
+
+    # def get_page_html(self):
+    #     with sync_playwright() as playwright:
+    #         browser = playwright.chromium.launch()
+    #         page = browser.new_page()
+    #         page.goto(self.request_url)
+    #         page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
+    #         return page.content()
+    def search(self):
+        """
+        attrs - dict with filter criteria
+        get page content using requests library and parse it using BeautifulSoup
+        function requests search results
+        """
+        current_page=1
+        ret=True
+        while not self.last_page: 
+            result = self.search_single_page(current_page)
+            if not result:
+                ret=False
+            current_page = current_page+1
+        return ret
 
     def parse_results(self, soup):
+        """
+        olx na początku daje ogłoszenia w szukanej lokalizacji, póżniej daje w coraz dalszych. 
+        zeby pobrać wyniki tylko z szukanej lokalizacji trzeba pobierać kolejne strony aż trafi się na taką z tekstem:
+        Sprawdź ogłoszenia w większej odległości:, dalej są już oferty tylko z innych lokalizaacji i pobierać z każdej strony pierwszy <div data-testid="listing-grid, na stronach z ofertami z tylko naszą lokalizacją jest on jeden, a jak jest podany wyżej tekst to są dwa i trzeba pobrać ten pierwszy
+        """
         # if not soup("div", class_="css-pband8"):
         #     return False
-        
+        self.results_count=int(soup.find("div",{"data-testid":"total-count"}).text.split()[1])
+        if(soup.find("div", {"class": "css-wsrviy"})):
+            self.last_page=True
+
+        # self.num_pages = math.ceil(self.results_count/self.results_per_page)
         search_results_soup = soup.find("div", {"data-testid":"listing-grid"}).find_all("a")
+
+        print('len(search_results_soup)',len(search_results_soup))
         results_arr = []
         for search_result_soup in search_results_soup:
             search_result = SearchResult()
