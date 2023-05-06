@@ -1,16 +1,3 @@
-// google.maps.event.addDomListener(window, 'load', initialize);
-window.addEventListener('load', function() {
-    var input = document.getElementById('id_localization');
-    options = {componentRestrictions: { country: "pl" }}//szukaj tylko w polsce
-    new google.maps.places.Autocomplete(input, options);
-    // var autocomplete = new google.maps.places.Autocomplete(input, options);
-
-    // autocomplete.addListener('place_changed', function () {
-        // var place = autocomplete.getPlace();
-        // $('#latitude').val(place.geometry['location'].lat());
-        // $('#longitude').val(place.geometry['location'].lng());
-    // });
-});
 
 
 

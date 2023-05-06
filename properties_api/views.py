@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from properties.search_results import SearchResults
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -27,8 +28,8 @@ class PropertyViewSet(viewsets.ModelViewSet):
 
 class PropertiesSearch(APIView):
 
-    def perform_search(self, data):
-        return search_api.webpages_search(data)
+    # def perform_search(self, data):
+    #     return search_api.webpages_search(data)
 
     def get(self, request, format='json'):
         search_params = request.GET
@@ -36,7 +37,8 @@ class PropertiesSearch(APIView):
         search_form = SearchForm(request.GET)
         print('**********', request.query_params)
         if search_form.is_valid():
-            search_results = self.perform_search(search_form.cleaned_data)
+            search_results = SearchResults(search_form.cleaned_data)
+            # search_results = self.perform_search(search_form.cleaned_data)
             print('********** len(search_results.objects)', len(search_results.objects))
             serializer = SearchResultsSerializer(search_results)
             print('********** len(serializer.data)', len(serializer.data['objects']))

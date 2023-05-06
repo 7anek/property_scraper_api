@@ -6,6 +6,8 @@ import socket
 
 def main():
     """Run administrative tasks."""
+    # os.system("sudo service postgresql start")#można to zrobić automatycznie przy uruchamianiu windowsa
+
     ipaddress = socket.gethostbyname( socket.gethostname() )
     LOCAL = ipaddress == '127.0.1.1'
     if LOCAL:

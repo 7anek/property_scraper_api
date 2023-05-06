@@ -1,11 +1,12 @@
-from urllib.parse import urljoin, urlencode, urlparse, urlunparse, unquote
+from urllib.parse import urljoin, urlencode, urlparse, urlunparse, unquote, parse_qs
 import unicodedata
+from bs4 import BeautifulSoup
 
 def url_encode(url):
     return unquote(url)
 
 def dict_filter_none(d):
-    return {key: value for key, value in d.items() if value is not None}
+    return {key: value for key, value in d.items() if value}
 
 def remove_accents(str):
     return ''.join(c for c in unicodedata.normalize('NFD', str) if unicodedata.category(c) != 'Mn')
@@ -16,6 +17,30 @@ def lowercase_with_hyphen_str(str):
 def slugify(str):
     """używane do wygenerowania lokalizacji jako parametr urla"""
     return lowercase_with_hyphen_str(remove_accents(str))
+
+def flatten_dict(d):
+    """
+    input:{'search[filter_float_price:from]': ['300000'], 'search[filter_float_price:to]': ['400000'], 'page': ['1']}
+    output:{'search[filter_float_price:from]': '300000', 'search[filter_float_price:to]': '400000', 'page': '1'}
+    """
+    return {k: v[0] for k, v in d.items()}
+
+def url_to_params_dict(url):
+    """
+    input:https://www.olx.pl/nieruchomosci/mieszkania/sprzedaz/grodzisk-mazowiecki/?search%5Bfilter_float_price%3Afrom%5D=300000&search%5Bfilter_float_price%3Ato%5D=400000&page=1
+    output:{'search[filter_float_price:from]': '300000', 'search[filter_float_price:to]': '400000', 'page': '1'}
+    """
+    d=parse_qs(urlparse(url).query)
+    fd=flatten_dict(d)
+    return fd
+
+def get_url_path(url):
+    """
+    input:https://www.olx.pl/nieruchomosci/mieszkania/sprzedaz/grodzisk-mazowiecki/?search%5Bfilter_float_price%3Afrom%5D=300000&search%5Bfilter_float_price%3Ato%5D=400000&page=1
+    output:/nieruchomosci/mieszkania/sprzedaz/grodzisk-mazowiecki
+    """
+    return urlparse(url).path
+
 
 def generate_url(scheme='https', netloc='', path='', url='', query='', fragment=''):
     """
@@ -37,6 +62,10 @@ def generate_url(scheme='https', netloc='', path='', url='', query='', fragment=
             fragment
         )
     )
+
+def soup_from_file(path):
+    page=open(path)
+    return BeautifulSoup(page.read(), "html.parser")
 
 class DictAutoVivification(dict):
     """

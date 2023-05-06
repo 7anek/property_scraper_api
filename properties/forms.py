@@ -58,7 +58,14 @@ class SearchForm(forms.Form):
     # nazwa = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Wpisz coś"}))
     # opis = forms.CharField(widget=forms.Textarea(attrs={"class": "nowa-klasa","rows":20,"cols":50,"id":"moje-id-dla-polatekstowego","placeholder":"Wpisz coś" }))
     #główne pola
-    localization = forms.CharField(initial="Grodzisk Mazowiecki")
+    formatted_address = forms.CharField(required=False, initial="Grodzisk Mazowiecki")
+    # google_maps_location_json=forms.JSONField(required=False)
+    province=forms.CharField(required=False)#województwo
+    # county=forms.CharField(required=False)#powiat
+    city=forms.CharField(required=False)
+    district=forms.CharField(required=False)
+    district_neighbourhood=forms.CharField(required=False)#poddzielnica np Muranów
+    street=forms.CharField(required=False)
     price_min = forms.IntegerField(min_value=0, max_value=10000000, required=False, initial=300000)
     price_max = forms.IntegerField(min_value=0, max_value=10000000, required=False, initial=400000)
     area_min = forms.IntegerField(min_value=0, max_value=1000, required=False)
@@ -74,6 +81,7 @@ class SearchForm(forms.Form):
 
     class Media:
         # js = (settings.STATIC_URL+'properties/google-maps-places.js', settings.STATIC_URL+'properties/search-form.js')
-        js = (f"https://maps.google.com/maps/api/js?key={settings.GOOGLE_MAPS_API_KEY}&libraries=places", settings.STATIC_URL+'properties/search-form.js')
+        js = (settings.STATIC_URL+'properties/search-form.js',)
+        # js = (f"https://maps.google.com/maps/api/js?key={settings.GOOGLE_MAPS_API_KEY}&libraries=places", settings.STATIC_URL+'properties/search-form.js')
         # https://maps.google.com/maps/api/js?key={{ google_maps_api_key }}&libraries=places"
 

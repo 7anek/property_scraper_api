@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from properties.models import Property
-from properties.search import SearchResults
+# from properties.search_results import SearchResults
 
 class PropertySerializer(serializers.ModelSerializer):
     class Meta:

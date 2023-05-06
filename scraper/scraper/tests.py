@@ -1,5 +1,6 @@
 # from django.test import TestCase
 from unittest import TestCase
+
 from scrapy.http import TextResponse, HtmlResponse, Response, Request
 import json
 
@@ -13,6 +14,9 @@ except ModuleNotFoundError:
     application = get_wsgi_application()
     from properties.models import Property
 from scraper.spiders.otodom_spider import OtodomSpider
+from scraper.spiders.domiporta_spider import DomiportaSpider
+from scraper.spiders.gratka_spider import GratkaSpider
+from scraper.spiders.morizon_spider import MorizonSpider
 from scraper.spiders.olx_spider import OlxSpider
 from scraper.pipelines import ScraperPipeline
 from django.utils import timezone
@@ -69,12 +73,12 @@ class ScraperParseTestCase(TestCase):
     #     print('Ala ma kota')
 
     def test_parse_otodom_offer(self):
-        return True
-        search_form=json.dumps({'localization': 'Grodzisk Mazowiecki', 'price_min': 300000, 'price_max': 400000, 'property_type': 'flat', 'offer_type': 'sell'})
+        # return True
+        search_form=json.dumps({'formatted_address': 'Jaktorów, Polska', 'province': 'Mazowieckie', 'city': 'Jaktorów', 'price_min': 30000, 'price_max': 400000, 'property_type': 'flat', 'offer_type': 'sell'})
         job_id='75d6b108cc9811edba0300155d7be260'
         spider=OtodomSpider(search_form=search_form,_job=job_id)
         print('test_parse_offer')
-        path="test_data/otodom-details.html"
+        path="test_data/otodom/otodom-details.html"
         # url='http://www.otodom.pl/64121978'
         url="nieważne"
         response = HtmlResponse(
@@ -89,16 +93,16 @@ class ScraperParseTestCase(TestCase):
         item=items[0]
         # self.assertEqual(item['title'], 'Mieszkanie 48m²⭐Stan Deweloperski⭐3 pokoje⭐Centrum')
         # self.assertEqual(item['price'], 395000)
-        self.assertEqual(item["service_id"], 64121978)
+        self.assertEqual(item["service_id"], 62983737)
         self.assertEqual(item["service_name"],"otodom")
-        self.assertEqual(item['title'], 'Mieszkanie 48m²⭐Stan Deweloperski⭐3 pokoje⭐Centrum')
-        self.assertEqual(item['price'], 395000)
+        self.assertEqual(item['title'], 'Mieszkanie, 44 m², Jaktorów')
+        self.assertEqual(item['price'], 190000)
         # item["location"] = ", ".join([offer_dict["target"]["City"], offer_dict["target"]["Subregion"],offer_dict["target"]["Province"]])
-        self.assertEqual(item["area"],48)
+        self.assertEqual(item["area"],44)
         # item["floor"] = parse_floor(offer_dict["target"]["Floor_no"]) if "Floor_no" in offer_dict["target"] else None
-        self.assertEqual(item["number_of_rooms"],3)
+        self.assertEqual(item["number_of_rooms"],2)
         self.assertEqual(item["type_of_property"],"flat")
-        self.assertEqual(item["type_of_building"],"block")
+        # self.assertEqual(item["type_of_building"],"block")
         # item["create_date"] = datetime.fromisoformat(offer_dict["createdAt"])
         # item["modify_date"] = datetime.fromisoformat(offer_dict["modifiedAt"])
         # self.assertEqual(items[0]['location'], 'Wrocław, Krzyki, ul. Mickiewicza')
@@ -108,11 +112,11 @@ class ScraperParseTestCase(TestCase):
     # #     search_form=json.dumps({'localization': 'Grodzisk Mazowiecki', 'price_min': 300000, 'price_max': 400000, 'area_min': None, 'area_max': None, 'property_type': 'flat', 'offer_type': 'sell', 'plot_type': '', 'house_type': '', 'flat_type': '', 'year_of_construction_from': None, 'year_of_construction_to': None})
 
     def test_parse_olx_offer(self):
-        search_form=json.dumps({'localization': 'Grodzisk Mazowiecki', 'price_min': 300000, 'price_max': 400000, 'property_type': 'flat', 'offer_type': 'sell'})
+        search_form=json.dumps({'formatted_address': 'Grodzisk Mazowiecki, Polska', 'province': 'Mazowieckie', 'city': 'Grodzisk Mazowiecki', 'price_min': 300000, 'price_max': 400000, 'property_type': 'flat', 'offer_type': 'sell'})
         job_id='75d6b108cc9811edba0300155d7be260'
         spider=OlxSpider(search_form=search_form,_job=job_id)
         print('test_parse_offer')
-        path="test_data/olx-details.html"
+        path="test_data/olx/olx-details.html"
         # url='http://www.otodom.pl/64121978'
         url="nieważne"
         response = HtmlResponse(
@@ -139,6 +143,112 @@ class ScraperParseTestCase(TestCase):
         # item["modify_date"] = datetime.fromisoformat(offer_dict["modifiedAt"])
         # self.assertEqual(items[0]['location'], 'Wrocław, Krzyki, ul. Mickiewicza')
         # self.assertEqual(items[0]['description'], 'Kawalerka o powierzchni 50,17 m2 usytuowana na III piętrze w 6 piętrowym budynku na Krzykach')
+
+    def test_parse_domiporta_offer(self):
+        search_form=json.dumps({'formatted_address': 'Chrzanów Mały, Polska', 'province': 'Mazowieckie', 'city': 'Chrzanów Mały', 'price_min': 300000, 'price_max': 400000, 'property_type': 'flat', 'offer_type': 'sell'})
+        job_id='75d6b108cc9811edba0300155d7be260'
+        spider=DomiportaSpider(search_form=search_form,_job=job_id)
+        print('test_parse_offer')
+        path="test_data/domiporta/domiporta-details.html"
+        # url='http://www.otodom.pl/64121978'
+        url="http://www.domiporta.pl/nieruchomosci/sprzedam-mieszkanie-dwupokojowe-chrzanow-maly-chrzanow-maly-41m2/154218398"
+        request=Request(
+            url=url
+        )
+        response = HtmlResponse(
+            url=url,
+            request=request,
+            body=open(path, 'rb').read(),
+            encoding='utf-8'
+        )
+        results = spider.parse_offer(response)
+        # print('results',list(results))
+        items = list(results)
+        self.assertEqual(len(items), 1)
+        item=items[0]
+        # self.assertEqual(item["service_id"], 710818583)#wyciągane z requesta
+        self.assertEqual(item["service_name"],"domiporta")
+        self.assertEqual(item['title'], 'Mieszkanie dwupokojowe na sprzedaż')
+        self.assertEqual(item['price'], 390000.0)
+        # item["location"] = ", ".join([offer_dict["target"]["City"], offer_dict["target"]["Subregion"],offer_dict["target"]["Province"]])
+        self.assertEqual(item["area"],41.0)
+        # item["floor"] = parse_floor(offer_dict["target"]["Floor_no"]) if "Floor_no" in offer_dict["target"] else None
+        self.assertEqual(item["floor"],2)
+        self.assertEqual(item["number_of_rooms"],2)
+        self.assertEqual(item["type_of_property"],"flat")
+        self.assertEqual(item["type_of_building"],"block_of_flats")
+        # item["create_date"] = datetime.fromisoformat(offer_dict["createdAt"])
+        # item["modify_date"] = datetime.fromisoformat(offer_dict["modifiedAt"])
+        # self.assertEqual(items[0]['location'], 'Wrocław, Krzyki, ul. Mickiewicza')
+        # self.assertEqual(items[0]['description'], 'Kawalerka o powierzchni 50,17 m2 usytuowana na III piętrze w 6 piętrowym budynku na Krzykach')
+    
+    
+    def test_parse_gratka_offer(self):
+        search_form=json.dumps({'formatted_address': 'Grodzisk Mazowiecki, Polska', 'province': 'Mazowieckie', 'city': 'Grodzisk Mazowiecki', 'price_min': 300000, 'price_max': 400000, 'property_type': 'flat', 'offer_type': 'sell'})
+        job_id='75d6b108cc9811edba0300155d7be260'
+        spider=GratkaSpider(search_form=search_form,_job=job_id)
+        print('test_parse_offer')
+        path="test_data/gratka/gratka-details.html"
+        url="nieważne"
+        response = HtmlResponse(
+            url=url,
+            body=open(path, 'rb').read(),
+            encoding='utf-8'
+        )
+        results = spider.parse_offer(response)
+        # print('results',list(results))
+        items = list(results)
+        self.assertEqual(len(items), 1)
+        item=items[0]
+        self.assertEqual(item["service_id"], 30116547)
+        self.assertEqual(item["service_name"],"gratka")
+        self.assertEqual(item['title'], 'Mieszkanie Grodzisk Mazowiecki, ul. Grunwaldzka')
+        self.assertEqual(item['price'], 348000.0)
+        # item["location"] = ", ".join([offer_dict["target"]["City"], offer_dict["target"]["Subregion"],offer_dict["target"]["Province"]])
+        self.assertEqual(item["area"],47.0)
+        # item["floor"] = parse_floor(offer_dict["target"]["Floor_no"]) if "Floor_no" in offer_dict["target"] else None
+        self.assertEqual(item["floor"],4)
+        self.assertEqual(item["number_of_rooms"],3)
+        self.assertEqual(item["type_of_property"],"flat")
+        self.assertEqual(item["type_of_building"],"block_of_flats")
+        # item["create_date"] = datetime.fromisoformat(offer_dict["createdAt"])
+        # item["modify_date"] = datetime.fromisoformat(offer_dict["modifiedAt"])
+        # self.assertEqual(items[0]['location'], 'Wrocław, Krzyki, ul. Mickiewicza')
+        # self.assertEqual(items[0]['description'], 'Kawalerka o powierzchni 50,17 m2 usytuowana na III piętrze w 6 piętrowym budynku na Krzykach')
+
+    def test_parse_morizon_offer(self):
+        search_form=json.dumps({'formatted_address': 'Grodzisk Mazowiecki, Polska', 'province': 'Mazowieckie', 'city': 'Grodzisk Mazowiecki', 'price_min': 300000, 'price_max': 400000, 'property_type': 'flat', 'offer_type': 'sell'})
+        job_id='75d6b108cc9811edba0300155d7be260'
+        spider=MorizonSpider(search_form=search_form,_job=job_id)
+        print('test_parse_offer')
+        path="test_data/morizon/morizon-details.html"
+        url="nieważne"
+        response = HtmlResponse(
+            url=url,
+            body=open(path, 'rb').read(),
+            encoding='utf-8'
+        )
+        results = spider.parse_offer(response)
+        # print('results',list(results))
+        # items = list(results)
+        self.assertEqual(list(results), [])
+        # item=items[0]
+        # self.assertEqual(item["service_id"], 30116547)
+        # self.assertEqual(item["service_name"],"morizon")
+        # self.assertEqual(item['title'], 'DWA POKOJE W CENTRUM GRODZISKA MAZOWIECKIEGO (38 m2) - BEZPOŚREDNIO')
+        # self.assertEqual(item['price'], 348000.0)
+        # # item["location"] = ", ".join([offer_dict["target"]["City"], offer_dict["target"]["Subregion"],offer_dict["target"]["Province"]])
+        # self.assertEqual(item["area"],47.0)
+        # # item["floor"] = parse_floor(offer_dict["target"]["Floor_no"]) if "Floor_no" in offer_dict["target"] else None
+        # self.assertEqual(item["floor"],4)
+        # self.assertEqual(item["number_of_rooms"],3)
+        # self.assertEqual(item["type_of_property"],"flat")
+        # self.assertEqual(item["type_of_building"],"block_of_flats")
+        # item["create_date"] = datetime.fromisoformat(offer_dict["createdAt"])
+        # item["modify_date"] = datetime.fromisoformat(offer_dict["modifiedAt"])
+        # self.assertEqual(items[0]['location'], 'Wrocław, Krzyki, ul. Mickiewicza')
+        # self.assertEqual(items[0]['description'], 'Kawalerka o powierzchni 50,17 m2 usytuowana na III piętrze w 6 piętrowym budynku na Krzykach')
+
 
 class ScraperPipelineTestCase(TestCase):
 

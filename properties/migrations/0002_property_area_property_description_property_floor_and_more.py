@@ -57,11 +57,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='property',
-            name='location',
-            field=models.CharField(max_length=255, null=True),
-        ),
-        migrations.AlterField(
-            model_name='property',
             name='price',
             field=models.FloatField(default=None),
         ),

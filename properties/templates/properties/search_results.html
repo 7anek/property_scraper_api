@@ -19,8 +19,8 @@
                     {% if result.number_of_rooms %}<span>Liczba pokoi: {{ result.number_of_rooms }}.</span>{% endif %}
                 </p>
                 {% comment %} <a href="{{ result.offer_url }}" class="btn btn-primary">Wyświetl</a> {% endcomment %}
-                {% if result.offer_url_path %}
-                <a href="{{result.offer_url_path}}" class="btn btn-primary">Wyświetl</a>
+                {% if result.offer_url %}
+                <a href="{{result.offer_url}}" class="btn btn-primary">Wyświetl</a>
                 {% comment %} <a href="{% url 'single_offer' service=result.service url_path=result.offer_url_path|urlencode:"" %}" class="btn btn-primary">Wyświetl</a> {% endcomment %}
                 {% endif %}
             </div>

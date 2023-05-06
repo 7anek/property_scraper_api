@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from properties.search_results import SearchResults
 from scrapy.crawler import CrawlerProcess
 # try:
 #     from scraper.scraper.spiders.otodom_spider import PropertiesSpider
@@ -32,7 +33,8 @@ def search(request):
         if search_form.is_valid():
             data = search_form.cleaned_data
             print(data)
-            results = search_api.webpages_search(data)
+            results = SearchResults(data)
+            # results = search_api.webpages_search(data)
             context = {"search_form": search_form, "search_results": results}
         else:
             print("Invalid Form")
@@ -55,7 +57,7 @@ def scrape(request):
         # settings = get_project_settings()
         # print('////////////',settings)
         if search_form.is_valid():  
-            job_id = scrapyd.schedule('default', 'olx', search_form = json.dumps(search_form.cleaned_data))
+            job_id = scrapyd.schedule('default', 'gratka', search_form = json.dumps(search_form.cleaned_data))
             # job_id = scrapyd.schedule('default', 'otodom', search_form = json.dumps(search_form.cleaned_data))
             # job_id = scrapyd.schedule('default', 'otodom', settings=settings)
             scrape_status =  scrapyd.job_status('default', job_id)
