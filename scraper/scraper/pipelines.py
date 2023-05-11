@@ -33,9 +33,11 @@ class FieldValidationPipeline:
 
     def process_item(self, item, spider):
         print('///////////////////process_item',item)
-        # model_fields = [field.name for field in Property._meta.get_fields()]
-        # for key, value in item:
-        #     if value is None:
+        model_fields = [field.name for field in Property._meta.get_fields()]
+        for key, value in item:
+            if key in ["price","area"] and value is None:
+                print('wymagane pole jest puste')
+                raise DropItem("Missing title field")
         # Check that the 'title' field is not empty
         if not item.get("title"):
             raise DropItem("Missing title field")
