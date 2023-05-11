@@ -78,7 +78,12 @@ def get_single_search_result_title(single_result_soup):
     return single_result_soup.find("span",{"class":"offer__title"}).get_text("",strip=True)
 
 def get_single_search_result_price(single_result_soup):
-    return float(re.sub(r"[^\d.,]","",single_result_soup.find("div",{"class":"offer-price__bottom"}).get_text("",strip=True)).replace(",","."))
+    try:
+        return float(re.sub(r"[^\d.,]","",single_result_soup.find("div",{"class":"offer-price__bottom"}).get_text("",strip=True)).replace(",","."))
+    except Exception as e:
+        print(e)
+        return 0.0
+
 
 def get_single_search_result_additional_features_set(single_result_soup):
     return single_result_soup.find("div",{"class":"property-info"}).contents

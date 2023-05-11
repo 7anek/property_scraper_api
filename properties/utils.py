@@ -67,6 +67,20 @@ def soup_from_file(path):
     page=open(path)
     return BeautifulSoup(page.read(), "html.parser")
 
+def safe_execute(default, exception, function, *args):
+    """
+    safe_execute(
+        "Divsion by zero is invalid.",
+        ZeroDivisionError,
+        div, 1, 0
+    )
+    # Returns "Divsion by zero is invalid."
+    """
+    try:
+        return function(*args)
+    except exception:
+        return default
+
 class DictAutoVivification(dict):
     """
     Implementation of perl's autovivification feature.

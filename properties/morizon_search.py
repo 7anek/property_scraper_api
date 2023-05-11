@@ -32,13 +32,13 @@ class MorizonSearch(Search):
             current_page = current_page+1
         return ret
 
-    # def get_page_html(self):
-    #     with sync_playwright() as playwright:
-    #         browser = playwright.chromium.launch()
-    #         page = browser.new_page()
-    #         page.goto(self.request_url)
-    #         page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
-    #         return page.content()
+    def get_page_html(self):
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.launch()
+            page = browser.new_page()
+            page.goto(self.request_url)
+            page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
+            return page.content()
 
     def get_request_single_result_url(self):
         return self.generate_url(scheme=self.url_scheme, netloc=self.url_netloc, path=self.url_path)

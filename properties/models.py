@@ -1,6 +1,8 @@
-from django.db import models
+# from django.db import models
 from django.contrib import admin
 from django.utils import timezone
+from django.contrib.gis.db import models
+from django.contrib.gis.geos import Point
 
 # Create your models here.
 class Property(models.Model):
@@ -27,19 +29,25 @@ class Property(models.Model):
 
     class TypesOfBuildingMaterials(models.TextChoices):
         BRICK = 'brick', 'Cegła'
+        GREAT_SLAB = 'great_slab', 'Wielka płyta'
 
-    class TypesOfFlatOwnership(models.TextChoices):
+    class TypesOfOwnership(models.TextChoices):
         FULL_OWNERSHIP = 'full_ownership', 'Pełna własność'
+        COOPERATIVE_OWNERSHIP = 'cooperative_ownership', 'Spółdzielcze własnościowe'
+        COOPERATIVE_TENANT = 'cooperative_tenant', 'Spółdzielcze lokatorskie'
+        GOVERNMENT_HOUSING = 'government_housing', 'Komunalne'
 
     class TypesOfHeating(models.TextChoices):
         URBAN = 'urban', 'Miejskie'
+        GAS = 'gas', 'Gazowe'
 
     class TypesOfMarket(models.TextChoices):
         PRIMARY = 'primary', 'Pierwotny'
         SECONDARY = 'secondary', 'Wtórny'
     
     class TypesOfConstructionStatus(models.TextChoices):
-        TO_COMPLETION = 'to_completion', 'do wykończenia'
+        TO_COMPLETION = 'to_completion', 'Do wykończenia'
+        READY = 'ready', 'Do zamieszkania'
 
     # plot choices
 
@@ -51,7 +59,7 @@ class Property(models.Model):
 
     # house choices
 
-    class TypesOfBuilding(models.TextChoices):
+    class TypesOfHouses(models.TextChoices):
         DETACHED_HOUSE='detached_house', 'Wolnostojący',
         SEMI_DETACHED_HOUSE='semi_detached_house', 'Bliźniak',
         TERRACED_HOUSE='terraced_house', 'Szeregowiec',
@@ -62,43 +70,46 @@ class Property(models.Model):
         IN_BUILDING = 'in_building', 'w budynku'
         SEPARATE = "separate", 'samodzielny'
 
-    service_id = models.PositiveIntegerField(default=None, null=True)
+    service_id = models.CharField(max_length=255, null=True)
     service_name = models.CharField(max_length=255, null=False, default=None)
     service_url = models.CharField(max_length=255, null=False, default=None)
     scrape_job_id = models.UUIDField(primary_key=False, default=None, editable=True, null=True)
     create_date = models.DateTimeField(default=timezone.now, null=True)
     modify_date = models.DateTimeField(default=timezone.now, null=True)
     #main common fields
-    title = models.CharField(max_length=255, null=False, default=None)
+    title = models.CharField(max_length=255, null=True)
     price = models.FloatField(default=None, null=False)
     description = models.TextField(null=True)
     area = models.FloatField(default=None, null=False)
-    type_of_property = models.CharField(max_length=100, choices = TypesOfProperties.choices, default=TypesOfProperties.FLAT, null=False)
-    type_of_offer = models.CharField(max_length=100, choices = TypesOfOffer.choices, default=TypesOfOffer.SELL, null=False)
-    regular_user = models.BooleanField(default=None, null=True)#czy zamieszczone przez agenta czy przezz osobę prywatną
+    property_type = models.CharField(max_length=100, choices = TypesOfProperties.choices, default=TypesOfProperties.FLAT, null=False)
+    offer_type = models.CharField(max_length=100, choices = TypesOfOffer.choices, default=TypesOfOffer.SELL, null=False)
+    regular_user = models.BooleanField(default=None, null=True)#czy zamieszczone przez agenta czy przez osobę prywatną
     #localization fields
-    formatted_address = models.CharField(max_length=255, null=True)
+    address = models.CharField(max_length=255, null=True)
     province = models.CharField(max_length=255, null=True)
     city = models.CharField(max_length=255, null=True)
+    county = models.CharField(max_length=255, null=True)
     district = models.CharField(max_length=255, null=True)
     district_neighbourhood = models.CharField(max_length=255, null=True)#poddzielnica np Muranów
     street = models.CharField(max_length=255, null=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True)
+    radius = models.IntegerField(null=True)
+    location = models.PointField(blank=True, null=True)
     #flat fields
     floor = models.SmallIntegerField(default=None, null=True)
     building_floors_num = models.SmallIntegerField(default=None, null=True)
     rent = models.FloatField(default=None, null=True)#czynsz
-    type_of_flat = models.CharField(max_length=100, choices = TypesOfFlats.choices, default=None, null=True)
-    flat_ownership = models.CharField(max_length=100, choices = TypesOfFlatOwnership.choices, default=None, null=True)
+    flat_type= models.CharField(max_length=100, choices = TypesOfFlats.choices, default=None, null=True)
+    ownership = models.CharField(max_length=100, choices = TypesOfOwnership.choices, default=None, null=True)
     heating = models.CharField(max_length=100, choices = TypesOfHeating.choices, default=None, null=True)
-    market_type = models.CharField(max_length=100, choices = TypesOfMarket.choices, default=None, null=True)
-    construction_status = models.CharField(max_length=100, choices = TypesOfConstructionStatus.choices, default=None, null=True)
     number_of_rooms = models.PositiveSmallIntegerField(default=None, null=True)
-    year_of_construction = models.PositiveSmallIntegerField(default=None, null=True)
     # plot fileds
-    type_of_plot = models.CharField(max_length=100, choices = TypesOfPlots.choices, default=None, null=True)
+    plot_type = models.CharField(max_length=100, choices = TypesOfPlots.choices, default=None, null=True)
     # house fields
-    type_of_building = models.CharField(max_length=100, choices = TypesOfPlots.choices, default=None, null=True)
+    house_type = models.CharField(max_length=100, choices = TypesOfHouses.choices, default=None, null=True)
     plot_area = models.FloatField(default=None, null=True)
+    basement = models.BooleanField(default=None, null=True)
     #garage fields
     garage_heating = models.BooleanField(default=None, null=True)
     garage_lighted = models.BooleanField(default=None, null=True)
@@ -113,8 +124,15 @@ class Property(models.Model):
     water = models.BooleanField(default=None, null=True)
     fence = models.BooleanField(default=None, null=True)
     # house and flat fields
+    build_year = models.PositiveSmallIntegerField(default=None, null=True)
+    market_type = models.CharField(max_length=100, choices = TypesOfMarket.choices, default=None, null=True)
+    construction_status = models.CharField(max_length=100, choices = TypesOfConstructionStatus.choices, default=None, null=True)
     building_material = models.CharField(max_length=100, choices = TypesOfBuildingMaterials.choices, default=None, null=True)
     
+    def save(self, *args, **kwargs):
+        if self.longitude and self.latitude:
+            self.location = Point(self.longitude, self.latitude)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.service_id} - {self.price} - {self.area} - {self.title}"

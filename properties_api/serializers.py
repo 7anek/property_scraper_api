@@ -5,7 +5,7 @@ from properties.models import Property
 class PropertySerializer(serializers.ModelSerializer):
     class Meta:
         # fields = ('id', 'title', 'price')
-        fields = ('id', 'service_id', 'service_name', 'title', 'price', 'location', 'description', 'area', 'floor', 'type_of_property', 'type_of_building', 'number_of_rooms', 'create_date', 'modify_date', 'scrape_job_id')
+        fields = ('id', 'service_id', 'service_name', 'service_url', 'scrape_job_id', 'create_date', 'modify_date', 'title', 'price', 'description', 'area', 'type_of_property', 'type_of_offer', 'regular_user', 'formatted_address', 'province', 'county', 'city', 'district', 'district_neighbourhood', 'street', 'floor', 'building_floors_num', 'rent', 'type_of_flat', 'flat_ownership', 'heating', 'market_type', 'construction_status', 'number_of_rooms', 'year_of_construction', 'type_of_plot', 'type_of_building', 'plot_area', 'garage_heating', 'garage_lighted', 'garage_localization', 'forest_vicinity', 'open_terrain_vicinity', 'lake_vicinity', 'electricity', 'gas', 'sewerage', 'water', 'fence', 'building_material')
         model = Property
 
 

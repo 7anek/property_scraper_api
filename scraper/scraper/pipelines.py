@@ -11,50 +11,64 @@ from asgiref.sync import sync_to_async
 from properties.models import Property
 from scrapy.exceptions import DropItem
 from scrapy.utils.project import get_project_settings
+from django.db.models.fields import FieldDoesNotExist
+
 
 class FieldValidationPipeline:
 
+    # def validate_data(data, model):
+    #     model_fields = [field.name for field in model._meta.get_fields()]
+    #     for key, value in data.items():
+    #         if key not in model_fields:
+    #             raise KeyError(f"{key} is not a valid field for {model.__name__}")
+    #         try:
+    #             field_type = model._meta.get_field(key).get_internal_type()
+    #             if field_type == 'IntegerField':
+    #                 int(value)  # check if value can be cast to int
+    #             elif field_type == 'FloatField':
+    #                 float(value)  # check if value can be cast to float
+    #             # add more field types as needed
+    #         except FieldDoesNotExist:
+    #             pass  # this field is not a database field, skip it
+
     def process_item(self, item, spider):
+        print('///////////////////process_item',item)
+        # model_fields = [field.name for field in Property._meta.get_fields()]
+        # for key, value in item:
+        #     if value is None:
         # Check that the 'title' field is not empty
-        if not item.get('title'):
-            raise DropItem('Missing title field')       
-        if not item.get('service_name'):
-            raise DropItem('Missing service_name field')
+        if not item.get("title"):
+            raise DropItem("Missing title field")
+        if not item.get("service_name"):
+            raise DropItem("Missing service_name field")
         # Check that the 'price' field is a number
-        if not item.get('price'):
-            raise DropItem('Missing price field')
-        if type(item.get('price')) != float:
-            raise DropItem('Invalid type of price field')
-        if not item.get('area'):
-            raise DropItem('Missing area field')
-        if type(item.get('area')) != float:
-            raise DropItem('Invalid type of area field')
-        if item.get('floor'):
-            if type(item.get('floor')) != int:
-                raise DropItem('Invalid type of floor field')
-        if item.get('number_of_rooms'):
-            if type(item.get('number_of_rooms')) != int:
-                raise DropItem('Invalid type of number_of_rooms field')
+        if not item.get("price"):
+            raise DropItem("Missing price field")
+        if type(item.get("price")) != float:
+            raise DropItem("Invalid type of price field")
+        if not item.get("area"):
+            raise DropItem("Missing area field")
+        if type(item.get("area")) != float:
+            raise DropItem("Invalid type of area field")
+        if item.get("floor"):
+            if type(item.get("floor")) != int:
+                raise DropItem("Invalid type of floor field")
+        if item.get("number_of_rooms"):
+            if type(item.get("number_of_rooms")) != int:
+                raise DropItem("Invalid type of number_of_rooms field")
 
         return item
 
+
 class ScraperPipeline:
     @sync_to_async
-    def process_item(self, item, spider):
-        # item.save()
-        # return item
-        # settings=get_project_settings()
-        # print('******* scrapy pipeline WSGI_APPLICATION', settings.WSGI_APPLICATION)
-        # print('******* scrapy pipeline DATABASES', settings.DATABASES)
-        # print('******* scrapy pipeline PGSERVICEFILE', settings.PGSERVICEFILE)
-        # print('******* scrapy pipeline PGPASSFILE', settings.PGPASSFILE)
-        print(Property.objects.all())
+    def process_item(self, item, spider):      
         if item["service_id"]:
             existing_objects = Property.objects.filter(
                 service_id=item["service_id"], service_name=item["service_name"]
             )
             if existing_objects:
-                existing_object=existing_objects.first()
+                existing_object = existing_objects.first()
             else:
                 existing_object = False
         else:
@@ -66,7 +80,7 @@ class ScraperPipeline:
             existing_object.service_url = item["service_url"]
             existing_object.title = item["title"]
             existing_object.price = item["price"]
-            existing_object.formatted_address = item["formatted_address"]
+            existing_object.address = item["address"]
             existing_object.province = item["province"]
             existing_object.city = item["city"]
             existing_object.district = item["district"]
@@ -75,8 +89,8 @@ class ScraperPipeline:
             existing_object.description = item["description"]
             existing_object.area = item["area"]
             existing_object.floor = item["floor"]
-            existing_object.type_of_property = item["type_of_property"]
-            existing_object.type_of_building = item["type_of_building"]
+            existing_object.flat_type = item["flat_type"]
+            existing_object.house_type = item["house_type"]
             existing_object.number_of_rooms = item["number_of_rooms"]
             existing_object.create_date = item["create_date"]
             existing_object.modify_date = item["modify_date"]
@@ -90,7 +104,7 @@ class ScraperPipeline:
                 service_url=item["service_url"],
                 title=item["title"],
                 price=item["price"],
-                formatted_address=item["formatted_address"],
+                address=item["address"],
                 province=item["province"],
                 city=item["city"],
                 district=item["district"],
@@ -99,8 +113,8 @@ class ScraperPipeline:
                 description=item["description"],
                 area=item["area"],
                 floor=item["floor"],
-                type_of_property=item["type_of_property"],
-                type_of_building=item["type_of_building"],
+                flat_type=item["flat_type"],
+                house_type=item["house_type"],
                 number_of_rooms=item["number_of_rooms"],
                 create_date=item["create_date"],
                 modify_date=item["modify_date"],
@@ -108,5 +122,6 @@ class ScraperPipeline:
             if property:
                 property.save()
             else:
-                print('++++++++++++++ item sie niezapisał',item)
+                print("++++++++++++++ item sie niezapisał", item)
         return item
+    

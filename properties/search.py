@@ -32,13 +32,13 @@ class SearchResult:
     area = ''
     service=''
 
-# class Offer:
-#     title = ''
-#     price = ''
-#     price_per_square_meter = ''
-#     localization = ''
-#     description = ''
-#     service_id = None
+class Offer:
+    title = ''
+    price = ''
+    price_per_square_meter = ''
+    localization = ''
+    description = ''
+    service_id = None
 
 
 class Search(ABC):
