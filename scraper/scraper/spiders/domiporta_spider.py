@@ -1,14 +1,10 @@
 import os
 from scraper.utils import *
 from scrapy.spiders import Spider
-from bs4 import BeautifulSoup
 import math
 import re
-from datetime import datetime, date, timedelta
-from urllib.parse import urljoin, urlencode, urlparse, urlunparse, unquote, parse_qs
 import chompjs
 import json
-from properties.otodom import *
 from properties.utils import *
 from properties.models import Property
 from properties import domiporta

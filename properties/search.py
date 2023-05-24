@@ -11,15 +11,17 @@ from selenium import webdriver
 
 
 class ServiceNames:
-    otodom='otodom'
-    olx='olx'
-    nieruchomosci_online='nieruchomosci_online'
-    gratka='gratka'
-    morizon='morizon'
-    domiporta='domiporta'
+    otodom = 'otodom'
+    olx = 'olx'
+    nieruchomosci_online = 'nieruchomosci_online'
+    gratka = 'gratka'
+    morizon = 'morizon'
+    domiporta = 'domiporta'
 
-#nieruchomosci_online - blokada adresu ip
+
+# nieruchomosci_online - blokada adresu ip
 services = [ServiceNames.olx, ServiceNames.otodom, ServiceNames.gratka, ServiceNames.morizon, ServiceNames.domiporta]
+
 
 class SearchResult:
     offer_url = ''
@@ -30,7 +32,8 @@ class SearchResult:
     price_per_square_meter = ''
     number_of_rooms = ''
     area = ''
-    service=''
+    service = ''
+
 
 class Offer:
     title = ''
@@ -44,7 +47,7 @@ class Offer:
 class Search(ABC):
     request_url = None
     request_params = None
-    from_file=False
+    from_file = False
     response = None
     result = []
     base_url = None
@@ -54,8 +57,8 @@ class Search(ABC):
     url_path = ''
     url_fragment = ''  # html id elementu
     service_label = ''
-    results_count=0#całkowita liczba wyników  ze wszystkich stron z danego serwisu
-    page_label="page"
+    results_count = 0  # całkowita liczba wyników  ze wszystkich stron z danego serwisu
+    page_label = "page"
 
     # @property
     @abstractmethod
@@ -66,7 +69,7 @@ class Search(ABC):
         # search_params = dict_filter_none(search_params)
         # print('search_params', search_params)
         self.search_params = search_params
-        self.from_file=from_file
+        self.from_file = from_file
 
     def add_search_params(self, search_params):
         self.search_params = search_params
@@ -76,17 +79,17 @@ class Search(ABC):
         pass
 
     def search_single_page(self, page):
-        print('search_single_page',page)
+        print('search_single_page', page)
         if self.request_params:
-            self.request_params[self.page_label]=page
+            self.request_params[self.page_label] = page
         else:
             self.request_params = self.get_request_params(page)
             if self.request_params == False:
                 print('********* error in generating request params', self.request_params)
                 return False
-        
+
         if not self.url_path:
-            self.url_path=self.get_url_path()
+            self.url_path = self.get_url_path()
 
         self.request_url = self.get_request_url()
         if not self.request_url:
@@ -115,8 +118,6 @@ class Search(ABC):
         self.result = self.result + result
         return True
 
-    
-
     # @abstractmethod
     # def get_request_url(self):
     #     pass
@@ -129,26 +130,24 @@ class Search(ABC):
     def parse_results(self):
         pass
 
-
-
     @abstractmethod
     def get_request_single_result_url(self):
         pass
 
     def get_request_url(self):
-        print("self.url_path",self.url_path)
+        print("self.url_path", self.url_path)
         try:
-            url=generate_url(
-                    scheme=self.url_scheme,
-                    netloc=self.url_netloc,
-                    path=self.url_path,
-                    url='',
-                    query=self.request_params,
-                    fragment=self.url_fragment
+            url = generate_url(
+                scheme=self.url_scheme,
+                netloc=self.url_netloc,
+                path=self.url_path,
+                url='',
+                query=self.request_params,
+                fragment=self.url_fragment
             )
         except Exception as err:
             print(err)
-            url=False
+            url = False
         return url
 
     def get_page_html(self):
@@ -165,25 +164,21 @@ class Search(ABC):
         return response.content
 
     def get_page_html_from_file(self):
-        with open(self.from_file,"r") as file:
+        with open(self.from_file, "r", encoding="utf8") as file:
             content = file.read()
         if content:
             return content
         else:
-            print('****** No such file or file empty:',self.from_file)
+            print('****** No such file or file empty:', self.from_file)
             return False
 
-
     def save_to_file(self, path):
-        with open(path, "w") as file:
+        with open(path, "w", encoding="utf8") as file:
             file.write(self.response)
 
     def get_service_url(self, path='', url='', query='', fragment=''):
-        return generate_url(scheme=self.url_scheme, netloc=self.url_netloc, path=path, url=url, query=query, fragment=fragment)
-
-
-
-  
+        return generate_url(scheme=self.url_scheme, netloc=self.url_netloc, path=path, url=url, query=query,
+                            fragment=fragment)
 
 
 def get_single_offer(attrs):
@@ -199,7 +194,7 @@ def get_single_offer(attrs):
     else:
         print('Unknown service:', attrs['service'])
         return False
- 
+
     return result
 
 
@@ -216,10 +211,10 @@ class SearchSingle:
         print('request_url', self.request_url)
 
     def get_result(self):
- 
+
         self.response = requests.get(self.request_url)
         if not self.response.ok:
-            print('****** Request was not succesful')
+            print('****** Request was not successful')
             return False
         print('status code', self.response.status_code)
         # if not self.response.content:
@@ -238,7 +233,7 @@ class SearchSingle:
             return False
 
         return self.result
-    
+
     def get_request_url(self, params):
         return generate_url(netloc=self.host, path=params['url_path'])
 
@@ -250,31 +245,36 @@ class SearchSingle:
     def parse_result(self):
         pass
 
+
 class SearchSingleOtodom(SearchSingle):
     service_label = 'otodom'
     host = "www.otodom.pl"
 
     def page_404(self):
-        return bool(self.soup.find("h4", text="Przepraszamy, ale nie możemy znaleźć takiej strony... Co powiesz na krótką grę w ramach rekompensaty?"))
+        return bool(self.soup.find("h4",
+                                   text="Przepraszamy, ale nie możemy znaleźć takiej strony... Co powiesz na krótką "
+                                        "grę w ramach rekompensaty?"))
 
     def parse_result(self):
         offer = Offer()
         header = self.soup.find("header")
         offer.title = header.h1.text
-        offer.price = header.find("strong",{'aria-label':'Cena'}).text
-        offer.price_per_square_meter = header.find("div",{'aria-label':'Cena za metr kwadratowy'}).text
+        offer.price = header.find("strong", {'aria-label': 'Cena'}).text
+        offer.price_per_square_meter = header.find("div", {'aria-label': 'Cena za metr kwadratowy'}).text
         offer.localization = header.find("a").text
         # Szczegóły ogłoszenia
-        
+
         return offer
-    
+
+
 class SearchSingleOlx(SearchSingle):
     service_label = 'olx'
     host = "www.olx.pl"
 
     def page_404(self):
-        return bool(self.soup.find("h4", text="Przepraszamy, ale nie możemy znaleźć takiej strony... Co powiesz na krótką grę w ramach rekompensaty?"))
-    
+        return bool(self.soup.find("h4",
+                                   text="Przepraszamy, ale nie możemy znaleźć takiej strony... Co powiesz na krótką grę w ramach rekompensaty?"))
+
     def get_result(self):
         CHROME_PATH = '/usr/bin/google-chrome'
         CHROMEDRIVER_PATH = '/usr/bin/chromedriver'
@@ -286,13 +286,13 @@ class SearchSingleOlx(SearchSingle):
         chrome_options.binary_location = CHROME_PATH
 
         selenium = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH,
-                                chrome_options=chrome_options
-                                )
+                                    chrome_options=chrome_options
+                                    )
         # selenium = webdriver.Chrome()
 
         selenium.get(self.request_url)
         selenium.implicitly_wait(10)
-        onetrust_button = selenium.find_element("id","onetrust-accept-btn-handler")
+        onetrust_button = selenium.find_element("id", "onetrust-accept-btn-handler")
         onetrust_button.click()
         # ActionChains(selenium).click(onetrust_button).perform()
         self.soup = BeautifulSoup(selenium.page_source, 'html.parser')
@@ -310,25 +310,18 @@ class SearchSingleOlx(SearchSingle):
 
     def parse_result(self):
         offer = Offer()
-        offer.title = self.soup.find('h1', {"data-cy":"ad_title"}).text
-        offer.price = self.soup.find('div', {"data-testid":"ad-price-container"}).h3.text
-         # Szczegóły ogłoszenia
-        attributes_raw = self.soup.find("div", {"id":"baxter-above-parameters"}).next_element.next_element.next_element.find_all("p")
+        offer.title = self.soup.find('h1', {"data-cy": "ad_title"}).text
+        offer.price = self.soup.find('div', {"data-testid": "ad-price-container"}).h3.text
+        # Szczegóły ogłoszenia
+        attributes_raw = self.soup.find("div", {
+            "id": "baxter-above-parameters"}).next_element.next_element.next_element.find_all("p")
         attributes_raw = list(map(lambda x: x.text, attributes_raw))
-        attributes_dict = dict(map(lambda x: map(str.strip, x.split(":")),filter(lambda y: ":" in y, attributes_raw)))
+        attributes_dict = dict(map(lambda x: map(str.strip, x.split(":")), filter(lambda y: ":" in y, attributes_raw)))
         # {'Cena za m²': '9972.22 zł/m²', 'Poziom': '3', 'Umeblowane': 'Tak', 'Rynek': 'Wtórny', 'Rodzaj zabudowy': 'Blok', 'Powierzchnia': '36 m²', 'Liczba pokoi': '2 pokoje'}
-        offer.description = self.soup.find("div",{"data-cy":"ad_description"}).div.text
+        offer.description = self.soup.find("div", {"data-cy": "ad_description"}).div.text
         offer.localization = self.soup.find("p", class_="css-1cju8pu").text
         # offer.price_per_square_meter = attributes_dict["'Cena za m²"]
         # offer.localization = "".join(self.soup.find("p",string="Lokalizacja").find_next("div").section.div.div.find_all("p"))
-        offer.service_id = self.soup.find("div", {"data-cy":"ad-footer-bar-section"}).span.text
-        
+        offer.service_id = self.soup.find("div", {"data-cy": "ad-footer-bar-section"}).span.text
+
         return offer
-
-
-
-
-
-
-
-

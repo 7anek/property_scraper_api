@@ -2,21 +2,27 @@ from urllib.parse import urljoin, urlencode, urlparse, urlunparse, unquote, pars
 import unicodedata
 from bs4 import BeautifulSoup
 
+
 def url_encode(url):
     return unquote(url)
+
 
 def dict_filter_none(d):
     return {key: value for key, value in d.items() if value}
 
+
 def remove_accents(str):
     return ''.join(c for c in unicodedata.normalize('NFD', str) if unicodedata.category(c) != 'Mn')
+
 
 def lowercase_with_hyphen_str(str):
     return '-'.join(str.lower().split())
 
+
 def slugify(str):
     """używane do wygenerowania lokalizacji jako parametr urla"""
     return lowercase_with_hyphen_str(remove_accents(str))
+
 
 def flatten_dict(d):
     """
@@ -25,14 +31,16 @@ def flatten_dict(d):
     """
     return {k: v[0] for k, v in d.items()}
 
+
 def url_to_params_dict(url):
     """
     input:https://www.olx.pl/nieruchomosci/mieszkania/sprzedaz/grodzisk-mazowiecki/?search%5Bfilter_float_price%3Afrom%5D=300000&search%5Bfilter_float_price%3Ato%5D=400000&page=1
     output:{'search[filter_float_price:from]': '300000', 'search[filter_float_price:to]': '400000', 'page': '1'}
     """
-    d=parse_qs(urlparse(url).query)
-    fd=flatten_dict(d)
+    d = parse_qs(urlparse(url).query)
+    fd = flatten_dict(d)
     return fd
+
 
 def get_url_path(url):
     """
@@ -54,32 +62,35 @@ def generate_url(scheme='https', netloc='', path='', url='', query='', fragment=
     https://docs.python.org/3/library/urllib.parse.html
     """
     return urlunparse((
-            scheme,
-            netloc,
-            path,
-            url,
-            urlencode(query),
-            fragment
-        )
+        scheme,
+        netloc,
+        path,
+        url,
+        urlencode(query),
+        fragment
+    )
     )
 
+
 def soup_from_file(path):
-    page=open(path)
+    page = open(path, encoding="utf8")
     return BeautifulSoup(page.read(), "html.parser")
+
 
 def safe_execute(default, exception, function, *args):
     """
     safe_execute(
-        "Divsion by zero is invalid.",
+        "Division by zero is invalid.",
         ZeroDivisionError,
         div, 1, 0
     )
-    # Returns "Divsion by zero is invalid."
+    # Returns "Division by zero is invalid."
     """
     try:
         return function(*args)
     except exception:
         return default
+
 
 class DictAutoVivification(dict):
     """

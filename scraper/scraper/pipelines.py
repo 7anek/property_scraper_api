@@ -11,7 +11,7 @@ from asgiref.sync import sync_to_async
 from properties.models import Property
 from scrapy.exceptions import DropItem
 from scrapy.utils.project import get_project_settings
-from django.db.models.fields import FieldDoesNotExist
+# from django.db.models.fields import FieldDoesNotExist
 
 
 class FieldValidationPipeline:

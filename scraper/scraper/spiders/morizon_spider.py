@@ -8,7 +8,6 @@ from datetime import datetime, date, timedelta
 from urllib.parse import urljoin, urlencode, urlparse, urlunparse, unquote, parse_qs
 import chompjs
 import json
-from properties.otodom import *
 from properties.utils import *
 from properties.models import Property
 from properties import morizon

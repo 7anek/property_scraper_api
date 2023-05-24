@@ -8,31 +8,18 @@ from scrapy.loader.processors import TakeFirst
 from bs4 import BeautifulSoup
 from properties.parser import otodom_search_parser, otodom_get_parser
 
-# from scraper.items import ScraperItem
-# from scraper.scraper.items import ScraperItem
 from scrapy import Request
 import math
-import re
+
 from datetime import datetime, date
-from urllib.parse import urljoin, urlencode, urlparse, urlunparse, unquote, parse_qs
-import chompjs
 import json
-from properties.otodom import *
 from properties.utils import *
 from properties.models import Property
 from properties import olx
-from scrapy_playwright.page import PageMethod
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
 from contextlib import suppress
-
-# current_dir = os.path.dirname(__file__)
-# url = os.path.join(current_dir, 'otodom-results.html')
 
 
 class OlxSpider(Spider):
-    # class PropertiesSpider(Spider):
     name = "olx"
     service_name = "olx"
     domain = "www.olx.pl"

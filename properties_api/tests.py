@@ -19,8 +19,8 @@ class RestApiTestCase(APITestCase):
 
         cls.user = User.objects.create_user("testuser", password="password")
         cls.access_token = str(AccessToken.for_user(cls.user))
-        Property.objects.create(title="aaa",price=234,area=245, service_name="blabla")
-        Property.objects.create(title="bbb",price=643,area=234, service_name="uuuuu")
+        Property.objects.create(title="aaa",price=234,area=245, service_name="blabla", service_url="http://www.example.com")
+        Property.objects.create(title="bbb",price=643,area=234, service_name="uuuuu", service_url="http://www.example.com")
 
     #     #the testing framework will automatically call once for this class
     #     #setUpTestData - jest elementem django i robi rollback w przypadku niepowodzenia

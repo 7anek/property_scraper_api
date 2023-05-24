@@ -143,12 +143,12 @@ DOWNLOAD_DELAY = 0.25
 # HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
 # Set settings whose default value is deprecated to a future-proof value
 # REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
-DOWNLOAD_HANDLERS = {
-    "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-    "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-}
+# DOWNLOAD_HANDLERS = {
+#     "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+#     "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+# }
 
 
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
-PLAYWRIGHT_BROWSER_TYPE = "firefox"
+# PLAYWRIGHT_BROWSER_TYPE = "firefox"

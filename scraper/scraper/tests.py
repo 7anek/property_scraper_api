@@ -62,7 +62,7 @@ class ScraperParseTestCase(TestCase):
         return HtmlResponse(
             url=url,
             request=Request(url=url),
-            body=open(file_path, "rb").read(),
+            body=open(file_path, "rb", encoding="utf8").read(),
             encoding="utf-8",
         )
 

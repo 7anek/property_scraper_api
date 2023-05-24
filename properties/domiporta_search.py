@@ -1,10 +1,6 @@
 import math
 from properties import domiporta
 from properties.search import Search, SearchResult
-from playwright.sync_api import sync_playwright
-from properties.utils import generate_url
-
-
 
 class DomiportaSearch(Search):
     service_label = 'domiporta'

@@ -17,10 +17,11 @@ import uuid
 import properties.search as search_api
 from django.conf import settings
 
-
 # Create your views here.
 # connect scrapyd service
 scrapyd = ScrapydAPI('http://localhost:6800')
+
+
 # scrapyd = ScrapydAPI('http://localhost:9000')
 
 
@@ -44,6 +45,7 @@ def search(request):
         context = {"search_form": search_form}
     return render(request, "properties/search.html", context)
 
+
 def scrape(request):
     # process = subprocess.run(["python", "manage.py", "crawl"], check=True)
     # data = process.stdout
@@ -56,14 +58,15 @@ def scrape(request):
         search_form = SearchForm(request.POST)
         # settings = get_project_settings()
         # print('////////////',settings)
-        if search_form.is_valid():  
-            job_id = scrapyd.schedule('default', 'gratka', search_form = json.dumps(search_form.cleaned_data))
+        if search_form.is_valid():
+            job_id = scrapyd.schedule('default', 'gratka', search_form=json.dumps(search_form.cleaned_data))
             # job_id = scrapyd.schedule('default', 'otodom', search_form = json.dumps(search_form.cleaned_data))
             # job_id = scrapyd.schedule('default', 'otodom', settings=settings)
-            scrape_status =  scrapyd.job_status('default', job_id)
+            scrape_status = scrapyd.job_status('default', job_id)
             scrape_job_id = uuid.UUID(hex=job_id)
             properties = Property.objects.filter(scrape_job_id=scrape_job_id)[:500]
-            context = {"title": "search", "search_form": search_form, "properties":properties, 'scrape_status': scrape_status, 'scrape_job_id':scrape_job_id}
+            context = {"title": "search", "search_form": search_form, "properties": properties,
+                       'scrape_status': scrape_status, 'scrape_job_id': scrape_job_id}
         else:
             search_form = SearchForm()
             context = {"title": "search", "search_form": search_form}
@@ -79,9 +82,11 @@ def scrape(request):
         print('******* django view PGPASSFILE', settings.PGPASSFILE)
     return render(request, "properties/scrape.html", context)
 
+
 def get_scrape(request, scrape_job_id):
     search_form = SearchForm()
     scrape_status = scrapyd.job_status('default', scrape_job_id.hex)
     properties = Property.objects.filter(scrape_job_id=scrape_job_id)[:500]
-    context = {"title": "search", "search_form": search_form, "properties":properties, 'scrape_status': scrape_status, 'scrape_job_id':scrape_job_id}
+    context = {"title": "search", "search_form": search_form, "properties": properties, 'scrape_status': scrape_status,
+               'scrape_job_id': scrape_job_id}
     return render(request, "properties/scrape.html", context)

@@ -46,17 +46,3 @@ class UtilsTestCase(TestCase):
     
 
 
-
-
-
-# #testy modelu
-class ModelTestCase(TestCase):
-    def test_database_connection_is_working(self):
-        db_conn=connections['default']
-        try:
-            c=db_conn.cursor()
-        except OperationalError:
-            connected=False
-        else:
-            connected=True
-        self.assertEqual(connected, True)

@@ -1,37 +1,20 @@
-import os
 from scraper.utils import *
-from scrapy.spiders import CrawlSpider, Spider
-from scrapy.spiders import Rule
-from scrapy.linkextractors import LinkExtractor
-from scrapy.loader import ItemLoader
-from scrapy.loader.processors import TakeFirst
-from bs4 import BeautifulSoup
-from properties.parser import otodom_search_parser, otodom_get_parser
+from scrapy.spiders import Spider
 
-# from scraper.items import ScraperItem
-# from scraper.scraper.items import ScraperItem
 from scrapy import Request
 import math
 import re
-from datetime import datetime, date, timedelta
-from urllib.parse import urljoin, urlencode, urlparse, urlunparse, unquote, parse_qs
+from datetime import date, timedelta
 import chompjs
 import json
 from properties.otodom import *
 from properties.utils import *
 from properties.models import Property
-from properties import gratka, otodom
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
+from properties import gratka
 from contextlib import suppress
-
-# current_dir = os.path.dirname(__file__)
-# url = os.path.join(current_dir, 'otodom-results.html')
 
 
 class GratkaSpider(Spider):
-    # class PropertiesSpider(Spider):
     name = "gratka"
     service_name = "gratka"
     domain = "gratka.pl"
@@ -47,6 +30,7 @@ class GratkaSpider(Spider):
         search_form = json.loads(search_form_json) if search_form_json else {}
 
         search_form = dict_filter_none(search_form)
+        print('\\\\\\\\\\\\\\\\ search form', search_form)
         if search_form:
             # add pagination params
             search_form["limit"] = self.results_per_page
@@ -54,6 +38,7 @@ class GratkaSpider(Spider):
             self.use_playwright = "district_neighbourhood" in search_form
             self.search_form = search_form
             self.current_url = self.url_from_params()
+            print('\\\\\\\\\\\\\\\\ current_url', self.current_url)
             self.start_urls = [self.current_url]
         else:
             self.search_form = search_form
@@ -156,7 +141,7 @@ class GratkaSpider(Spider):
         # if self.first_offer_detail:
         #     with open("/home/janek/python/property_scraper/test_data/gratka-details.html", "w") as file:
         #         file.write(response.text)
-        soup = BeautifulSoup(response.text, "html.parser")
+        soup = BeautifulSoup(response.text, "html.parser", from_encoding="utf-8")
         js = next(
             filter(
                 lambda t: "PPDataLayer.push({" in t.text,

@@ -1,35 +1,15 @@
-import os
 from scraper.utils import *
 from scrapy.spiders import CrawlSpider, Spider
-from scrapy.spiders import Rule
-from scrapy.linkextractors import LinkExtractor
-from scrapy.loader import ItemLoader
-from scrapy.loader.processors import TakeFirst
-from bs4 import BeautifulSoup
-from properties.parser import otodom_search_parser, otodom_get_parser
-
-# from scraper.items import ScraperItem
-# from scraper.scraper.items import ScraperItem
 from scrapy import Request
 import math
 import re
 from datetime import datetime
-from urllib.parse import urljoin, urlencode, urlparse, urlunparse, unquote, parse_qs
 import chompjs
 import json
-from properties.otodom import *
 from properties.utils import *
 from properties.models import Property, ServiceFilterIds
 from properties import otodom
-from scrapy_playwright.page import PageMethod
-from playwright.sync_api import Page
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
 from contextlib import suppress
-
-# current_dir = os.path.dirname(__file__)
-# url = os.path.join(current_dir, 'otodom-results.html')
 
 
 class OtodomSpider(Spider):
@@ -391,9 +371,9 @@ class OtodomSpider(Spider):
         with suppress(Exception):
             if offer_dict["location"]["address"]["street"]["id"]:
                 if not ServiceFilterIds.objects.filter(
-                    service_name="otodom",
-                    field_name="streets",
-                    service_id=offer_dict["location"]["address"]["street"]["id"],
+                        service_name="otodom",
+                        field_name="streets",
+                        service_id=offer_dict["location"]["address"]["street"]["id"],
                 ):
                     ServiceFilterIds.objects.create(
                         service_name="otodom",

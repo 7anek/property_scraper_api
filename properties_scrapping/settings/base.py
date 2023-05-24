@@ -33,6 +33,14 @@ DEBUG = os.environ.get('DEBUG') == 'TRUE'
 
 GOOGLE_MAPS_API_KEY = os.environ.get('GOOGLE_MAPS_API_KEY')
 
+# GDAL_LIBRARY_PATH="C:/OSGeo4W/bin/gdal306.dll"
+# os.environ['GDAL_LIBRARY_PATH'] = GDAL_LIBRARY_PATH
+
+os.environ['GDAL_DATA'] = r"C:\Users\Jadwig\PycharmProjects\api_env\Lib\site-packages\osgeo\data\gdal"
+os.environ['PROJ_LIB'] = r"C:\Users\Jadwig\PycharmProjects\api_env\Lib\site-packages\osgeo\data\proj"
+os.environ['PATH'] = r"C:\Users\Jadwig\PycharmProjects\api_env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
+GDAL_LIBRARY_PATH = r'C:\Users\Jadwig\PycharmProjects\api_env\Lib\site-packages\osgeo\gdal304.dll'
+
 ALLOWED_HOSTS = []
 
 
@@ -120,11 +128,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'properties',
-        'USER': 'janek',
-        'PASSWORD': os.environ.get('PGPASSWORD'),
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': os.environ.get('PG_DBNAME'),
+        'USER': os.environ.get('PG_USER'),
+        'PASSWORD': os.environ.get('PG_PASSWORD'),
+        'HOST': os.environ.get('PG_HOST'),
+        'PORT': os.environ.get('PG_PORT'),
     }
 }
 

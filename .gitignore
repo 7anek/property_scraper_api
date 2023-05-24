@@ -6,6 +6,7 @@ __pycache__
 db.sqlite3
 media
 **/__pycache__
+.vscode
 
 # Backup files # 
 *.bak 
