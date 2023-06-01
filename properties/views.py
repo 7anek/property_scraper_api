@@ -17,9 +17,12 @@ import uuid
 import properties.search as search_api
 from django.conf import settings
 
+from scraper.scrapy_factory import ScrapydSpiderFactory
+import time
+
 # Create your views here.
 # connect scrapyd service
-scrapyd = ScrapydAPI('http://localhost:6800')
+# scrapyd = ScrapydAPI('http://localhost:6800')
 
 
 # scrapyd = ScrapydAPI('http://localhost:9000')
@@ -59,33 +62,35 @@ def scrape(request):
         # settings = get_project_settings()
         # print('////////////',settings)
         if search_form.is_valid():
-            job_id = scrapyd.schedule('default', 'gratka', search_form=json.dumps(search_form.cleaned_data))
+            print('///////////search_form.cleaned_data', search_form.cleaned_data)
+            # job_id = scrapyd.schedule('scraper', 'gratka', search_form=json.dumps(search_form.cleaned_data))
+            # job_id = scrapyd.schedule('default', 'gratka', search_form=json.dumps(search_form.cleaned_data))
             # job_id = scrapyd.schedule('default', 'otodom', search_form = json.dumps(search_form.cleaned_data))
             # job_id = scrapyd.schedule('default', 'otodom', settings=settings)
-            scrape_status = scrapyd.job_status('default', job_id)
-            scrape_job_id = uuid.UUID(hex=job_id)
-            properties = Property.objects.filter(scrape_job_id=scrape_job_id)[:500]
-            context = {"title": "search", "search_form": search_form, "properties": properties,
-                       'scrape_status': scrape_status, 'scrape_job_id': scrape_job_id}
+            scrapy_factory = ScrapydSpiderFactory(json.dumps(search_form.cleaned_data))
+            print('++++++++++++++++++scrapy_factory created')
+            scrapy_factory.create_spiders()
+            print('++++++++++++++++++scrapy_factory spiders created', scrapy_factory.job_ids)
+            while scrapy_factory.check_finished():
+                print('++++++++++++++++++time.sleep(10)')
+                time.sleep(10)
+            # print('++++++++++++++++++job_id',job_id)
+            # scrape_status = scrapyd.job_status('scraper', job_id)
+            # scrape_job_id = uuid.UUID(hex=job_id)
+            properties = Property.objects.filter(scrape_job_id__in=scrapy_factory.job_ids)
+            context = {"title": "search", "search_form": search_form, "properties": properties}
         else:
             search_form = SearchForm()
-            context = {"title": "search", "search_form": search_form}
-    elif request.method == 'GET':
-        search_form = SearchForm()
-        data = Property.objects.all()[:500]
-        context = {"title": "search", "search_form": search_form}
+            context = {"title": "search", "search_form": search_form, 'error': 'Invalid form data'}
     else:
         search_form = SearchForm()
         context = {"title": "search", "search_form": search_form}
-        print('******* django view DATABASES', settings.DATABASES)
-        print('******* django view PGSERVICEFILE', settings.PGSERVICEFILE)
-        print('******* django view PGPASSFILE', settings.PGPASSFILE)
     return render(request, "properties/scrape.html", context)
 
 
 def get_scrape(request, scrape_job_id):
     search_form = SearchForm()
-    scrape_status = scrapyd.job_status('default', scrape_job_id.hex)
+    scrape_status = scrapyd.job_status('scraper', scrape_job_id.hex)
     properties = Property.objects.filter(scrape_job_id=scrape_job_id)[:500]
     context = {"title": "search", "search_form": search_form, "properties": properties, 'scrape_status': scrape_status,
                'scrape_job_id': scrape_job_id}

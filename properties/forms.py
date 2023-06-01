@@ -58,7 +58,7 @@ class SearchForm(forms.Form):
     # nazwa = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Wpisz coś"}))
     # opis = forms.CharField(widget=forms.Textarea(attrs={"class": "nowa-klasa","rows":20,"cols":50,"id":"moje-id-dla-polatekstowego","placeholder":"Wpisz coś" }))
     #główne pola
-    formatted_address = forms.CharField(required=False, initial="Grodzisk Mazowiecki")
+    address = forms.CharField(required=False, initial="Grodzisk Mazowiecki")
     # google_maps_location_json=forms.JSONField(required=False)
     province=forms.CharField(required=False)#województwo
     # county=forms.CharField(required=False)#powiat
@@ -76,8 +76,8 @@ class SearchForm(forms.Form):
     plot_type = forms.ChoiceField(choices=PLOT_TYPE_CHOICES, required=False)
     house_type = forms.ChoiceField(choices=HOUSE_TYPE_CHOICES, required=False)
     flat_type = forms.ChoiceField(choices=FLAT_TYPE_CHOICES, required=False)
-    year_of_construction_from = forms.IntegerField(min_value=1800, max_value=date.today().year+20, required=False)
-    year_of_construction_to = forms.IntegerField(min_value=1800, max_value=date.today().year+20, required=False)
+    build_year_from = forms.IntegerField(min_value=1800, max_value=date.today().year+20, required=False)
+    build_year_to = forms.IntegerField(min_value=1800, max_value=date.today().year+20, required=False)
 
     class Media:
         # js = (settings.STATIC_URL+'properties/google-maps-places.js', settings.STATIC_URL+'properties/search-form.js')

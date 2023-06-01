@@ -1,0 +1,1 @@
+/usr/bin/c++  -fvisibility=hidden CMakeFiles/gdal_translate.dir/gdal_translate_bin.cpp.o -o gdal_translate  -Wl,-rpath,/home/janek/PycharmProjects/property_scraper_api/gdal-3.7.0/build: ../libgdal.so.33.3.7.0 

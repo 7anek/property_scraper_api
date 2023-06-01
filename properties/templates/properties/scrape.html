@@ -14,6 +14,10 @@
 
 {% block body %}
 
+{% if error %}
+{{error}}
+{% else %}
 {% include "properties/scrape_status.html" %}
+{% endif %}
 
 {% endblock %}

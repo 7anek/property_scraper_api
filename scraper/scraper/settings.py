@@ -22,15 +22,20 @@ sys.path.append(os.path.dirname(os.path.abspath('.')))
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # sys.path.append(os.path.join(BASE_DIR, "properties_scrapping"))
 ipaddress = socket.gethostbyname( socket.gethostname() )
-if ipaddress == '127.0.1.1':
+if ipaddress == '127.0.1.1' or ipaddress == '192.168.0.46':
     DJANGO_SETTINGS_MODULE = 'properties_scrapping.settings.local'
 else:
     DJANGO_SETTINGS_MODULE = 'properties_scrapping.settings.production'
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'properties_scrapping.settings')
 os.environ['DJANGO_SETTINGS_MODULE']=DJANGO_SETTINGS_MODULE
 application = get_wsgi_application()#musi być po ustawieniu DJANGO_SETTINGS_MODULE
+
+
 # import django
 # django.setup()
+
+SCRAPYD_URL = os.environ.get('SCRAPYD_URL')
+SCRAPYD_PROJECT = os.environ.get('SCRAPYD_PROJECT')
 
 # LOG_ENABLED=True
 # LOG_FILE="scraper/logs/scraper.log"

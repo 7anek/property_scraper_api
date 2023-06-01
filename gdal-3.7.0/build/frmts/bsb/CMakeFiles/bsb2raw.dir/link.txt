@@ -1,0 +1,1 @@
+/usr/bin/c++  -fvisibility=hidden CMakeFiles/bsb2raw.dir/bsb2raw.c.o CMakeFiles/gdal_BSB.dir/bsb_read.c.o CMakeFiles/gdal_BSB.dir/bsbdataset.cpp.o -o bsb2raw  -Wl,-rpath,/home/janek/PycharmProjects/property_scraper_api/gdal-3.7.0/build ../../libgdal.so.33.3.7.0 

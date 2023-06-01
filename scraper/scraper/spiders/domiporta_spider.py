@@ -40,6 +40,8 @@ class DomiportaSpider(Spider):
             self.query_params = ""
             self.current_url = ""
             self.start_urls = []
+        print('DomiportaSpider __init__ start_urls', self.start_urls)
+        print('DomiportaSpider __init__ current_url', self.current_url)
 
     def parse(self, response):
         parsed_url = url_to_params_dict(response.request.url)

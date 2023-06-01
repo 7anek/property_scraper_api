@@ -36,6 +36,13 @@ class MorizonSearch(Search):
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch()
             page = browser.new_page()
+            # try:
+            #     page.route('**', lambda route, request: route.fulfill(path="test_data/morizon/morizon-search.html"))
+            # except:
+            #     pass
+            # page.route('**', lambda route, request: route.fulfill(status=200, body=self.request_url))
+            # page.route('http://www.morizon.pl/mieszkania/grodzisk-mazowiecki/?page=1&ps%5Bprice_from%5D=300000&ps%5Bprice_to%5D=350000', lambda route, request: route.fulfill(status=200, body='Mocked Response'))
+
             page.goto(self.request_url)
             page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
             return page.content()

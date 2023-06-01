@@ -2,6 +2,7 @@
 {{ error }}
 {%else%}
 <p>Liczba wyników: {{search_results.objects|length }}</p>
+<div class="search-results">
 {% for result in search_results.objects %}
 <div class="card">
     <div class="row g-0">
@@ -9,7 +10,7 @@
             {% if result.main_image_url %}<img class="list-item card-img-top" src="{{ result.main_image_url }}" alt="{{ result.title }}">{% endif %}
         </div>
         <div class="col-md-9">
-            <div class="card-body">
+            <div class="card-body result-item">
                 <h3 class="card-title">{{ result.title }}</h3>
                 <p class="card-text">
                     <span>Ogłoszenie z serwisu {{ result.service }}.</span>
@@ -28,4 +29,5 @@
     </div>
 </div>
 {% endfor %}
+</div>
 {% endif %}

@@ -32,14 +32,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG') == 'TRUE'
 
 GOOGLE_MAPS_API_KEY = os.environ.get('GOOGLE_MAPS_API_KEY')
-
-# GDAL_LIBRARY_PATH="C:/OSGeo4W/bin/gdal306.dll"
-# os.environ['GDAL_LIBRARY_PATH'] = GDAL_LIBRARY_PATH
-
-os.environ['GDAL_DATA'] = r"C:\Users\Jadwig\PycharmProjects\api_env\Lib\site-packages\osgeo\data\gdal"
-os.environ['PROJ_LIB'] = r"C:\Users\Jadwig\PycharmProjects\api_env\Lib\site-packages\osgeo\data\proj"
-os.environ['PATH'] = r"C:\Users\Jadwig\PycharmProjects\api_env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
-GDAL_LIBRARY_PATH = r'C:\Users\Jadwig\PycharmProjects\api_env\Lib\site-packages\osgeo\gdal304.dll'
+# SCRAPYD_URL = os.environ.get('SCRAPYD_URL')
+# SCRAPYD_PROJECT = os.environ.get('SCRAPYD_PROJECT')
 
 ALLOWED_HOSTS = []
 
@@ -154,6 +148,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = "/home/janek/PycharmProjects/property_scraper_api/properties/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

@@ -1,4 +1,5 @@
 import math
+import os
 from properties import otodom
 from properties.search import Search
 from properties.search import SearchResult
@@ -6,6 +7,11 @@ from playwright.sync_api import sync_playwright
 from properties.utils import generate_url
 from properties.utils import *
 
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 
 class OtodomSearch(Search):
     service_label = 'otodom'
@@ -68,6 +74,7 @@ class OtodomSearch(Search):
             page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
             return page.content()
 
+
     def get_request_single_result_url(self):
         return self.generate_url(scheme=self.url_scheme, netloc=self.url_netloc, path=self.url_path)
 
@@ -90,6 +97,7 @@ class OtodomSearch(Search):
             print('***********self.num_pages:',self.num_pages)
         results_div = soup.find('div', {"data-cy": "search.listing.organic"})
         offers_html = results_div.find_all('a', {"data-cy": "listing-item-link"})
+        print('len(offers_html)',len(offers_html))
         results_arr = []
         for offer in offers_html:
             search_result = SearchResult()
