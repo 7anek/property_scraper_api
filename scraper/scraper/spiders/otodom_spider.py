@@ -10,6 +10,7 @@ from properties.utils import *
 from properties.models import Property, ServiceFilterIds
 from properties import otodom
 from contextlib import suppress
+from scraper.items import ScraperItem
 
 
 class OtodomSpider(Spider):
@@ -166,8 +167,8 @@ class OtodomSpider(Spider):
         if not offer_dict:
             return False
 
-        # item = ScraperItem()
-        item = {}
+        item = ScraperItem()
+        # item = {}
         # item=localization_fields_from_search_form(item, self.search_form)
 
         item["scrapyd_job_id"] = self.scrapyd_job_id

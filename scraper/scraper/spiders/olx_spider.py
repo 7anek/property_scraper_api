@@ -17,6 +17,7 @@ from properties.utils import *
 from properties.models import Property
 from properties import olx
 from contextlib import suppress
+from scraper.items import ScraperItem
 
 
 class OlxSpider(Spider):
@@ -174,8 +175,8 @@ class OlxSpider(Spider):
         #         file.write(response.text)
         soup = BeautifulSoup(response.text, "html.parser")
 
-        # item = ScraperItem()
-        item = {}
+        item = ScraperItem()
+        # item = {}
         item = localization_fields_from_search_form(item, self.search_form)
 
         item["scrapyd_job_id"] = self.scrapyd_job_id

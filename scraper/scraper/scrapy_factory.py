@@ -1,14 +1,15 @@
 from .scrapyd_singleton import ScrapydAPISingleton
 from scrapy.utils.project import get_project_settings
+from django.conf import settings
 
 class ScrapydSpiderFactory:
-    def __init__(self, search_form_json):
+    job_ids = []
+    def __init__(self, search_form_json, scrapyd=None):
         self.search_form = search_form_json
-        scraper_settings = get_project_settings()
         self.project_name = "scraper"
-        # self.project_name = scraper_settings.get('SCRAPYD_PROJECT')
-        self.scrapyd = ScrapydAPISingleton("http://localhost:6800")
-        # self.scrapyd = ScrapydAPISingleton(scraper_settings.get('SCRAPYD_URL'))
+        self.project_name = settings.SCRAPYD_PROJECT
+        if not scrapyd:
+            self.scrapyd = ScrapydAPISingleton(settings.SCRAPYD_URL)
         print("self.project_name",self.project_name)
         self.job_ids = []
 
@@ -23,8 +24,10 @@ class ScrapydSpiderFactory:
 
     def schedule_spider(self, spider_name):
         spider_args = {'search_form': self.search_form}
+        if settings.TESTING:
+            spider_args['is_testing']=settings.TESTING
         print('schedule_spider spider_args',spider_args)
         return self.scrapyd.schedule(self.project_name, spider_name, **spider_args)
 
     def check_finished(self):
-        return any(self.scrapyd.job_status(project='scraper', job_id=job_id) in ['running', 'pending'] for job_id in self.job_ids)
+        return not any(self.scrapyd.job_status(project=settings.SCRAPYD_PROJECT, job_id=job_id) in ['running', 'pending'] for job_id in self.job_ids)

@@ -64,11 +64,26 @@ class FieldValidationPipeline:
 
 class ScraperPipeline:
     @sync_to_async
-    def process_item(self, item, spider):      
+    def process_item(self, item, spider):
+        print('|||||||||||||||||||| ScraperPipeline process_item')
         if item["service_id"]:
             existing_objects = Property.objects.filter(
                 service_id=item["service_id"], service_name=item["service_name"]
             )
+            print('existing_objects', existing_objects)
+            if existing_objects:
+                existing_objects.first().delete()
+                print('|||||||||||||||||||| ScraperPipeline existing_object deleted')
+        item.save()
+        print('|||||||||||||||||||| ScraperPipeline item saved')
+    @sync_to_async
+    def old_process_item(self, item, spider):
+        print('|||||||||||||||||||| ScraperPipeline process_item')
+        if item["service_id"]:
+            existing_objects = Property.objects.filter(
+                service_id=item["service_id"], service_name=item["service_name"]
+            )
+            print('existing_objects',existing_objects)
             if existing_objects:
                 existing_object = existing_objects.first()
             else:
@@ -76,6 +91,7 @@ class ScraperPipeline:
         else:
             existing_object = False
         if existing_object:
+            print('|||||||||||||||||||| ScraperPipeline process_item - existing_object')
             existing_object.scrape_job_id = item["scrapyd_job_id"]
             existing_object.service_id = item["service_id"]
             existing_object.service_name = item["service_name"]
@@ -97,8 +113,9 @@ class ScraperPipeline:
             existing_object.create_date = item["create_date"]
             existing_object.modify_date = item["modify_date"]
             existing_object.save()
-
+            print('|||||||||||||||||||| ScraperPipeline process_item - existing_object - finished')
         else:
+            print('|||||||||||||||||||| ScraperPipeline process_item not existing object')
             property = Property(
                 scrape_job_id=item["scrapyd_job_id"],
                 service_id=item["service_id"],
@@ -122,6 +139,7 @@ class ScraperPipeline:
                 modify_date=item["modify_date"],
             )
             if property:
+                print('|||||||||||||||||||| ScraperPipeline process_item not existing object - save')
                 property.save()
             else:
                 print("++++++++++++++ item sie niezapisał", item)

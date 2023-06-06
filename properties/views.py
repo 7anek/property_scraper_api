@@ -16,9 +16,14 @@ import json
 import uuid
 import properties.search as search_api
 from django.conf import settings
+from scraper.utils import is_scrapyd_running
 
 from scraper.scrapy_factory import ScrapydSpiderFactory
 import time
+
+# from scraper.scrapyd_singleton import ScrapydAPISingleton
+from scraper.scrapyd_api import scrapyd
+
 
 # Create your views here.
 # connect scrapyd service
@@ -50,6 +55,7 @@ def search(request):
 
 
 def scrape(request):
+
     # process = subprocess.run(["python", "manage.py", "crawl"], check=True)
     # data = process.stdout
     # data = process
@@ -59,39 +65,80 @@ def scrape(request):
     # data = "abc"
     if request.method == 'POST':
         search_form = SearchForm(request.POST)
-        # settings = get_project_settings()
-        # print('////////////',settings)
-        if search_form.is_valid():
-            print('///////////search_form.cleaned_data', search_form.cleaned_data)
-            # job_id = scrapyd.schedule('scraper', 'gratka', search_form=json.dumps(search_form.cleaned_data))
-            # job_id = scrapyd.schedule('default', 'gratka', search_form=json.dumps(search_form.cleaned_data))
-            # job_id = scrapyd.schedule('default', 'otodom', search_form = json.dumps(search_form.cleaned_data))
-            # job_id = scrapyd.schedule('default', 'otodom', settings=settings)
-            scrapy_factory = ScrapydSpiderFactory(json.dumps(search_form.cleaned_data))
-            print('++++++++++++++++++scrapy_factory created')
-            scrapy_factory.create_spiders()
-            print('++++++++++++++++++scrapy_factory spiders created', scrapy_factory.job_ids)
-            while scrapy_factory.check_finished():
-                print('++++++++++++++++++time.sleep(10)')
-                time.sleep(10)
-            # print('++++++++++++++++++job_id',job_id)
-            # scrape_status = scrapyd.job_status('scraper', job_id)
-            # scrape_job_id = uuid.UUID(hex=job_id)
-            properties = Property.objects.filter(scrape_job_id__in=scrapy_factory.job_ids)
-            context = {"title": "search", "search_form": search_form, "properties": properties}
+        if is_scrapyd_running():
+            # settings = get_project_settings()
+            # print('////////////',settings)
+            if search_form.is_valid():
+                print('///////////search_form.cleaned_data', search_form.cleaned_data)
+                # job_id = scrapyd.schedule('scraper', 'gratka', search_form=json.dumps(search_form.cleaned_data))
+                # job_id = scrapyd.schedule('default', 'gratka', search_form=json.dumps(search_form.cleaned_data))
+                # job_id = scrapyd.schedule('default', 'otodom', search_form = json.dumps(search_form.cleaned_data))
+                # job_id = scrapyd.schedule('default', 'otodom', settings=settings)
+                try:
+                    scrapy_factory = ScrapydSpiderFactory(json.dumps(search_form.cleaned_data))
+                except Exception as e:
+                    print(str(e))
+                print('++++++++++++++++++scrapy_factory created')
+                scrapy_factory.create_spiders()
+                print('++++++++++++++++++scrapy_factory spiders created', scrapy_factory.job_ids)
+                # while scrapy_factory.check_finished():
+                #     print('++++++++++++++++++time.sleep(10)')
+                #     time.sleep(10)
+
+                # print('++++++++++++++++++job_id',job_id)
+                # scrape_status = scrapyd.job_status('scraper', job_id)
+                # scrape_job_id = uuid.UUID(hex=job_id)
+
+                if not settings.TESTING:
+                # if not settings.get('TESTING'):
+                    time.sleep(5)
+
+
+                properties = Property.objects.filter(scrape_job_id__in=scrapy_factory.job_ids)
+                print("$$$$$$$$$$$$$$ properties",properties)
+                context = {"title": "search", "search_form": search_form, "properties": properties,
+                           "scrape_status": "Running", "scrape_job_id": ",".join(scrapy_factory.job_ids)}
+                print("$$$$$$$$$$$$$$ context", context)
+                if scrapy_factory.check_finished():
+                    context["scrape_status"] = "Finished"
+                else:
+                    context["scrape_status"] = "Running"
+            else:
+                search_form = SearchForm()
+                context = {"title": "search", "search_form": search_form, 'error': 'Invalid form data'}
         else:
-            search_form = SearchForm()
-            context = {"title": "search", "search_form": search_form, 'error': 'Invalid form data'}
+            context = {"title": "search", "search_form": search_form, 'error': 'Scrapyd unavailable'}
     else:
         search_form = SearchForm()
-        context = {"title": "search", "search_form": search_form}
+        if is_scrapyd_running():
+            context = {"title": "search", "search_form": search_form}
+        else:
+            context = {"title": "search", "search_form": search_form, 'error': 'Scrapyd unavailable'}
+
     return render(request, "properties/scrape.html", context)
 
 
-def get_scrape(request, scrape_job_id):
+def get_scrape(request, uuids):
     search_form = SearchForm()
-    scrape_status = scrapyd.job_status('scraper', scrape_job_id.hex)
-    properties = Property.objects.filter(scrape_job_id=scrape_job_id)[:500]
-    context = {"title": "search", "search_form": search_form, "properties": properties, 'scrape_status': scrape_status,
-               'scrape_job_id': scrape_job_id}
+    uuids_list = uuids.split(',')
+    try:
+        uuids_list = list(map(lambda job_id: uuid.UUID(hex=job_id), uuids_list))
+    except:
+        context = {"title": "scrape", "search_form": search_form, "error": f"Wrong job ids: {uuids}"}
+        return render(request, "properties/scrape.html", context)
+    print(uuids_list)
+    properties = Property.objects.filter(scrape_job_id__in=uuids_list)
+    context = {"title": "scrape", "search_form": search_form, "properties": properties, 'scrape_job_id': uuids,
+               "error": f"Scrapyd unavailable"}
+    if is_scrapyd_running():
+        if check_finished(uuids_list):
+            context["scrape_status"]="Finished"
+        else:
+            context["scrape_status"]="Running"
     return render(request, "properties/scrape.html", context)
+
+
+def check_finished(uuids):
+    """uuids - lista uuids
+    return False - jeśli jest jakiś spider który jeszcze się nieskończył wykonywać"""
+    return not any(scrapyd.job_status(project='scraper', job_id=job_id) in ['running', 'pending'] for job_id in uuids)

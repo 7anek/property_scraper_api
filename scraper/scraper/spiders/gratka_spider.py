@@ -12,6 +12,7 @@ from properties.utils import *
 from properties.models import Property
 from properties import gratka
 from contextlib import suppress
+from scraper.items import ScraperItem
 
 
 class GratkaSpider(Spider):
@@ -162,7 +163,7 @@ class GratkaSpider(Spider):
         except:
             data2 = None
 
-        item = {}
+        item = ScraperItem()
 
         item = localization_fields_from_search_form(item, self.search_form)
 

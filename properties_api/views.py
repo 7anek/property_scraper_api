@@ -1,3 +1,5 @@
+import time
+
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from properties.search_results import SearchResults
@@ -19,6 +21,12 @@ import properties.search as search_api
 from properties.forms import SearchForm
 from scrapyd_api import ScrapydAPI
 import json, uuid
+
+from scraper.scrapy_factory import ScrapydSpiderFactory
+
+from scraper.scrapyd_singleton import ScrapydAPISingleton
+from scraper.utils import is_scrapyd_running
+from scraper.scrapyd_api import scrapyd
 
 # Create your views here.
 class PropertyViewSet(viewsets.ModelViewSet):
@@ -47,44 +55,67 @@ class PropertiesSearch(APIView):
 
 
 class PropertiesScrape(APIView):
-    scrapyd = ScrapydAPI('http://localhost:6800')
+    # scrapyd = ScrapydAPI('http://localhost:6800')
     serializer_class = PropertySerializer
     permission_classes = [AllowAny]
 
     def post(self, request):
         search_form = SearchForm(request.POST)
+
+
         # settings = get_project_settings()
         # print('////////////',request.POST)
         # print('////////////',search_form)
         
         if search_form.is_valid():  
             print('//////////// form is ok',search_form.cleaned_data)
+            if not is_scrapyd_running():
+                return Response("Scrapyd unavailable", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             try:
-                job_id = self.scrapyd.schedule('default', 'otodom', search_form = json.dumps(search_form.cleaned_data))
+                scrapy_factory = ScrapydSpiderFactory(json.dumps(search_form.cleaned_data))
+                print('++++++++++++++++++scrapy_factory created')
+                scrapy_factory.create_spiders()
+                print('++++++++++++++++++scrapy_factory spiders created', scrapy_factory.job_ids)
             except Exception as e:
                 return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-            # job_id = scrapyd.schedule('default', 'otodom', settings=settings)
-            scrape_status =  self.scrapyd.job_status('default', job_id)
-            scrape_job_id = uuid.UUID(hex=job_id)
-            properties = Property.objects.filter(scrape_job_id=scrape_job_id)[:500]
-            return Response(scrape_job_id)
+            while scrapy_factory.check_finished():
+                print('++++++++++++++++++time.sleep(10)')
+                time.sleep(10)
+
+
+            # scrape_job_id = uuid.UUID(hex=job_id)
+            properties = Property.objects.filter(scrape_job_id__in=scrapy_factory.job_ids)
+            serializer = PropertySerializer(properties, many=True)
+            return Response({'job_ids':scrapy_factory.job_ids,'properties':serializer.data})
         print('//////////// error - invalid form',search_form.cleaned_data)
         return Response("invalid form", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
-    def get(self, request, scrape_job_id, format="json"):
-        print('scrape_job_id:',scrape_job_id)
-        print('scrape_job_id.hex:',scrape_job_id.hex)
-        scrape_status = self.scrapyd.job_status('default', scrape_job_id.hex)
-        if scrape_status == 'finished':
-            properties = Property.objects.filter(scrape_job_id=scrape_job_id)[:500]
-            serializer = PropertySerializer(properties, many=True)
-            print('serializer.data:',serializer.data)
-            return Response(serializer.data)
-            # return Response(properties)
-        elif scrape_status in ['running', 'pending']:
-            return Response(scrape_status, status=status.HTTP_202_ACCEPTED)
-        return Response("unknown scrapyd status", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    # def get(self, request, scrape_job_id, format="json"):
+    def get(self, request, uuids, format="json"):
+
+        # uuids_list = uuids.replace('-','').split(',')
+        uuids_list = uuids.split(',')
+        uuids_list=list(map(lambda job_id: uuid.UUID(hex=job_id), uuids_list))
+        print(uuids_list)
+
+        if is_scrapyd_running():
+            if self.check_finished(uuids_list):
+                properties = Property.objects.filter(scrape_job_id__in=uuids_list)
+                serializer = PropertySerializer(properties, many=True)
+                print('serializer.data:', serializer.data)
+                return Response(serializer.data)
+            else:
+                return Response("spiders are processing", status=status.HTTP_202_ACCEPTED)
+        else:
+            print("niepodłączono scrapyd")
+            return Response("Scrapyd unavailable", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+    def check_finished(self, uuids):
+        """uuids - lista uuids
+        return False - jeśli jest jakiś spider który jeszcze się nieskończył wykonywać"""
+        return not any(scrapyd.job_status(project='scraper', job_id=job_id) in ['running', 'pending'] for job_id in uuids)
 
 
 class SignUp(APIView):

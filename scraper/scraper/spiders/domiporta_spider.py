@@ -9,6 +9,9 @@ from properties.utils import *
 from properties.models import Property
 from properties import domiporta
 from contextlib import suppress
+import os
+
+from scraper.items import ScraperItem
 
 
 class DomiportaSpider(Spider):
@@ -21,7 +24,9 @@ class DomiportaSpider(Spider):
     max_pages_download = 5
 
     def __init__(self, *args, **kwargs):
+        self.is_testing = kwargs.pop('is_testing', False)
         super(DomiportaSpider, self).__init__(*args, **kwargs)
+
         search_form_json = kwargs.get("search_form", False)
         self.scrapyd_job_id = kwargs.get("_job")
         search_form = json.loads(search_form_json) if search_form_json else {}
@@ -30,7 +35,7 @@ class DomiportaSpider(Spider):
         if search_form:
             # add pagination params
             search_form["limit"] = self.results_per_page
-            search_form["page"] = 1
+            search_form["PageNumber"] = 1
 
             self.search_form = search_form
             self.current_url = self.url_from_params()
@@ -40,24 +45,39 @@ class DomiportaSpider(Spider):
             self.query_params = ""
             self.current_url = ""
             self.start_urls = []
+
+        if self.is_testing:
+            print('Kod wykonywany w trybie testowym')
+            path=f"file://{os.path.abspath('../test_data/domiporta/domiporta-search.html')}"
+            self.current_url = path
+            self.start_urls = [path]
+
         print('DomiportaSpider __init__ start_urls', self.start_urls)
         print('DomiportaSpider __init__ current_url', self.current_url)
 
-    def parse(self, response):
-        parsed_url = url_to_params_dict(response.request.url)
 
-        if not "page" in parsed_url:
+    def parse(self, response):
+        if self.is_testing:
+            parsed_url = url_to_params_dict("http://www.domiporta.pl/mieszkanie/sprzedam/mazowieckie/grodzisk-mazowiecki?PageNumber=1&Price.From=300000&Price.To=400000")
+        else:
+            parsed_url = url_to_params_dict(response.request.url)
+
+        if not "PageNumber" in parsed_url:
             print("not page in parsed_url")
             return False
 
-        current_page = parsed_url["page"]
+        current_page = parsed_url["PageNumber"]
         if not current_page:
             print("not current_page")
             return False
 
         soup = BeautifulSoup(response.text, "html.parser")
 
-        num_results = domiporta.get_results_count(soup)
+        try:
+            num_results = domiporta.get_results_count(soup)
+        except:
+            num_results = 0
+
         if not num_results:
             return False
 
@@ -74,7 +94,7 @@ class DomiportaSpider(Spider):
                 yield response.follow(self.current_url)
 
         js = re.findall(
-            r"WynikiOdslonaOgloszeniaOrganic'\, ((?:'a\d+'\,?)+)", js, re.MULTILINE
+            r"WynikiOdslonaOgloszeniaOrganic'\, ((?:'a\d+'\,?)+)", soup.prettify(), re.MULTILINE
         )
         ids = re.findall("\d+", js[0])
         property_type = domiporta.property_type_mapping[
@@ -85,8 +105,13 @@ class DomiportaSpider(Spider):
             netloc=self.domain,
             path=f"/nieruchomosci/{property_type}/",
         )
-        for offer in ids:
-            yield response.follow(url + offer, callback=self.parse_offer)
+        if self.is_testing:
+            print('Kod DomiportaSpider parse wykonywany w trybie testowym')
+            path = f"file://{os.path.abspath('../test_data/domiporta/domiporta-details.html')}"
+            yield response.follow(path, callback=self.parse_offer)
+        else:
+            for offer in ids:
+                yield response.follow(url + offer, callback=self.parse_offer)
 
     def parse_offer(self, response):
         # if self.first_offer_detail:
@@ -122,7 +147,8 @@ class DomiportaSpider(Spider):
             data = None
             additional_info = None
 
-        item = {}
+        # item = {}
+        item = ScraperItem()
         item = localization_fields_from_search_form(item, self.search_form)
 
         item["scrapyd_job_id"] = self.scrapyd_job_id

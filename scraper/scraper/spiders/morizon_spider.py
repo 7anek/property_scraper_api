@@ -12,6 +12,7 @@ from properties.utils import *
 from properties.models import Property
 from properties import morizon
 from contextlib import suppress
+from scraper.items import ScraperItem
 
 
 class MorizonSpider(Spider):
@@ -111,7 +112,7 @@ class MorizonSpider(Spider):
         )
 
         attribute_list_set = soup.find_all("span", class_="attribute-list__label")
-        item = {}
+        item = ScraperItem()
         item = localization_fields_from_search_form(item, self.search_form)
 
         item["scrapyd_job_id"] = self.scrapyd_job_id
