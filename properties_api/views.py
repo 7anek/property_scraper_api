@@ -42,16 +42,20 @@ class PropertiesSearch(APIView):
     def get(self, request, format='json'):
         search_params = request.GET
         # search_params['priceMin']
+        print(';;;;;;;request.GET', request.GET)
         search_form = SearchForm(request.GET)
-        print('**********', request.query_params)
+        print('**********request.query_params', request.query_params)
         if search_form.is_valid():
             search_results = SearchResults(search_form.cleaned_data)
+            print('----------------search_results',search_results)
+            print('----------------search_results.objects',search_results.objects)
             # search_results = self.perform_search(search_form.cleaned_data)
             print('********** len(search_results.objects)', len(search_results.objects))
             serializer = SearchResultsSerializer(search_results)
             print('********** len(serializer.data)', len(serializer.data['objects']))
             return Response(serializer.data)
-        return Response("a")
+        print('-------invalid form')
+        return Response("invalid form", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class PropertiesScrape(APIView):
@@ -64,7 +68,7 @@ class PropertiesScrape(APIView):
 
 
         # settings = get_project_settings()
-        # print('////////////',request.POST)
+        print('////////////',request.POST)
         # print('////////////',search_form)
         
         if search_form.is_valid():  
@@ -78,23 +82,23 @@ class PropertiesScrape(APIView):
                 print('++++++++++++++++++scrapy_factory spiders created', scrapy_factory.job_ids)
             except Exception as e:
                 return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-            while scrapy_factory.check_finished():
-                print('++++++++++++++++++time.sleep(10)')
-                time.sleep(10)
+            # while scrapy_factory.check_finished():
+            #     print('++++++++++++++++++time.sleep(10)')
+            #     time.sleep(10)
 
 
             # scrape_job_id = uuid.UUID(hex=job_id)
             properties = Property.objects.filter(scrape_job_id__in=scrapy_factory.job_ids)
             serializer = PropertySerializer(properties, many=True)
-            return Response({'job_ids':scrapy_factory.job_ids,'properties':serializer.data})
+            return Response({'job_ids':scrapy_factory.job_ids,'properties':serializer.data,'finished':scrapy_factory.check_finished()})
         print('//////////// error - invalid form',search_form.cleaned_data)
         return Response("invalid form", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # def get(self, request, scrape_job_id, format="json"):
-    def get(self, request, uuids, format="json"):
+    def get(self, request, job_ids, format="json"):
 
         # uuids_list = uuids.replace('-','').split(',')
-        uuids_list = uuids.split(',')
+        uuids_list = job_ids.split(',')
         uuids_list=list(map(lambda job_id: uuid.UUID(hex=job_id), uuids_list))
         print(uuids_list)
 
@@ -105,15 +109,17 @@ class PropertiesScrape(APIView):
                 print('serializer.data:', serializer.data)
                 return Response(serializer.data)
             else:
-                return Response("spiders are processing", status=status.HTTP_202_ACCEPTED)
+                return Response("Spiders are processing", status=status.HTTP_202_ACCEPTED)
         else:
             print("niepodłączono scrapyd")
-            return Response("Scrapyd unavailable", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response("Scrapyd is not running", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 
     def check_finished(self, uuids):
-        """uuids - lista uuids
+        """
+        czy któryś ze spiderów ma status running albo pending
+        uuids - lista uuids
         return False - jeśli jest jakiś spider który jeszcze się nieskończył wykonywać"""
         return not any(scrapyd.job_status(project='scraper', job_id=job_id) in ['running', 'pending'] for job_id in uuids)
 
@@ -133,13 +139,13 @@ class SignUp(APIView):
         try:
             user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password, is_staff=False, is_superuser=False, is_active=True)
         except Exception as e:
-            raise APIException(str(e))
-            # return Response(e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            # raise APIException(str(e))
+            return Response(e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         try:
             user.save()
         except Exception as e:
-            raise APIException(str(e))
-            # return Response(e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            # raise APIException(str(e))
+            return Response(e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response("User created")
 
@@ -147,14 +153,19 @@ class SignIn(TokenObtainPairView):
     permission_classes = [AllowAny]
 
 class SignOut(APIView):
+    permission_classes = [AllowAny]
     def post(self, request):
+        print('SignOut view')
         token = request.data["refresh"]
         if not token:
+            print('not token')
             return Response("refresh token is empty", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         try:
             refresh_token = RefreshToken(token)
         except Exception as e:
-            raise APIException(str(e))
-            # return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            print(str(e))
+            # raise APIException(str(e))
+            return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        print('adding token to blacklist')
         refresh_token.blacklist()
         return Response("OK")

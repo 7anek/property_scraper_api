@@ -102,12 +102,16 @@ class OlxSearch(Search):
             search_result.title = search_result_soup.find("h6").text
             search_result.price = search_result_soup.find(
                 "h6").find_next("p").text
-            area_text = search_result_soup.find("span", class_="css-643j0o").text
-            if "-" in area_text:
-                search_result.area, search_result.price_per_square_meter = search_result_soup.find(
-                "span", class_="css-643j0o").text.split(" - ")
+            area_soup=search_result_soup.find("span", class_="css-643j0o")
+            if area_soup:
+                area_text = area_soup.text
+                if "-" in area_text:
+                    search_result.area, search_result.price_per_square_meter = search_result_soup.find(
+                    "span", class_="css-643j0o").text.split(" - ")
+                else:
+                    search_result.area = area_text
             else:
-                search_result.area = area_text
+                search_result.area =0
 
             search_result.service =  self.service_label
             results_arr.append(search_result)

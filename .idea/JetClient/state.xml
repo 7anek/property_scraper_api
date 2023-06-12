@@ -6,10 +6,68 @@
         <option name="requests">
           <list>
             <requestState>
+              <option name="body">
+                <bodyState>
+                  <option name="raw" value="{&#10;  &quot;username&quot;: &quot;john&quot;,&#10;  &quot;email&quot;: [7]&#10;}" />
+                  <option name="type" value="JSON" />
+                </bodyState>
+              </option>
+              <option name="headers">
+                <list>
+                  <headerState>
+                    <option name="key" value="Content-Type" />
+                    <option name="value" value="application/json" />
+                  </headerState>
+                </list>
+              </option>
               <option name="id" value="6eb194c8-2cda-421f-b506-df75e5476d62" />
+              <option name="method" value="POST" />
+              <option name="name" value="api" />
+              <option name="url" value="http://localhost:8000/api/signup/" />
+            </requestState>
+            <requestState>
+              <option name="id" value="04c8d894-11aa-4361-92ca-0f4f5ed24b65" />
               <option name="method" value="GET" />
+              <option name="name" value="api/properties/scrape/75d6b108cc9811edba0300155d7be260" />
+              <option name="url" value="http://localhost:8000/api/properties/scrape/75d6b108cc9811edba0300155d7be260" />
+            </requestState>
+            <requestState>
+              <option name="body">
+                <bodyState>
+                  <option name="type" value="JSON" />
+                </bodyState>
+              </option>
+              <option name="headers">
+                <list>
+                  <headerState>
+                    <option name="key" value="Content-Type" />
+                    <option name="value" value="application/json" />
+                  </headerState>
+                </list>
+              </option>
+              <option name="id" value="9f113e3e-f1d9-4be8-9f0d-8c50bc2cafaf" />
+              <option name="method" value="POST" />
               <option name="name" value="Draft" />
-              <option name="url" value="http://localhost:8000/api" />
+              <option name="queryParams">
+                <list>
+                  <queryParamState>
+                    <option name="disabled" value="true" />
+                    <option name="key" value="username" />
+                    <option name="value" value="john" />
+                  </queryParamState>
+                  <queryParamState>
+                    <option name="disabled" value="true" />
+                    <option name="key" value="password" />
+                    <option name="value" value="password" />
+                  </queryParamState>
+                  <queryParamState>
+                    <option name="disabled" value="true" />
+                    <option name="key" value="email" />
+                    <option name="value" value="['invalid']" />
+                  </queryParamState>
+                </list>
+              </option>
+              <option name="url" value="http://localhost:8000/api/signout/" />
             </requestState>
           </list>
         </option>

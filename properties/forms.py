@@ -85,3 +85,11 @@ class SearchForm(forms.Form):
         # js = (f"https://maps.google.com/maps/api/js?key={settings.GOOGLE_MAPS_API_KEY}&libraries=places", settings.STATIC_URL+'properties/search-form.js')
         # https://maps.google.com/maps/api/js?key={{ google_maps_api_key }}&libraries=places"
 
+    def clean(self):
+        cleaned_data = super().clean()
+        unknown_fields = set(self.data.keys()) - set(self.fields.keys())
+
+        if unknown_fields:
+            raise forms.ValidationError(f"Nieznane pola: {', '.join(unknown_fields)}")
+
+        return cleaned_data

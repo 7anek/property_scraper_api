@@ -92,6 +92,7 @@ class OtodomSearch(Search):
     def parse_results(self, soup):
         if self.first_page: 
             results_count=int(soup.find("span", {"class": "e17mqyjp2"}).text)
+            # results_count=int(soup.find("strong", {"data-cy": "search.listing-panel.label.ads-number"}).text.split()[-1])
             print('***********results_count:',results_count)
             self.num_pages = math.ceil(results_count/self.results_per_page)
             print('***********self.num_pages:',self.num_pages)
