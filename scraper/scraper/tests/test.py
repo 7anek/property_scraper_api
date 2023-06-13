@@ -13,7 +13,45 @@ from scraper.pipelines import ScraperPipeline
 from scraper.items import ScraperItem
 from scraper.utils import *
 from django.conf import settings
+from scrapy.pipelines.images import ImagesPipeline
 
+
+class MyPipelineTestCase(TestCase):
+    def test_property_creation(self):
+        # Tworzenie obiektu Property w teście
+        item = ScraperItem()
+        item["scrapyd_job_id"] = "75d6b108cc9811edba0300155d7be261"
+        item["service_id"] = 64121979
+        item["service_name"] = "otodom"
+        item[
+            "service_url"
+        ] = "https://www.otodom.pl/pl/oferta/piekne-mieszkanie-32-5m2-bielany-garaz-podziemny-ID4l33t.html"
+        item["title"] = "Fajny tytuł"
+        item["price"] = 100.000
+        item["location"] = "Grodzisk Mazowiecki, Grodziski, Mazowieckie"
+        item[
+            "description"
+        ] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce malesuada massa non euismod condimentum. Fusce et tincidunt lorem, a faucibus libero. Duis sed leo a massa tempus porta. Etiam consectetur eros nec metus volutpat tincidunt. Suspendisse imperdiet sit amet dui nec tempor. Curabitur id ligula cursus, pretium leo et, lobortis arcu. Suspendisse varius ante non enim dictum, eu molestie mi ultrices. Maecenas urna nisl, consectetur sit amet facilisis eget, vulputate et sapien. Maecenas at lorem faucibus, facilisis est et, ultrices ante. Donec condimentum condimentum urna, sit amet dignissim diam lobortis sollicitudin. Duis accumsan facilisis rhoncus."
+        item["area"] = 100
+        item["floor"] = 1
+        item["number_of_rooms"] = 1
+        item["property_type"] = "mieszkanie"
+        item["house_type"] = "block"
+        item["create_date"] = timezone.now()
+        item["modify_date"] = timezone.now()
+
+        pipeline = ImagesPipeline()
+        pipeline.open_spider(None)
+
+        pipeline.process_item(item, None)
+
+        # Sprawdzenie czy obiekt Property został utworzony w testowej bazie danych
+        property_count = Property.objects.count()
+        self.assertEqual(property_count, 1)
+
+        # Pozostałe asercje i testy
+
+        pipeline.close_spider(None)
 class ScraperPipelineTestCase(TestCase):
     def setUp(self):
         self.pipeline = ScraperPipeline()

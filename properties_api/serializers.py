@@ -8,7 +8,7 @@ class PropertySerializer(serializers.ModelSerializer):
     class Meta:
         # fields = ('id', 'title', 'price')
         fields = (
-            'id', 'service_id', 'service_name', 'service_url', 'scrape_job_id', 'create_date', 'modify_date', 'title',
+            'id', 'service_id', 'service_name', 'service_url', 'scrapyd_job_id', 'create_date', 'modify_date', 'title',
             'price', 'description', 'area', 'property_type', 'offer_type', 'regular_user', 'address', 'province',
             'county',
             'city', 'district', 'district_neighbourhood', 'street', 'floor', 'building_floors_num', 'rent', 'flat_type',

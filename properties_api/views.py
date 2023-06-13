@@ -88,7 +88,7 @@ class PropertiesScrape(APIView):
 
 
             # scrape_job_id = uuid.UUID(hex=job_id)
-            properties = Property.objects.filter(scrape_job_id__in=scrapy_factory.job_ids)
+            properties = Property.objects.filter(scrapyd_job_id__in=scrapy_factory.job_ids)
             serializer = PropertySerializer(properties, many=True)
             return Response({'job_ids':scrapy_factory.job_ids,'properties':serializer.data,'finished':scrapy_factory.check_finished()})
         print('//////////// error - invalid form',search_form.cleaned_data)
@@ -104,7 +104,7 @@ class PropertiesScrape(APIView):
 
         if is_scrapyd_running():
             if self.check_finished(uuids_list):
-                properties = Property.objects.filter(scrape_job_id__in=uuids_list)
+                properties = Property.objects.filter(scrapyd_job_id__in=uuids_list)
                 serializer = PropertySerializer(properties, many=True)
                 print('serializer.data:', serializer.data)
                 return Response(serializer.data)

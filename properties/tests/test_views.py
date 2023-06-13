@@ -29,20 +29,21 @@ from django.test.client import RequestFactory
 
 class ScrapeSeleniumTestCase(LiveServerTestCase):
     def setUp(self):
-        # self.old_debug = settings.DEBUG
-        # settings.DEBUG = True
+        self.old_debug = settings.DEBUG
+        settings.DEBUG = True
 
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         webdriver_service = Service('chromedriver')
-        # self.driver = webdriver.Chrome(service=webdriver_service, options=chrome_options)
-        self.driver = webdriver.Chrome('chromedriver')
+        self.driver = webdriver.Chrome(service=webdriver_service, options=chrome_options)
+        self.driver.set_window_size(1280, 1024)
+        # self.driver = webdriver.Chrome('chromedriver')
 
 
 
     def tearDown(self):
         self.driver.quit()
-        # settings.DEBUG = self.old_debug
+        settings.DEBUG = self.old_debug
 
     def test_search_with_google_maps_suggestion(self):
         self.driver.get(f"{self.live_server_url}/properties/search/")
@@ -53,7 +54,7 @@ class ScrapeSeleniumTestCase(LiveServerTestCase):
         address_input.send_keys('Jaktorów')
 
         # Poczekaj na pojawienie się sugestii z Google Maps
-        self.driver.implicitly_wait(5)
+        self.driver.implicitly_wait(1)
 
         # Wybierz pierwszą sugestię z Google Maps
         suggestions = self.driver.find_elements(By.CLASS_NAME, 'pac-item')
@@ -63,8 +64,9 @@ class ScrapeSeleniumTestCase(LiveServerTestCase):
         self.assertEqual(address_input.get_attribute('value'), 'Jaktorów, Polska')
 
         # Znajdź przycisk submit i kliknij go
-        submit_button = self.driver.find_element(By.CSS_SELECTOR, 'input[type="submit"]')
-        submit_button.click()
+        # Ten kod spowoduje wyszukiwanie po tych serwisach, trzeba by najpierw dać mockowanie żeby zrobić to bezpiecznie
+        # submit_button = self.driver.find_element(By.CSS_SELECTOR, 'input[type="submit"]')
+        # submit_button.click()
 
     def handle_form(self):
         # Wypełnij pozostałe pola formularza
@@ -90,6 +92,7 @@ class ScrapeSeleniumTestCase(LiveServerTestCase):
         # self.driver.find_element(By.ID, 'id_offer_type').send_keys('sell')
 
         # Wyślij formularz
+        # time.sleep(1)
         self.driver.find_element(By.CSS_SELECTOR, 'form input[type="submit"]').click()
 
     @requests_mock.Mocker()
@@ -146,7 +149,7 @@ class ScrapeSeleniumTestCase(LiveServerTestCase):
             #     self.fail("Nie znaleziono sugestii adresu.")
 
             self.handle_form()
-
+            self.driver.save_screenshot('test_data/test_search3.png')
             # Poczekaj na załadowanie strony wynikowej
             # WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.search-results')))
 
@@ -164,19 +167,23 @@ class ScrapeSeleniumTestCase(LiveServerTestCase):
             self.addCleanup(self.driver.quit)
 
 
-    def test_scrape_integration(self):
-        """
-        musi być odpoalone scrapyd żeby test przeszedł
-        """
-        self.driver.get(f"{self.live_server_url}/properties/scrape/")
-        self.handle_form()
-        # Poczekaj na załadowanie strony wynikowej
-        # try:
-        #     WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.scrapy-results')))
-        # except:
-        #     pass
-        time.sleep(10)
-        self.assertGreater(len(Property.objects.all()), 0)
+    # def test_scrape_integration(self):
+    #     """
+    #     ten typ testu zmodyfikuje bazę normalną, nie testową przy przejściu przez niezmockowany scrapy pipeline
+    #     musi być odpoalone scrapyd żeby test przeszedł
+    #     """
+    #     self.driver.get(f"{self.live_server_url}/properties/scrape/")
+    #     print('test_scrape_integration start Property.objects.all().count()', Property.objects.all().count())
+    #     self.handle_form()
+    #     self.driver.save_screenshot('test_data/test_scrape_integration.png')
+    #     # Poczekaj na załadowanie strony wynikowej
+    #     # try:
+    #     #     WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.scrapy-results')))
+    #     # except:
+    #     #     pass
+    #     time.sleep(10)
+    #     print('test_scrape_integration end Property.objects.all().count()', Property.objects.all().count())
+    #     self.assertGreater(len(Property.objects.all()), 0)
     def test_scrape_view(self):
         # Test widoku scrape
         # Użyj biblioteki Selenium do wypełnienia formularza i wysłania żądania
@@ -194,11 +201,11 @@ class ScrapeSeleniumTestCase(LiveServerTestCase):
             mock_init.return_value = None
             mock_create_spider.return_value = None
             mock_check_finished.return_value = True
-            Property.objects.create(scrape_job_id="75d6b108cc9811edba0300155d7be260",service_name='test',service_url='www.test.pl',price=350000,area=50,province='Mazowieckie',city='Grodzisk Mazowiecki',property_type='flat', offer_type='sell')
+            Property.objects.create(scrapyd_job_id="75d6b108cc9811edba0300155d7be260",service_name='test',service_url='www.test.pl',price=350000,area=50,province='Mazowieckie',city='Grodzisk Mazowiecki',property_type='flat', offer_type='sell')
 
             self.driver.get(f"{self.live_server_url}/properties/scrape/")
             self.handle_form()
-
+            self.driver.save_screenshot('test_data/test_scrape_view.png')
             # time.sleep(10)
             self.assertIn("Finished", self.driver.page_source)
             elements = self.driver.find_elements(By.CLASS_NAME,"scrapy-item")

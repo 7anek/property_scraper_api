@@ -194,7 +194,7 @@ class OlxSpider(Spider):
         item["property_type"] = self.search_form["property_type"]
         item["offer_type"] = self.search_form["offer_type"]
         item["regular_user"] = self.parse_regular_user(soup)
-        # item["formatted_address"]=self.search_form["formatted_address"]
+        # item["address"]=self.search_form["formatted_address"]
         # item["province"]=self.parse_province(soup)
         # item["city"]=self.parse_city(soup)
         # item["county"]=self.parse_county(soup)

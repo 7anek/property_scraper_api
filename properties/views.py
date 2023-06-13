@@ -94,10 +94,10 @@ def scrape(request):
                     time.sleep(5)
 
 
-                properties = Property.objects.filter(scrape_job_id__in=scrapy_factory.job_ids)
+                properties = Property.objects.filter(scrapyd_job_id__in=scrapy_factory.job_ids)
                 print("$$$$$$$$$$$$$$ properties",properties)
                 context = {"title": "search", "search_form": search_form, "properties": properties,
-                           "scrape_status": "Running", "scrape_job_id": ",".join(scrapy_factory.job_ids)}
+                           "scrape_status": "Running", "scrapyd_job_id": ",".join(scrapy_factory.job_ids)}
                 print("$$$$$$$$$$$$$$ context", context)
                 if scrapy_factory.check_finished():
                     context["scrape_status"] = "Finished"
@@ -127,7 +127,7 @@ def get_scrape(request, uuids):
         context = {"title": "scrape", "search_form": search_form, "error": f"Wrong job ids: {uuids}"}
         return render(request, "properties/scrape.html", context)
     print(uuids_list)
-    properties = Property.objects.filter(scrape_job_id__in=uuids_list)
+    properties = Property.objects.filter(scrapyd_job_id__in=uuids_list)
     context = {"title": "scrape", "search_form": search_form, "properties": properties, 'scrape_job_id': uuids,
                "error": f"Scrapyd unavailable"}
     if is_scrapyd_running():

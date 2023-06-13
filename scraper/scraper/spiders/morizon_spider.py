@@ -130,7 +130,7 @@ class MorizonSpider(Spider):
         item["property_type"] = self.search_form["property_type"]
         item["offer_type"] = self.search_form["offer_type"]
         item["regular_user"] = self.parse_regular_user(soup)
-        item["formatted_address"] = self.parse_formatted_address(soup)
+        item["address"] = self.parse_formatted_address(soup)
         item["province"] = self.parse_province(soup)
         item["city"] = self.parse_city(soup)
         item["county"] = self.parse_county(soup)

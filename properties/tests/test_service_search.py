@@ -43,7 +43,7 @@ class SearchFromFileTestCase(TestCase):
         self.assertEqual(len(s.result), 29)
 
     def test_otodom_parse_search(self):
-        s = OtodomSearch(self.search_params,from_file="test_data/otodom/otodom-search4.html")
+        s = OtodomSearch(self.search_params,from_file="test_data/otodom/otodom-search5.html")
         s_result = s.search()
         self.assertEqual(s.request_url,'http://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/grodzisk-mazowiecki?distanceRadius=0&market=ALL&viewType=listing&lang=pl&searchingCriteria=sprzedaz&page=2&limit=24&priceMin=300000&priceMax=400000')
         self.assertEqual(s_result,True)

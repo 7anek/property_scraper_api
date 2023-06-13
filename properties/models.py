@@ -73,7 +73,7 @@ class Property(models.Model):
     service_id = models.CharField(max_length=255, null=True)
     service_name = models.CharField(max_length=255, null=False, default=None)
     service_url = models.CharField(max_length=255, null=False, default=None)
-    scrape_job_id = models.UUIDField(primary_key=False, default=None, editable=True, null=True)
+    scrapyd_job_id = models.UUIDField(primary_key=False, default=None, editable=True, null=True)
     create_date = models.DateTimeField(default=timezone.now, null=True)
     modify_date = models.DateTimeField(default=timezone.now, null=True)
     # main common fields

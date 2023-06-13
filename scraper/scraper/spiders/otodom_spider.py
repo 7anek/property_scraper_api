@@ -188,7 +188,7 @@ class OtodomSpider(Spider):
         )  # lub z search_forma
         item["offer_type"] = self.search_form["offer_type"]
         item["regular_user"] = self.parse_regular_user(offer_dict)
-        item["formatted_address"] = self.search_form["formatted_address"]
+        item["address"] = self.search_form["formatted_address"]
         item["province"] = self.parse_province(offer_dict)
         item["city"] = self.parse_city(offer_dict)
         item["county"] = self.parse_county(offer_dict)

@@ -1,5 +1,5 @@
 <h2>{% if scrape_status %}Scrape status: {{scrape_status}}{% else %}Perform scrapping{% endif %}</h2>
-{% if scrape_job_id %}<a href="{% url 'get_scrape' scrape_job_id  %}">scrape url</a>{% endif %}
+{% if scrapyd_job_id %}<a href="{% url 'get_scrape' scrapyd_job_id  %}">scrape url</a>{% endif %}
 {% if properties %}
 <div class="scrapy-results">
 {% for property in properties %}
