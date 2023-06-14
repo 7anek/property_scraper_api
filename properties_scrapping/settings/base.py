@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     "crispy_bootstrap4",
+    'accounts',
     'properties',
     'scraper',
     'rest_framework',
@@ -177,3 +178,5 @@ REST_FRAMEWORK = {
 #     "ACCESS_TOKEN_LIFETIME": timedelta(seconds=20),
 #     "REFRESH_TOKEN_LIFETIME": timedelta(seconds=40),
 # }
+
+LOGIN_REDIRECT_URL="home"

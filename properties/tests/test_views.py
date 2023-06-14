@@ -25,12 +25,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from django.test.client import RequestFactory
-
+from django.contrib.auth.models import User
 
 class ScrapeSeleniumTestCase(LiveServerTestCase):
     def setUp(self):
         self.old_debug = settings.DEBUG
         settings.DEBUG = True
+
+        self.user = User.objects.create_user("testuser", password="password")
 
         chrome_options = Options()
         chrome_options.add_argument("--headless")
@@ -45,8 +47,41 @@ class ScrapeSeleniumTestCase(LiveServerTestCase):
         self.driver.quit()
         settings.DEBUG = self.old_debug
 
+    def handle_login(self):
+        username_input = self.driver.find_element(By.NAME, 'username')
+        password_input = self.driver.find_element(By.NAME, 'password')
+        submit_button = self.driver.find_element(By.XPATH, '//input[@type="submit"]')
+
+        # Wprowadź dane logowania
+        username_input.send_keys('testuser')
+        password_input.send_keys('password')
+
+        # Zaloguj się
+        submit_button.click()
+
+    def test_login(self):
+        self.driver.get(self.live_server_url + '/properties/search/')
+
+        username_input = self.driver.find_element(By.NAME,'username')
+        password_input = self.driver.find_element(By.NAME,'password')
+        submit_button = self.driver.find_element(By.XPATH,'//input[@type="submit"]')
+
+        # Wprowadź dane logowania
+        username_input.send_keys('testuser')
+        password_input.send_keys('password')
+
+        # Zaloguj się
+        submit_button.click()
+
+        # Sprawdź, czy użytkownik jest zalogowany i przekierowany na inną stronę
+        self.assertEqual(self.driver.current_url, self.live_server_url + '/properties/search/')
+
+
+
     def test_search_with_google_maps_suggestion(self):
         self.driver.get(f"{self.live_server_url}/properties/search/")
+
+        self.handle_login()
 
         # Znajdź pole adresu i wpisz "Jaktorów"
         address_input = self.driver.find_element(By.ID,'id_address')
@@ -135,7 +170,7 @@ class ScrapeSeleniumTestCase(LiveServerTestCase):
             mock_otodom_get_page_html.return_value = otodom_mock_response_html
 
             self.driver.get(f"{self.live_server_url}/properties/search/")
-
+            self.handle_login()
             # address_input = self.driver.find_element(By.ID, 'id_address')
             # address_input.send_keys('Grodzisk Mazowiecki')
             # time.sleep(1)  # Poczekaj na pojawienie się sugestii
@@ -204,6 +239,7 @@ class ScrapeSeleniumTestCase(LiveServerTestCase):
             Property.objects.create(scrapyd_job_id="75d6b108cc9811edba0300155d7be260",service_name='test',service_url='www.test.pl',price=350000,area=50,province='Mazowieckie',city='Grodzisk Mazowiecki',property_type='flat', offer_type='sell')
 
             self.driver.get(f"{self.live_server_url}/properties/scrape/")
+            self.handle_login()
             self.handle_form()
             self.driver.save_screenshot('test_data/test_scrape_view.png')
             # time.sleep(10)

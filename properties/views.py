@@ -23,6 +23,7 @@ import time
 
 # from scraper.scrapyd_singleton import ScrapydAPISingleton
 from scraper.scrapyd_api import scrapyd
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -32,7 +33,9 @@ from scraper.scrapyd_api import scrapyd
 
 # scrapyd = ScrapydAPI('http://localhost:9000')
 
-
+def home(request):
+    return render(request, "properties/home.html")
+@login_required
 def search(request):
     print('**********', request.GET)
     # print('**********', type(request.GET['priceMin']))
@@ -53,7 +56,7 @@ def search(request):
         context = {"search_form": search_form}
     return render(request, "properties/search.html", context)
 
-
+@login_required
 def scrape(request):
 
     # process = subprocess.run(["python", "manage.py", "crawl"], check=True)
@@ -117,7 +120,7 @@ def scrape(request):
 
     return render(request, "properties/scrape.html", context)
 
-
+@login_required
 def get_scrape(request, uuids):
     search_form = SearchForm()
     uuids_list = uuids.split(',')
