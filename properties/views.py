@@ -131,13 +131,14 @@ def get_scrape(request, uuids):
         return render(request, "properties/scrape.html", context)
     print(uuids_list)
     properties = Property.objects.filter(scrapyd_job_id__in=uuids_list)
-    context = {"title": "scrape", "search_form": search_form, "properties": properties, 'scrape_job_id': uuids,
-               "error": f"Scrapyd unavailable"}
+    context = {"title": "scrape", "search_form": search_form, "properties": properties, 'scrape_job_id': uuids}
     if is_scrapyd_running():
         if check_finished(uuids_list):
             context["scrape_status"]="Finished"
         else:
             context["scrape_status"]="Running"
+    else:
+        context['error']='Scrapyd unavailable'
     return render(request, "properties/scrape.html", context)
 
 
