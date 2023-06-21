@@ -1,1 +1,0 @@
-/usr/bin/c++  -fvisibility=hidden CMakeFiles/gdalsrsinfo.dir/gdalsrsinfo.cpp.o -o gdalsrsinfo  -Wl,-rpath,/home/janek/PycharmProjects/property_scraper_api/gdal-3.7.0/build: /usr/lib/x86_64-linux-gnu/libproj.so ../libgdal.so.33.3.7.0 

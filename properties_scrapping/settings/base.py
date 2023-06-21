@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-    'django.contrib.gis'
+    'django.contrib.gis',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -131,8 +132,37 @@ DATABASES = {
         'PASSWORD': os.environ.get('PG_PASSWORD'),
         'HOST': os.environ.get('PG_HOST'),
         'PORT': os.environ.get('PG_PORT'),
-    }
+        # 'TEST': {
+        #     'MIRROR': 'test'
+        #     # 'NAME': os.environ.get('PG_TEST_DBNAME'),
+        # }
+    },
+    # 'test': {
+    #     # 'ENGINE': 'django.contrib.gis.db.backends.postgis',
+    #     # # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     # 'NAME': os.environ.get('PG_TEST_DBNAME'),
+    #     # 'USER': os.environ.get('PG_TEST_USER'),
+    #     # 'PASSWORD': os.environ.get('PG_TEST_PASSWORD'),
+    #     # 'HOST': os.environ.get('PG_TEST_HOST'),
+    #     # 'PORT': os.environ.get('PG_TEST_PORT'),
+    #     # 'TEST': {
+    #     #     'NAME': os.environ.get('PG_TEST_DBNAME'),  # Użyj istniejącej bazy danych testowej
+    #     # },
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': 'only4test.sqlite'
+    # }
 }
+
+if TESTING:
+    DATABASES['default'] = {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': os.environ.get('PG_LOCAL_DBNAME'),
+        'USER': os.environ.get('PG_LOCAL_USER'),
+        'PASSWORD': os.environ.get('PG_LOCAL_PASSWORD'),
+        'HOST': os.environ.get('PG_LOCAL_HOST'),
+        'PORT': os.environ.get('PG_LOCAL_PORT'),
+    }
+
 
 # AUTH_USER_MODEL = 'your_app_name.User'
 
@@ -141,7 +171,8 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Warsaw'
 
 USE_I18N = True
 
@@ -151,9 +182,32 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-# STATIC_ROOT = "/home/janek/PycharmProjects/property_scraper_api/properties/static/"
+# STATIC_URL = 'static/'
+# # STATIC_ROOT = "/home/janek/PycharmProjects/property_scraper_api/properties/static/"
+# STATIC_ROOT = f"{BASE_DIR}/properties/static/"
 STATIC_ROOT = f"{BASE_DIR}/properties/static/"
+
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+# AWS_DEFAULT_ACL = 'public-read'
+AWS_DEFAULT_ACL = None
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.eu-north-1.amazonaws.com'
+# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+# AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400', 'ACL': 'public-read'}
+
+# s3 static settings
+# AWS_LOCATION = 'static'
+AWS_LOCATION = ''
+# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+MEDIA_URL = '/mediafiles/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

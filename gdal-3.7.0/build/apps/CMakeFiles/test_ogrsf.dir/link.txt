@@ -1,1 +1,0 @@
-/usr/bin/c++  -fvisibility=hidden CMakeFiles/test_ogrsf.dir/test_ogrsf.cpp.o -o test_ogrsf  -Wl,-rpath,/home/janek/PycharmProjects/property_scraper_api/gdal-3.7.0/build ../libgdal.so.33.3.7.0 

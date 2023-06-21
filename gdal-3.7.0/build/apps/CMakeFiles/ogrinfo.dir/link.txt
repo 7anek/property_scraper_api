@@ -1,1 +1,0 @@
-/usr/bin/c++  -fvisibility=hidden CMakeFiles/ogrinfo.dir/ogrinfo_bin.cpp.o -o ogrinfo  -Wl,-rpath,/home/janek/PycharmProjects/property_scraper_api/gdal-3.7.0/build: ../libgdal.so.33.3.7.0 

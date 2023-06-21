@@ -1,1 +1,0 @@
-/usr/bin/c++  -fvisibility=hidden CMakeFiles/dted_test.dir/dted_test.c.o CMakeFiles/gdal_DTED.dir/dted_api.c.o CMakeFiles/gdal_DTED.dir/dted_create.c.o CMakeFiles/gdal_DTED.dir/dted_ptstream.c.o CMakeFiles/gdal_DTED.dir/dteddataset.cpp.o -o dted_test  -Wl,-rpath,/home/janek/PycharmProjects/property_scraper_api/gdal-3.7.0/build ../../libgdal.so.33.3.7.0 

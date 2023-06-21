@@ -1,1 +1,0 @@
-/usr/bin/c++  -fvisibility=hidden CMakeFiles/gdal_create.dir/gdal_create.cpp.o -o gdal_create  -Wl,-rpath,/home/janek/PycharmProjects/property_scraper_api/gdal-3.7.0/build: ../libgdal.so.33.3.7.0 
