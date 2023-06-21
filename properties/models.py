@@ -140,7 +140,7 @@ class Property(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.service_id} - {self.price} - {self.area} - {self.title}"
+        return f"{self.service_name} - {self.service_id} - {self.price} - {self.area} - {self.title}"
 
 
 class ServiceFilterIds(models.Model):

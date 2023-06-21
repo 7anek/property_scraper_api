@@ -15,8 +15,8 @@ class ScrapydSpiderFactory:
 
     def create_spiders(self):
         print('create_spiders')
-        # spiders=['otodom','olx','domiporta','morizon','gratka']
-        spider_names=['domiporta']
+        spider_names=['otodom','olx','domiporta','morizon','gratka']
+        # spider_names=['domiporta']
         for spider_name in spider_names:
             job_id=self.schedule_spider(spider_name)
             print('spider_name',spider_name, 'job_id', job_id)

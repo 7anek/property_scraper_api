@@ -53,7 +53,7 @@ class GratkaSpider(Spider):
                 selenium = selenium_browser()
                 selenium.get(url)
                 selenium.implicitly_wait(3)
-                selenium.save_screenshot("../test_data/gratka/gratka1.png")
+                # selenium.save_screenshot("../test_data/gratka/gratka1.png")
                 selenium.find_element(
                     "css selector", "button.cmp-intro_acceptAll"
                 ).click()
@@ -68,11 +68,11 @@ class GratkaSpider(Spider):
                 ).click()
                 selenium.find_element("css selector", "body").click()
                 # selenium.implicitly_wait(5)
-                selenium.save_screenshot("../test_data/gratka/gratka2.png")
+                # selenium.save_screenshot("../test_data/gratka/gratka2.png")
                 selenium.find_element(
                     "css selector", 'button[data-cy="submitSearch"]'
                 ).click()
-                selenium.save_screenshot("../test_data/gratka/gratka3.png")
+                # selenium.save_screenshot("../test_data/gratka/gratka3.png")
                 print("selenium.current_url", selenium.current_url)
                 new_url = selenium.current_url + "&page=1"
                 selenium.close()
