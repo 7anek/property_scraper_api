@@ -29,8 +29,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.environ.get('DEBUG') == 'TRUE'
-DEBUG = True
+DEBUG = os.environ.get('DEBUG') == 'TRUE'
+# DEBUG = True
 TESTING = 'test' in sys.argv
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
@@ -38,7 +38,7 @@ GOOGLE_MAPS_API_KEY = os.environ.get('GOOGLE_MAPS_API_KEY')
 SCRAPYD_URL = os.environ.get('SCRAPYD_URL')
 SCRAPYD_PROJECT = os.environ.get('SCRAPYD_PROJECT')
 
-ALLOWED_HOSTS = []
+
 
 
 # Application definition

@@ -4,3 +4,4 @@ from .base import *
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = []
+ALLOWED_HOSTS = []

@@ -1,4 +1,3 @@
-# import mechanicalsoup
 import requests
 # import pyppeteer
 # from requests_html import HTMLSession, AsyncHTMLSession
@@ -45,6 +44,10 @@ class Offer:
 
 
 class Search(ABC):
+    """
+    Wyszukiwanie ofert nieruchomości za pomocą takich bibliotek jak playwright, selenium, requests. Pobieram listę
+    wyszukanych ofert ze strony wyszukiwania. Niewchodzę do każdego linka oferty osobno
+    """
     request_url = None
     request_params = None
     from_file = False
